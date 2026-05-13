@@ -6,6 +6,7 @@ import { ScrollProgressBar } from './components/ui/ScrollProgressBar';
 import { DynamicVignette } from './components/ui/DynamicVignette';
 import { CursorGlow } from './components/ui/CursorGlow';
 import { AmbientGlow } from './components/ui/AmbientGlow';
+import { EvolvingBackground } from './components/ui/EvolvingBackground';
 import { IntroScene } from './components/intro/IntroScene';
 import { TimelineSection } from './components/timeline/TimelineSection';
 import { MemoryGallery } from './components/polaroid/MemoryGallery';
@@ -62,6 +63,7 @@ export default function App() {
       <ScrollProgressBar />
       <CursorGlow />
       <AmbientGlow />
+      <EvolvingBackground />
       <DynamicVignette intensity={introDone ? 0.3 : 0.6} />
       <ScrollInteractionCatcher />
 

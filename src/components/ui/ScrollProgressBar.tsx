@@ -6,8 +6,8 @@ export function ScrollProgressBar() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] bg-gold z-[200] origin-left"
-      style={{ scaleX }}
+      className="fixed top-0 left-0 right-0 h-[3px] bg-gold z-[200] origin-left"
+      style={{ scaleX, boxShadow: '0 0 8px rgba(212,168,83,0.3), 0 0 20px rgba(212,168,83,0.1)' }}
     />
   );
 }

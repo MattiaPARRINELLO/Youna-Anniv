@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { ReactiveParticles } from '../ui/ReactiveParticles';
+import { FloatingElements } from '../ui/FloatingElements';
 import { TypewriterText } from './TypewriterText';
 import { useMusic } from '../../context/MusicContext';
 import config from '../../config.json';
 
-const INTRO_DURATION = 13000;
+const INTRO_DURATION = 10000;
 
 interface IntroSceneProps {
   onComplete: () => void;
@@ -37,9 +38,11 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
       onClick={handleInteraction}
     >
       <div className="absolute inset-0 vignette z-10 pointer-events-none" />
-      <ReactiveParticles count={30} />
+      <ReactiveParticles count={50} />
+      <FloatingElements type="mixed" count={4} />
+
       <motion.p
-        className="text-gold/30 text-xs tracking-[0.3em] uppercase mb-8 font-body"
+        className="text-gold/40 text-xs tracking-[0.3em] uppercase mb-6 font-body"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 2 }}
@@ -47,24 +50,28 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
         {config.intro.label}
       </motion.p>
       <TypewriterText lines={config.intro.lines} />
+
       <motion.div
-        className="absolute bottom-8 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={canScroll ? { opacity: [0, 0.6, 0.6, 0] } : { opacity: 0 }}
-        transition={{ duration: 3, repeat: Infinity }}
+        className="absolute bottom-24 flex flex-col items-center gap-3"
+        animate={{ opacity: [0.3, 0.7, 0.3] }}
+        transition={{ duration: 3, delay: 2, repeat: Infinity }}
       >
-        <span className="text-cream-dark/30 text-xs font-body tracking-wider">defiler</span>
         <motion.div
-          className="w-5 h-8 border border-cream-dark/20 rounded-full flex justify-center"
-          animate={{ opacity: [0.2, 0.5, 0.2] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="w-12 h-12 rounded-full glass flex items-center justify-center"
+          whileTap={{ scale: 1.3 }}
+          whileHover={{ scale: 1.05 }}
         >
-          <motion.div
-            className="w-1 h-2 bg-cream-dark/30 rounded-full mt-1"
-            animate={{ y: [0, 12, 0] }}
+          <motion.span
+            className="text-gold text-xl"
+            animate={{ scale: [1, 1.15, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-          />
+          >
+            {'\u2728'}
+          </motion.span>
         </motion.div>
+        <span className="text-cream-dark/40 text-[10px] font-body tracking-widest uppercase">
+          touche l&apos;ecran
+        </span>
       </motion.div>
     </section>
   );
