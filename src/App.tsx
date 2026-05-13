@@ -1,27 +1,34 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useMusic } from './context/MusicContext';
-import { GrainOverlay } from './components/ui/GrainOverlay';
-import { ScrollProgressBar } from './components/ui/ScrollProgressBar';
-import { DynamicVignette } from './components/ui/DynamicVignette';
-import { CursorGlow } from './components/ui/CursorGlow';
-import { AmbientGlow } from './components/ui/AmbientGlow';
-import { EvolvingBackground } from './components/ui/EvolvingBackground';
-import { IntroScene } from './components/intro/IntroScene';
-import { TimelineSection } from './components/timeline/TimelineSection';
-import { MemoryGallery } from './components/polaroid/MemoryGallery';
-import { OpenWhenHub } from './components/openwhen/OpenWhenHub';
-import { CounterSection } from './components/counter/CounterSection';
-import { MusicPlayer } from './components/music/MusicPlayer';
-import { EasterEggs } from './components/secrets/EasterEggs';
-import { LockScreen } from './components/lock/LockScreen';
+import { lazy, Suspense, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useMusic } from "./context/MusicContext";
+import { GrainOverlay } from "./components/ui/GrainOverlay";
+import { ScrollProgressBar } from "./components/ui/ScrollProgressBar";
+import { DynamicVignette } from "./components/ui/DynamicVignette";
+import { CursorGlow } from "./components/ui/CursorGlow";
+import { AmbientGlow } from "./components/ui/AmbientGlow";
+import { EvolvingBackground } from "./components/ui/EvolvingBackground";
+import { IntroScene } from "./components/intro/IntroScene";
+import { TimelineSection } from "./components/timeline/TimelineSection";
+import { MemoryGallery } from "./components/polaroid/MemoryGallery";
+import { OpenWhenHub } from "./components/openwhen/OpenWhenHub";
+import { CounterSection } from "./components/counter/CounterSection";
+import { MusicPlayer } from "./components/music/MusicPlayer";
+import { EasterEggs } from "./components/secrets/EasterEggs";
+import { LockScreen } from "./components/lock/LockScreen";
+import config from "./config.json";
 
-{/* MapSection cachee — a reactiver: decommenter l'import ci-dessous et la section dans le JSX */}
-{/* const MapSection = lazy(() =>
+{
+  /* MapSection cachee — a reactiver: decommenter l'import ci-dessous et la section dans le JSX */
+}
+{
+  /* const MapSection = lazy(() =>
   import('./components/map/MapSection').then((m) => ({ default: m.MapSection }))
-); */}
+); */
+}
 const EndingScene = lazy(() =>
-  import('./components/ending/EndingScene').then((m) => ({ default: m.EndingScene }))
+  import("./components/ending/EndingScene").then((m) => ({
+    default: m.EndingScene,
+  })),
 );
 
 function ScrollInteractionCatcher() {
@@ -29,11 +36,11 @@ function ScrollInteractionCatcher() {
 
   useEffect(() => {
     const handler = () => markInteraction();
-    window.addEventListener('scroll', handler, { once: true });
-    window.addEventListener('touchstart', handler, { once: true });
+    window.addEventListener("scroll", handler, { once: true });
+    window.addEventListener("touchstart", handler, { once: true });
     return () => {
-      window.removeEventListener('scroll', handler);
-      window.removeEventListener('touchstart', handler);
+      window.removeEventListener("scroll", handler);
+      window.removeEventListener("touchstart", handler);
     };
   }, [markInteraction]);
 
@@ -48,7 +55,7 @@ function SectionFallback() {
   );
 }
 
-const UNLOCK_DATE = new Date('2026-05-22T00:00:00');
+const UNLOCK_DATE = new Date(config.dates.unlock);
 
 export default function App() {
   const [introDone, setIntroDone] = useState(false);
@@ -65,11 +72,13 @@ export default function App() {
 
   useEffect(() => {
     if (!introDone) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [introDone]);
 
   return (
@@ -77,45 +86,45 @@ export default function App() {
       {!unlocked ? (
         <LockScreen onUnlock={() => setUnlocked(true)} />
       ) : (
-    <div className="relative bg-warm-darkest text-cream font-body overflow-x-hidden">
-      <GrainOverlay />
-      <ScrollProgressBar />
-      <CursorGlow />
-      <AmbientGlow />
-      <EvolvingBackground />
-      <DynamicVignette intensity={introDone ? 0.3 : 0.6} />
-      <ScrollInteractionCatcher />
+        <div className="relative bg-warm-darkest text-cream font-body overflow-x-hidden">
+          <GrainOverlay />
+          <ScrollProgressBar />
+          <CursorGlow />
+          <AmbientGlow />
+          <EvolvingBackground />
+          <DynamicVignette intensity={introDone ? 0.3 : 0.6} />
+          <ScrollInteractionCatcher />
 
-      <IntroScene onComplete={() => setIntroDone(true)} />
+          <IntroScene onComplete={() => setIntroDone(true)} />
 
-      <AnimatePresence>
-        {introDone && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <TimelineSection />
-            <MemoryGallery />
-            <OpenWhenHub />
+          <AnimatePresence>
+            {introDone && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
+                <TimelineSection />
+                <MemoryGallery />
+                <OpenWhenHub />
 
-{/* MapSection cachee temporairement — a reactiver plus tard */}
-            {/* <Suspense fallback={<SectionFallback />}>
+                {/* MapSection cachee temporairement — a reactiver plus tard */}
+                {/* <Suspense fallback={<SectionFallback />}>
               <MapSection />
             </Suspense> */}
 
-            <CounterSection />
+                <CounterSection />
 
-            <Suspense fallback={<SectionFallback />}>
-              <EndingScene />
-            </Suspense>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <Suspense fallback={<SectionFallback />}>
+                  <EndingScene />
+                </Suspense>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-      <MusicPlayer />
-      <EasterEggs />
-    </div>
+          <MusicPlayer />
+          <EasterEggs />
+        </div>
       )}
     </>
   );

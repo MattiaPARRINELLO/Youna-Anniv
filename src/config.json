@@ -1,4 +1,8 @@
 {
+  "dates": {
+    "relationshipStart": "2026-03-16",
+    "unlock": "2026-05-22T00:00:00"
+  },
   "intro": {
     "label": "pour toi",
     "lines": [

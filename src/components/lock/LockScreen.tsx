@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FloatingElements } from '../ui/FloatingElements';
+import config from '../../config.json';
 
-const TARGET = new Date('2026-05-22T00:00:00');
+const TARGET = new Date(config.dates.unlock);
 
 interface LockScreenProps {
   onUnlock: () => void;

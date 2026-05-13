@@ -3,8 +3,9 @@ import { motion } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { FadeInOnScroll } from '../ui/FadeInOnScroll';
 import { FloatingElements } from '../ui/FloatingElements';
+import config from '../../config.json';
 
-const START_DATE = new Date('2026-03-16');
+const START_DATE = new Date(config.dates.relationshipStart);
 const START_DATE_STR = '16 mars 2026';
 
 function useTimeSince() {
