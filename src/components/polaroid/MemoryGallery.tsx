@@ -44,7 +44,7 @@ export function MemoryGallery() {
       </div>
 
       <p className="text-cream-dark/15 text-xs mt-4 font-body">&larr; glisse pour decouvrir &rarr;</p>
-      <FloatingElements type="butterfly" count={5} />
+      <FloatingElements type="butterfly" countDesktop={5} countMobile={2} />
     </SectionWrapper>
   );
 }

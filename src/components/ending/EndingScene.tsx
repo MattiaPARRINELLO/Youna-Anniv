@@ -95,7 +95,7 @@ export function EndingScene() {
           </motion.div>
         )}
       </AnimatePresence>
-      <FloatingElements type="heart" count={6} />
+      <FloatingElements type="heart" countDesktop={6} countMobile={3} />
     </SectionWrapper>
   );
 }

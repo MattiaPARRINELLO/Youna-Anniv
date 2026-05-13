@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 interface FloatingElementsProps {
   type?: 'butterfly' | 'heart' | 'star' | 'mixed';
-  count?: number;
+  countDesktop?: number;
+  countMobile?: number;
 }
 
 const ELEMENTS = {
@@ -13,7 +15,13 @@ const ELEMENTS = {
   mixed: ['\uD83E\uDD8B', '\u2661', '\u2726', '\u2665', '\u2727', '\uD83D\uDC95', '\u22C6'],
 };
 
-export function FloatingElements({ type = 'mixed', count = 5 }: FloatingElementsProps) {
+export function FloatingElements({
+  type = 'mixed',
+  countDesktop = 5,
+  countMobile = 3,
+}: FloatingElementsProps) {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const count = isMobile ? countMobile : countDesktop;
   const pool = ELEMENTS[type];
 
   const elements = useMemo(

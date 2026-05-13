@@ -57,7 +57,7 @@ export function TimelineSection() {
           ...et ce n&apos;est que le debut
         </p>
       </FadeInOnScroll>
-      <FloatingElements type="star" count={4} />
+      <FloatingElements type="star" countDesktop={4} countMobile={2} />
     </SectionWrapper>
   );
 }

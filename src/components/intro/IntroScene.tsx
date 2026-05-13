@@ -38,8 +38,8 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
       onClick={handleInteraction}
     >
       <div className="absolute inset-0 vignette z-10 pointer-events-none" />
-      <ReactiveParticles count={50} />
-      <FloatingElements type="mixed" count={4} />
+      <ReactiveParticles countDesktop={50} countMobile={20} />
+      <FloatingElements type="mixed" countDesktop={4} countMobile={2} />
 
       <motion.p
         className="text-gold/40 text-xs tracking-[0.3em] uppercase mb-6 font-body"

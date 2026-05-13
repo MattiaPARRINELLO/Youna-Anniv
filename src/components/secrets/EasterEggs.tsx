@@ -47,7 +47,7 @@ export function EasterEggs() {
 
   return (
     <>
-      <FloatingElements type="butterfly" count={3} />
+      <FloatingElements type="butterfly" countDesktop={3} countMobile={1} />
       <motion.button
         className="fixed z-[120] text-2xl opacity-20 hover:opacity-60 transition-opacity cursor-pointer"
         style={{

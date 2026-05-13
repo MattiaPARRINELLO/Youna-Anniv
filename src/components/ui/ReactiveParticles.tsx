@@ -1,14 +1,22 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useScrollVelocity } from '../../hooks/useScrollVelocity';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 interface ReactiveParticlesProps {
-  count?: number;
+  countDesktop?: number;
+  countMobile?: number;
   color?: string;
 }
 
-export function ReactiveParticles({ count = 40, color = 'bg-gold-light' }: ReactiveParticlesProps) {
+export function ReactiveParticles({
+  countDesktop = 40,
+  countMobile = 15,
+  color = 'bg-gold-light',
+}: ReactiveParticlesProps) {
   const { direction } = useScrollVelocity();
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const count = isMobile ? countMobile : countDesktop;
 
   const particles = useMemo(
     () =>

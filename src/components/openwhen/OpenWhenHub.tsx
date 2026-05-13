@@ -40,7 +40,7 @@ export function OpenWhenHub() {
           />
         )}
       </AnimatePresence>
-      <FloatingElements type="mixed" count={4} />
+      <FloatingElements type="mixed" countDesktop={4} countMobile={2} />
     </SectionWrapper>
   );
 }
