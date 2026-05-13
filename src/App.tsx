@@ -11,12 +11,14 @@ import { IntroScene } from './components/intro/IntroScene';
 import { TimelineSection } from './components/timeline/TimelineSection';
 import { MemoryGallery } from './components/polaroid/MemoryGallery';
 import { OpenWhenHub } from './components/openwhen/OpenWhenHub';
+import { CounterSection } from './components/counter/CounterSection';
 import { MusicPlayer } from './components/music/MusicPlayer';
 import { EasterEggs } from './components/secrets/EasterEggs';
 
-const MapSection = lazy(() =>
+{/* MapSection cachee — a reactiver: decommenter l'import ci-dessous et la section dans le JSX */}
+{/* const MapSection = lazy(() =>
   import('./components/map/MapSection').then((m) => ({ default: m.MapSection }))
-);
+); */}
 const EndingScene = lazy(() =>
   import('./components/ending/EndingScene').then((m) => ({ default: m.EndingScene }))
 );
@@ -80,9 +82,12 @@ export default function App() {
             <MemoryGallery />
             <OpenWhenHub />
 
-            <Suspense fallback={<SectionFallback />}>
+{/* MapSection cachee temporairement — a reactiver plus tard */}
+            {/* <Suspense fallback={<SectionFallback />}>
               <MapSection />
-            </Suspense>
+            </Suspense> */}
+
+            <CounterSection />
 
             <Suspense fallback={<SectionFallback />}>
               <EndingScene />
