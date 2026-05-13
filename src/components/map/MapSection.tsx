@@ -77,13 +77,6 @@ export function MapSection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <button
-              className="absolute top-6 right-6 z-[400] w-10 h-10 glass rounded-full flex items-center justify-center text-cream/60 hover:text-cream transition-colors"
-              onClick={() => setShowFullMap(false)}
-            >
-              &times;
-            </button>
-
             <MapContainer
               center={[48.8566, 2.3522]}
               zoom={13}
@@ -110,6 +103,13 @@ export function MapSection() {
                 </Marker>
               ))}
             </MapContainer>
+
+            <button
+              className="absolute top-6 right-6 z-[1000] w-10 h-10 glass rounded-full flex items-center justify-center text-cream/60 hover:text-cream transition-colors"
+              onClick={() => setShowFullMap(false)}
+            >
+              &times;
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

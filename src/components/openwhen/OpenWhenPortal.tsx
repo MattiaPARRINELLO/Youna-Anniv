@@ -51,14 +51,7 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
     >
       <ThemeBackground theme={entry.theme} />
 
-      <button
-        className="absolute top-6 right-6 z-10 w-10 h-10 glass rounded-full flex items-center justify-center text-cream/60 hover:text-cream transition-colors"
-        onClick={onClose}
-      >
-        <FiX size={20} />
-      </button>
-
-      <div className="relative z-10 flex-1 overflow-y-auto no-scrollbar" onClick={handleTap}>
+      <div className="relative flex-1 overflow-y-auto no-scrollbar" onClick={handleTap}>
         <div className="min-h-full flex flex-col items-center px-6 py-20 max-w-lg mx-auto">
           <motion.span
             className="text-4xl sm:text-5xl block mb-6"
@@ -125,6 +118,13 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
         <span className="text-cream-dark/20 text-[10px] font-body">defiler</span>
         <FiArrowDown className="text-cream-dark/20" size={14} />
       </motion.div>
+
+      <button
+        className="absolute top-6 right-6 z-20 w-10 h-10 glass rounded-full flex items-center justify-center text-cream/60 hover:text-cream transition-colors"
+        onClick={onClose}
+      >
+        <FiX size={20} />
+      </button>
     </motion.div>
   );
 }

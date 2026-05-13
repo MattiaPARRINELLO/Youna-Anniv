@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { StarField } from './StarField';
 import { ProgressiveReveal } from './ProgressiveReveal';
+import { useInView } from '../../hooks/useInView';
 
 export function EndingScene() {
-  const [phase, setPhase] = useState<'reveal' | 'heart' | 'restart'>('reveal');
+  const [phase, setPhase] = useState<'waiting' | 'reveal' | 'heart' | 'restart'>('waiting');
+  const [ref, inView] = useInView({ threshold: 0.5 });
 
   const handleRestart = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -17,8 +19,22 @@ export function EndingScene() {
       <div className="absolute inset-0 bg-gradient-to-b from-warm-darkest via-[#14101E] to-warm-darkest" />
       <StarField />
 
+      <div ref={ref as React.RefObject<HTMLDivElement>} className="absolute inset-0 pointer-events-none" />
+
       <AnimatePresence mode="wait">
-        {phase === 'reveal' && (
+        {(!inView && phase === 'waiting') && (
+          <motion.div
+            key="waiting"
+            className="relative z-10 text-center px-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <p className="font-handwritten text-cream-dark/10 text-2xl">{'\u2728'}</p>
+          </motion.div>
+        )}
+
+        {inView && phase === 'waiting' && (
           <ProgressiveReveal
             key="reveal"
             onComplete={() => setPhase('heart')}
