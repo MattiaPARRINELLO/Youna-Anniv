@@ -1,15 +1,40 @@
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { FloatingParticles } from './FloatingParticles';
 import { TypewriterText } from './TypewriterText';
 import { useMusic } from '../../context/MusicContext';
+import config from '../../config.json';
 
-export function IntroScene() {
+const INTRO_DURATION = 13000;
+
+interface IntroSceneProps {
+  onComplete: () => void;
+}
+
+export function IntroScene({ onComplete }: IntroSceneProps) {
   const { markInteraction } = useMusic();
+  const [canScroll, setCanScroll] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCanScroll(true);
+      onComplete();
+    }, INTRO_DURATION);
+    return () => clearTimeout(timer);
+  }, [onComplete]);
+
+  const handleInteraction = useCallback(() => {
+    markInteraction();
+    if (!canScroll) {
+      setCanScroll(true);
+      onComplete();
+    }
+  }, [markInteraction, canScroll, onComplete]);
 
   return (
     <section
       className="relative min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-b from-warm-darkest via-warm-dark to-warm-dark-mid overflow-hidden"
-      onClick={markInteraction}
+      onClick={handleInteraction}
     >
       <div className="absolute inset-0 vignette z-10 pointer-events-none" />
       <FloatingParticles />
@@ -19,14 +44,14 @@ export function IntroScene() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 2 }}
       >
-        pour toi
+        {config.intro.label}
       </motion.p>
-      <TypewriterText />
+      <TypewriterText lines={config.intro.lines} />
       <motion.div
         className="absolute bottom-8 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0.4, 0.4, 0] }}
-        transition={{ delay: 12, duration: 3, repeat: Infinity }}
+        animate={canScroll ? { opacity: [0, 0.6, 0.6, 0] } : { opacity: 0 }}
+        transition={{ duration: 3, repeat: Infinity }}
       >
         <span className="text-cream-dark/30 text-xs font-body tracking-wider">defiler</span>
         <motion.div

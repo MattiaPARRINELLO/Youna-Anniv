@@ -1,0 +1,221 @@
+{
+  "intro": {
+    "label": "pour toi",
+    "lines": [
+      "parfois,",
+      "on rencontre quelqu'un",
+      "et le monde devient",
+      "un peu plus doux",
+      "un peu plus lumineux",
+      "un peu plus vivant",
+      "",
+      "cette petite chose",
+      "c'est pour toi"
+    ]
+  },
+  "music": {
+    "label": "notre chanson",
+    "src": "/music/your-song.mp3"
+  },
+  "timeline": [
+    {
+      "id": "first-meeting",
+      "date": "23 Octobre 2025",
+      "title": "Premiere rencontre",
+      "subtitle": "le debut de tout",
+      "message": "Ce jour-la, sans le savoir, ma vie a commence a changer.",
+      "photo": "/photos/timeline/october.jpg"
+    },
+    {
+      "id": "first-call",
+      "date": "20 Fevrier 2026",
+      "title": "Premier appel",
+      "subtitle": "ta voix pour la premiere fois",
+      "message": "Je me souviens de chaque mot, de chaque silence, de cette sensation que quelque chose de rare commencait.",
+      "photo": "/photos/timeline/february.jpg"
+    },
+    {
+      "id": "relationship-start",
+      "date": "16 Mars 2026",
+      "title": "Le debut de nous",
+      "subtitle": "♡",
+      "message": "Le jour ou tout est devenu officiel. Le jour ou j'ai su que j'avais trouve quelque chose de precieux.",
+      "photo": "/photos/timeline/march.jpg"
+    },
+    {
+      "id": "first-irl-meeting",
+      "date": "16 Mai 2026",
+      "title": "Premiere rencontre IRL",
+      "subtitle": "te voir en vrai",
+      "message": "Te voir pour la premiere fois. Les mots ne suffisent pas pour decrire ce que j'ai ressenti. Tout etait exactement comme je l'imaginais, en mille fois mieux.",
+      "photo": "/photos/timeline/may-meeting.jpg"
+    },
+    {
+      "id": "birthday",
+      "date": "22 Mai 2026",
+      "title": "Ton anniversaire",
+      "subtitle": "🎂",
+      "message": "Celebrer le jour ou le monde a eu la chance de te voir naitre. J'espere que cette annee sera la plus belle de toutes.",
+      "photo": "/photos/timeline/birthday.jpg"
+    }
+  ],
+  "polaroids": [
+    {
+      "id": "memory-1",
+      "image": "/photos/polaroids/memory-1.jpg",
+      "caption": "~ notre premier cafe ~",
+      "date": "Hiver 2025",
+      "rotation": -2,
+      "hiddenMessage": "Je me souviens que tu as pris un latte. Je me souviens de la lumiere. Je me souviens de tout.",
+      "tapeStyle": "top"
+    },
+    {
+      "id": "memory-2",
+      "image": "/photos/polaroids/memory-1.jpg",
+      "caption": "~ cette soiree-la ~",
+      "date": "Printemps 2026",
+      "rotation": 3,
+      "hiddenMessage": "On a parle jusqu'a 3h du matin sans voir le temps passer.",
+      "tapeStyle": "both"
+    },
+    {
+      "id": "memory-3",
+      "image": "/photos/polaroids/memory-1.jpg",
+      "caption": "~ un dimanche parfait ~",
+      "date": "Mars 2026",
+      "rotation": -1,
+      "hiddenMessage": "Les dimanches avec toi devraient durer 48 heures.",
+      "tapeStyle": "side"
+    },
+    {
+      "id": "memory-4",
+      "image": "/photos/polaroids/memory-1.jpg",
+      "caption": "~ ton sourire ~",
+      "date": "2026",
+      "rotation": 2,
+      "tapeStyle": "top"
+    },
+    {
+      "id": "memory-5",
+      "image": "/photos/polaroids/memory-1.jpg",
+      "caption": "~ ce moment ~",
+      "date": "2026",
+      "rotation": -3,
+      "tapeStyle": "both"
+    },
+    {
+      "id": "memory-6",
+      "image": "/photos/polaroids/memory-1.jpg",
+      "caption": "~ nous ~",
+      "date": "2026",
+      "rotation": 1,
+      "hiddenMessage": "Si je pouvais revivre un seul moment de ma vie, ce serait celui-ci.",
+      "tapeStyle": "side"
+    }
+  ],
+  "openWhen": [
+    {
+      "slug": "sad",
+      "emoji": "🌧️",
+      "title": "Ouvre quand tu es triste",
+      "message": "Je sais que la tristesse arrive parfois sans prevenir. Qu'elle s'installe sans demander la permission.\n\nDans ces moments-la, j'aimerais etre la pour te serrer dans mes bras, te preparer un the, et te rappeler a quel point tu es aimee.\n\nTu n'es pas seule. Tu ne seras jamais seule.\n\nLaisse la pluie tomber — elle finit toujours par s'arreter. Et apres la pluie, il y a toujours un arc-en-ciel.\n\nTu es mon arc-en-ciel.",
+      "theme": "rain",
+      "surprise": {
+        "type": "hidden_message",
+        "trigger": "tap_3_times",
+        "content": "Tu es la personne la plus forte que je connaisse. Meme quand la tristesse est la, elle ne definit pas qui tu es. Elle n'est qu'un nuage qui passe — toi, tu es le soleil derriere."
+      }
+    },
+    {
+      "slug": "doubt",
+      "emoji": "💭",
+      "title": "Ouvre quand tu doutes de toi",
+      "message": "Je sais que parfois tu regardes dans le miroir et tu ne vois pas ce que je vois.\n\nAlors laisse-moi te dire ce que je vois : une personne incroyablement intelligente, profondement gentille, et magnifiquement unique.\n\nTu doutes de toi parce que tu es assez intelligente pour voir la complexite du monde. Mais ne confonds jamais l'humilite avec l'incapacite.\n\nTu es capable de tout. Regarde tout ce que tu as deja accompli. Et ce n'est que le debut.",
+      "theme": "stars",
+      "surprise": {
+        "type": "hidden_message",
+        "trigger": "long_press",
+        "content": "Chaque etoile dans le ciel brille differemment. Toi, tu brilles comme personne. Ne laisse jamais personne — meme pas toi-meme — te dire le contraire."
+      }
+    },
+    {
+      "slug": "cant-sleep",
+      "emoji": "🌙",
+      "title": "Ouvre quand tu n'arrives pas a dormir",
+      "message": "Il est tard. Le monde dort. Et toi, tu regardes le plafond en pensant a tout et a rien.\n\nJe suis probablement en train de dormir, ou peut-etre que je pense a toi aussi.\n\nFerme les yeux. Imagine qu'on est allonges cote a cote. Ma main dans la tienne. Le bruit calme de ma respiration.\n\nJe suis la, meme a distance.\n\nCompte les etoiles. Compte mes je t'aime. Il y en a plus que d'etoiles.",
+      "theme": "night"
+    },
+    {
+      "slug": "sunny-day",
+      "emoji": "☀️",
+      "title": "Ouvre quand le soleil brille",
+      "message": "Aujourd'hui le soleil brille, et j'espere que tu brilles avec lui.\n\nCes jours-la sont faits pour etre savoures. Souris. Ris. Danse dans ta chambre. Appelle quelqu'un que tu aimes.\n\nLe bonheur est fait de ces petits moments de lumiere. Et savoir que tu vis ces moments, meme loin de moi, me remplit de joie.\n\nLe soleil est chaud aujourd'hui — presque aussi chaud que mon coeur quand je pense a toi.",
+      "theme": "sunset",
+      "surprise": {
+        "type": "photo_reveal",
+        "trigger": "swipe_up",
+        "content": "/photos/polaroids/memory-1.jpg"
+      }
+    },
+    {
+      "slug": "lonely",
+      "emoji": "🫂",
+      "title": "Ouvre quand tu te sens seule",
+      "message": "La solitude, ce n'est pas l'absence de gens autour de toi. C'est l'absence de certaines personnes.\n\nEt je sais que je ne suis pas toujours physiquement la. Mais je veux que tu saches une chose : tu es dans mes pensees plus souvent que tu ne l'imagines.\n\nDans les petits moments de ma journee, dans les chansons que j'ecoute, dans tout ce que je vois de beau.\n\nTu n'es jamais vraiment seule — parce qu'une partie de moi est toujours avec toi.",
+      "theme": "cozy",
+      "surprise": {
+        "type": "hidden_message",
+        "trigger": "tap_3_times",
+        "content": "Ferme les yeux et prends trois grandes respirations. A chaque inspiration, imagine que c'est un calin que je t'envoie a travers la distance."
+      }
+    },
+    {
+      "slug": "overwhelmed",
+      "emoji": "🌊",
+      "title": "Ouvre quand tout va trop vite",
+      "message": "Le monde peut etre bruyant. Trop de choses, trop vite, trop fort.\n\nDans ces moments, souviens-toi de respirer. Tu n'as pas besoin de tout faire. Tu n'as pas besoin d'etre parfaite. Tu as juste besoin d'etre toi.\n\nFais une pause. Regarde par la fenetre. Ecoute le silence.\n\nLe monde peut attendre. Toi, tu es plus importante que toutes les urgences du monde.",
+      "theme": "waves"
+    },
+    {
+      "slug": "courage",
+      "emoji": "💪",
+      "title": "Ouvre quand tu as besoin de courage",
+      "message": "Je sais que tu as peur parfois. Peur de l'inconnu, peur de l'echec, peur de ne pas etre a la hauteur.\n\nMais laisse-moi te rappeler tous les moments ou tu as ete courageuse sans meme t'en rendre compte. Chaque matin ou tu t'es levee. Chaque defi que tu as releve. Chaque fois que tu as dit je continue alors que tout te disait d'abandonner.\n\nTu es tellement plus forte que tu ne le crois.\n\nEt je crois en toi plus que personne.",
+      "theme": "aurora"
+    },
+    {
+      "slug": "just-because",
+      "emoji": "❤️",
+      "title": "Juste parce que je t'aime",
+      "message": "Ceci n'a pas besoin de raison particuliere. Pas besoin que tu sois triste, ou joyeuse, ou que tu aies besoin de courage.\n\nOuvre-le juste parce que.\n\nParce que tu existes et que c'est deja la plus belle chose qui soit.\n\nParce que chaque jour ou tu es dans ce monde est un jour meilleur. Parce que je t'aime, tout simplement. Sans condition, sans raison, sans fin.\n\nMerci d'etre toi. Merci d'etre la. Merci pour tout ce que tu es.",
+      "theme": "golden",
+      "surprise": {
+        "type": "hidden_message",
+        "trigger": "tap_3_times",
+        "content": "Tu es la plus belle chose qui me soit arrivee. Chaque jour, je remercie l'univers de t'avoir mise sur mon chemin."
+      }
+    }
+  ],
+  "mapLocations": [
+    {
+      "id": "first-meeting",
+      "lat": 48.8566,
+      "lng": 2.3522,
+      "title": "Notre premiere rencontre IRL",
+      "date": "16 Mai 2026",
+      "message": "Ce lieu restera grave dans ma memoire pour toujours. C'est ici que je t'ai vue pour la premiere fois. Le monde s'est arrete.",
+      "photo": "/photos/map/first-meeting.jpg",
+      "emoji": "💫"
+    },
+    {
+      "id": "first-date",
+      "lat": 48.86,
+      "lng": 2.34,
+      "title": "Notre premier vrai rendez-vous",
+      "date": "2026",
+      "message": "Notre premier rendez-vous officiel. J'etais nerveux. Tu etais magnifique. C'etait parfait.",
+      "photo": "/photos/map/first-date.jpg",
+      "emoji": "🌹"
+    }
+  ]
+}

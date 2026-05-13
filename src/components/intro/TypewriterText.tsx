@@ -1,18 +1,10 @@
 import { motion } from 'framer-motion';
 
-const lines = [
-  'parfois,',
-  "on rencontre quelqu'un",
-  'et le monde devient',
-  'un peu plus doux',
-  'un peu plus lumineux',
-  'un peu plus vivant',
-  '',
-  'cette petite chose',
-  "c'est pour toi",
-];
+interface TypewriterTextProps {
+  lines: string[];
+}
 
-export function TypewriterText() {
+export function TypewriterText({ lines }: TypewriterTextProps) {
   return (
     <div className="text-center px-6">
       {lines.map((line, i) => (

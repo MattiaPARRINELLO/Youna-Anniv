@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState, useCallback } from 'react';
 import { useMusic } from './context/MusicContext';
 import { GrainOverlay } from './components/ui/GrainOverlay';
 import { IntroScene } from './components/intro/IntroScene';
@@ -40,12 +40,32 @@ function SectionFallback() {
 }
 
 export default function App() {
+  const [introDone, setIntroDone] = useState(false);
+
+  useEffect(() => {
+    if (!introDone) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [introDone]);
+
+  const handleIntroComplete = useCallback(() => {
+    setIntroDone(true);
+  }, []);
+
   return (
     <div className="relative bg-warm-darkest text-cream font-body overflow-x-hidden">
       <GrainOverlay />
       <ScrollInteractionCatcher />
 
-      <IntroScene />
+      <IntroScene onComplete={handleIntroComplete} />
       <TimelineSection />
       <MemoryGallery />
       <OpenWhenHub />
