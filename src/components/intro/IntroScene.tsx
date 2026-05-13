@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { FloatingParticles } from './FloatingParticles';
+import { ReactiveParticles } from '../ui/ReactiveParticles';
 import { TypewriterText } from './TypewriterText';
 import { useMusic } from '../../context/MusicContext';
 import config from '../../config.json';
@@ -37,7 +37,7 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
       onClick={handleInteraction}
     >
       <div className="absolute inset-0 vignette z-10 pointer-events-none" />
-      <FloatingParticles />
+      <ReactiveParticles count={30} />
       <motion.p
         className="text-gold/30 text-xs tracking-[0.3em] uppercase mb-8 font-body"
         initial={{ opacity: 0 }}

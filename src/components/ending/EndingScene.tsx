@@ -4,6 +4,7 @@ import { SectionWrapper } from '../ui/SectionWrapper';
 import { StarField } from './StarField';
 import { ProgressiveReveal } from './ProgressiveReveal';
 import { useInView } from '../../hooks/useInView';
+import { FloatingElements } from '../ui/FloatingElements';
 
 export function EndingScene() {
   const [phase, setPhase] = useState<'waiting' | 'reveal' | 'heart' | 'restart'>('waiting');
@@ -94,6 +95,7 @@ export function EndingScene() {
           </motion.div>
         )}
       </AnimatePresence>
+      <FloatingElements type="heart" count={6} />
     </SectionWrapper>
   );
 }

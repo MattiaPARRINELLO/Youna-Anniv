@@ -5,6 +5,7 @@ import { FadeInOnScroll } from '../ui/FadeInOnScroll';
 import { PortalCard } from './PortalCard';
 import { OpenWhenPortal } from './OpenWhenPortal';
 import { openWhenEntries, type OpenWhenEntry } from '../../data/openWhen';
+import { FloatingElements } from '../ui/FloatingElements';
 
 export function OpenWhenHub() {
   const [activeEntry, setActiveEntry] = useState<OpenWhenEntry | null>(null);
@@ -39,6 +40,7 @@ export function OpenWhenHub() {
           />
         )}
       </AnimatePresence>
+      <FloatingElements type="mixed" count={4} />
     </SectionWrapper>
   );
 }

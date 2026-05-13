@@ -5,6 +5,8 @@ import { FadeInOnScroll } from '../ui/FadeInOnScroll';
 import { TimelineCard } from './TimelineCard';
 import { ProgressDots } from './ProgressDots';
 import { timelineEvents } from '../../data/timeline';
+import { TiltCard } from '../ui/TiltCard';
+import { FloatingElements } from '../ui/FloatingElements';
 
 export function TimelineSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -39,11 +41,12 @@ export function TimelineSection() {
         style={{ scrollSnapType: 'x mandatory' }}
       >
         {timelineEvents.map((event) => (
-          <TimelineCard
-            key={event.id}
-            event={event}
-            isActive={timelineEvents.indexOf(event) === activeIndex}
-          />
+          <TiltCard key={event.id}>
+            <TimelineCard
+              event={event}
+              isActive={timelineEvents.indexOf(event) === activeIndex}
+            />
+          </TiltCard>
         ))}
       </motion.div>
 
@@ -54,6 +57,7 @@ export function TimelineSection() {
           ...et ce n&apos;est que le debut
         </p>
       </FadeInOnScroll>
+      <FloatingElements type="star" count={4} />
     </SectionWrapper>
   );
 }

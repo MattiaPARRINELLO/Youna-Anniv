@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FloatingElements } from '../ui/FloatingElements';
 
 const SECRET_MESSAGES = [
   'Tu es la plus belle chose qui me soit arrivee.',
@@ -46,6 +47,7 @@ export function EasterEggs() {
 
   return (
     <>
+      <FloatingElements type="butterfly" count={3} />
       <motion.button
         className="fixed z-[120] text-2xl opacity-20 hover:opacity-60 transition-opacity cursor-pointer"
         style={{

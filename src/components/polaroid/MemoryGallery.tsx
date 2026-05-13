@@ -4,6 +4,8 @@ import { SectionWrapper } from '../ui/SectionWrapper';
 import { FadeInOnScroll } from '../ui/FadeInOnScroll';
 import { PolaroidCard } from './PolaroidCard';
 import { polaroids } from '../../data/polaroids';
+import { TiltCard } from '../ui/TiltCard';
+import { FloatingElements } from '../ui/FloatingElements';
 
 export function MemoryGallery() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -25,21 +27,24 @@ export function MemoryGallery() {
           style={{ scrollSnapType: 'x mandatory' }}
         >
           {polaroids.map((p) => (
-            <div key={p.id} className="flex-shrink-0 snap-center py-4 px-2">
-              <PolaroidCard
-                image={p.image}
-                caption={p.caption}
-                date={p.date}
-                rotation={p.rotation}
-                hiddenMessage={p.hiddenMessage}
-                tapeStyle={p.tapeStyle}
-              />
-            </div>
+            <TiltCard key={p.id}>
+              <div className="flex-shrink-0 snap-center py-4 px-2">
+                <PolaroidCard
+                  image={p.image}
+                  caption={p.caption}
+                  date={p.date}
+                  rotation={p.rotation}
+                  hiddenMessage={p.hiddenMessage}
+                  tapeStyle={p.tapeStyle}
+                />
+              </div>
+            </TiltCard>
           ))}
         </motion.div>
       </div>
 
       <p className="text-cream-dark/15 text-xs mt-4 font-body">&larr; glisse pour decouvrir &rarr;</p>
+      <FloatingElements type="butterfly" count={5} />
     </SectionWrapper>
   );
 }

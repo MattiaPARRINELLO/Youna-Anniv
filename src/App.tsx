@@ -1,6 +1,11 @@
-import { lazy, Suspense, useEffect, useState, useCallback } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useMusic } from './context/MusicContext';
 import { GrainOverlay } from './components/ui/GrainOverlay';
+import { ScrollProgressBar } from './components/ui/ScrollProgressBar';
+import { DynamicVignette } from './components/ui/DynamicVignette';
+import { CursorGlow } from './components/ui/CursorGlow';
+import { AmbientGlow } from './components/ui/AmbientGlow';
 import { IntroScene } from './components/intro/IntroScene';
 import { TimelineSection } from './components/timeline/TimelineSection';
 import { MemoryGallery } from './components/polaroid/MemoryGallery';
@@ -45,38 +50,44 @@ export default function App() {
   useEffect(() => {
     if (!introDone) {
       document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
     }
-    return () => {
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [introDone]);
-
-  const handleIntroComplete = useCallback(() => {
-    setIntroDone(true);
-  }, []);
 
   return (
     <div className="relative bg-warm-darkest text-cream font-body overflow-x-hidden">
       <GrainOverlay />
+      <ScrollProgressBar />
+      <CursorGlow />
+      <AmbientGlow />
+      <DynamicVignette intensity={introDone ? 0.3 : 0.6} />
       <ScrollInteractionCatcher />
 
-      <IntroScene onComplete={handleIntroComplete} />
-      <TimelineSection />
-      <MemoryGallery />
-      <OpenWhenHub />
+      <IntroScene onComplete={() => setIntroDone(true)} />
 
-      <Suspense fallback={<SectionFallback />}>
-        <MapSection />
-      </Suspense>
+      <AnimatePresence>
+        {introDone && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <TimelineSection />
+            <MemoryGallery />
+            <OpenWhenHub />
 
-      <Suspense fallback={<SectionFallback />}>
-        <EndingScene />
-      </Suspense>
+            <Suspense fallback={<SectionFallback />}>
+              <MapSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionFallback />}>
+              <EndingScene />
+            </Suspense>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <MusicPlayer />
       <EasterEggs />
