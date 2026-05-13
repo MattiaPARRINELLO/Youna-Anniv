@@ -14,6 +14,7 @@ import { OpenWhenHub } from './components/openwhen/OpenWhenHub';
 import { CounterSection } from './components/counter/CounterSection';
 import { MusicPlayer } from './components/music/MusicPlayer';
 import { EasterEggs } from './components/secrets/EasterEggs';
+import { LockScreen } from './components/lock/LockScreen';
 
 {/* MapSection cachee — a reactiver: decommenter l'import ci-dessous et la section dans le JSX */}
 {/* const MapSection = lazy(() =>
@@ -47,8 +48,20 @@ function SectionFallback() {
   );
 }
 
+const UNLOCK_DATE = new Date('2026-05-22T00:00:00');
+
 export default function App() {
   const [introDone, setIntroDone] = useState(false);
+  const [unlocked, setUnlocked] = useState(() => new Date() >= UNLOCK_DATE);
+
+  useEffect(() => {
+    if (unlocked) return;
+    const check = () => {
+      if (new Date() >= UNLOCK_DATE) setUnlocked(true);
+    };
+    const interval = setInterval(check, 500);
+    return () => clearInterval(interval);
+  }, [unlocked]);
 
   useEffect(() => {
     if (!introDone) {
@@ -60,6 +73,10 @@ export default function App() {
   }, [introDone]);
 
   return (
+    <>
+      {!unlocked ? (
+        <LockScreen onUnlock={() => setUnlocked(true)} />
+      ) : (
     <div className="relative bg-warm-darkest text-cream font-body overflow-x-hidden">
       <GrainOverlay />
       <ScrollProgressBar />
@@ -99,5 +116,7 @@ export default function App() {
       <MusicPlayer />
       <EasterEggs />
     </div>
+      )}
+    </>
   );
 }

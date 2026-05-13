@@ -2,15 +2,23 @@
   "intro": {
     "label": "pour toi",
     "lines": [
-      "parfois,",
-      "on rencontre quelqu'un",
-      "et le monde devient",
-      "un peu plus doux",
-      "un peu plus lumineux",
-      "un peu plus vivant",
-      "",
-      "cette petite chose",
-      "c'est pour toi"
+      "Youyou,",
+      "-----------",
+      "Parfois l'univers",
+      "Place deux personnes",
+      "Dans la même salle",
+      "Sans leur dire pourquoi",
+      "------------",
+      "Parfois on se retrouve",
+      "Par hasard",
+      "Sur un écran",
+      "À des kilomètres de distance",
+      "Et quelque chose",
+      "Qui n'aurait jamais dû exister",
+      "Commence à exister",
+      "------------",
+      "Cette petite chose",
+      "C'est pour toi"
     ]
   },
   "music": {
@@ -22,16 +30,16 @@
       "id": "first-meeting",
       "date": "23 Octobre 2025",
       "title": "Premiere rencontre",
-      "subtitle": "le debut de tout",
-      "message": "Ce jour-la, sans le savoir, ma vie a commence a changer.",
+      "subtitle": "Le debut de tout",
+      "message": "Ce soir-là tu étais dans la foule \n et moi aussi. \n  \n On ne se parlait pas encore. \n On ne se connaissait pas encore. \n Mais quelque chose, quelque part, \n avait déjà décidé. \n  \n Je ne savais pas que ce concert \n allait changer ma vie.",
       "photo": "/photos/timeline/october.jpg"
     },
     {
       "id": "first-call",
       "date": "20 Fevrier 2026",
       "title": "Premier appel",
-      "subtitle": "ta voix pour la premiere fois",
-      "message": "Je me souviens de chaque mot, de chaque silence, de cette sensation que quelque chose de rare commencait.",
+      "subtitle": "Ta voix pour la premiere fois",
+      "message": "Ta voix. \n  \n Je ne m'y attendais pas vraiment... \n cette façon que tu as de rire \n au milieu d'une phrase, \n de passer du sérieux à la légèreté \n en un souffle. \n  \n Ce soir-là j'ai raccroché \n et j'ai su que j'étais en danger. \n Le genre de danger dont on ne veut \n surtout pas se protéger.",
       "photo": "/photos/timeline/february.jpg"
     },
     {
@@ -39,15 +47,15 @@
       "date": "16 Mars 2026",
       "title": "Le debut de nous",
       "subtitle": "♡",
-      "message": "Le jour ou tout est devenu officiel. Le jour ou j'ai su que j'avais trouve quelque chose de precieux.",
+      "message": "Il y a des dates qu'on n'oublie pas. \n  \n Pas parce qu'elles sont écrites quelque part, \n mais parce qu'elles sont gravées \n dans une partie de soi \n qu'on ne savait pas encore exister. \n  \n Ce jour-là, tu es devenue mienne. \n Ce jour-là, je suis devenu tien. \n Et le monde, depuis, \n a une couleur différente.",
       "photo": "/photos/timeline/march.jpg"
     },
     {
       "id": "first-irl-meeting",
       "date": "16 Mai 2026",
       "title": "Premiere rencontre IRL",
-      "subtitle": "te voir en vrai",
-      "message": "Te voir pour la premiere fois. Les mots ne suffisent pas pour decrire ce que j'ai ressenti. Tout etait exactement comme je l'imaginais, en mille fois mieux.",
+      "subtitle": "Te voir en vrai",
+      "message": "Il y a une différence entre connaître quelqu'un \n et voir quelqu'un. \n  \n Je te connaissais déjà par cœur, \n ta façon de penser, \n de rire, \n de voir le monde. \n  \n Mais te voir. \n Te voir vraiment. \n  \n Aucun mot ne sera jamais \n à la hauteur de ce moment. \n Tu étais exactement toi. \n Et c'était exactement tout.",
       "photo": "/photos/timeline/may-meeting.jpg"
     },
     {
@@ -55,7 +63,7 @@
       "date": "22 Mai 2026",
       "title": "Ton anniversaire",
       "subtitle": "🎂",
-      "message": "Celebrer le jour ou le monde a eu la chance de te voir naitre. J'espere que cette annee sera la plus belle de toutes.",
+      "message": "Aujourd'hui c'est le jour \n où le monde a eu de la chance. \n La chance de te voir arriver, \n avec ton rire, \n ta douceur, \n ta façon de rendre la vie \n un peu plus belle \n juste en étant là. \n Joyeux anniversaire, youyou. \n J'espère que cette année \n sera à ton image ! \n Lumineuse, douce, \n et pleine de gens qui t'aiment.",
       "photo": "/photos/timeline/birthday.jpg"
     }
   ],
@@ -63,53 +71,109 @@
     {
       "id": "memory-1",
       "image": "/photos/polaroids/memory-1.jpg",
-      "caption": "~ notre premier cafe ~",
-      "date": "Hiver 2025",
+      "caption": "~ 5h du matin ~",
+      "date": "Février 2026",
       "rotation": -2,
-      "hiddenMessage": "Je me souviens que tu as pris un latte. Je me souviens de la lumiere. Je me souviens de tout.",
+      "hiddenMessage": "Je rentrai de boite. J'avais peur de m'endormir. Tu m'as appelé. Je ne savais pas encore que ce trajet allait changer quelque chose en moi.",
       "tapeStyle": "top"
     },
     {
       "id": "memory-2",
-      "image": "/photos/polaroids/memory-1.jpg",
-      "caption": "~ cette soiree-la ~",
-      "date": "Printemps 2026",
+      "image": "/photos/polaroids/memory-2.png",
+      "caption": "~ le trajet ~",
+      "date": "Février 2026",
       "rotation": 3,
-      "hiddenMessage": "On a parle jusqu'a 3h du matin sans voir le temps passer.",
+      "hiddenMessage": "On a parlé tout le trajet. Des photos dans mon sac, la nuit dehors, et ta voix. Je me souviens de tout.",
       "tapeStyle": "both"
     },
     {
       "id": "memory-3",
-      "image": "/photos/polaroids/memory-1.jpg",
-      "caption": "~ un dimanche parfait ~",
-      "date": "Mars 2026",
+      "image": "/photos/polaroids/memory-3.png",
+      "caption": "~ notre maison ~",
+      "date": "2026",
       "rotation": -1,
-      "hiddenMessage": "Les dimanches avec toi devraient durer 48 heures.",
+      "hiddenMessage": "On construit une maison dans un monde de pixels. Mais ce qu'on construit vraiment, c'est autre chose. C'est nous.",
       "tapeStyle": "side"
     },
     {
       "id": "memory-4",
-      "image": "/photos/polaroids/memory-1.jpg",
-      "caption": "~ ton sourire ~",
+      "image": "/photos/polaroids/memory-4.png",
+      "caption": "~ minecraft ~",
       "date": "2026",
       "rotation": 2,
+      "hiddenMessage": "Tu poses un bloc. Je pose un bloc. On ne se dit rien pendant cinq minutes et c'est parfait.",
       "tapeStyle": "top"
     },
     {
       "id": "memory-5",
-      "image": "/photos/polaroids/memory-1.jpg",
-      "caption": "~ ce moment ~",
+      "image": "/photos/polaroids/memory-5.jpg",
+      "caption": "~ attendre que tu rentres ~",
       "date": "2026",
       "rotation": -3,
+      "hiddenMessage": "On ne s'est jamais dit qu'on le ferait. Ça s'est juste passé. Moi éveillé, à attendre que tu sois rentrée. Et toi éveillée, à attendre que je sois rentré. Certaines choses n'ont pas besoin d'être dites pour être réelles.",
       "tapeStyle": "both"
     },
     {
       "id": "memory-6",
-      "image": "/photos/polaroids/memory-1.jpg",
+      "image": "/photos/polaroids/memory-6.jpg",
+      "caption": "~ s'endormir ensemble ~",
+      "date": "2026",
+      "rotation": 1,
+      "hiddenMessage": "On sait plus vraiment dormir sans s'appeler. Je sais pas quand c'est devenu une nécessité. Je sais juste que ça l'est.",
+      "tapeStyle": "side"
+    },
+    {
+      "id": "memory-7",
+      "image": "/photos/polaroids/memory-7.jpg",
+      "caption": "~ ta voix avant de dormir ~",
+      "date": "2026",
+      "rotation": -2,
+      "hiddenMessage": "Il y a quelque chose de particulièrement doux dans ta voix quand tu t'endors. Comme si le monde devenait plus calme.",
+      "tapeStyle": "top"
+    },
+    {
+      "id": "memory-8",
+      "image": "/photos/polaroids/memory-8.png",
+      "caption": "~ la distance ~",
+      "date": "2026",
+      "rotation": 2,
+      "hiddenMessage": "Des kilomètres entre nous. Et pourtant — chaque soir, la même routine. Ta voix. Mon silence. Ensemble quand même.",
+      "tapeStyle": "both"
+    },
+    {
+      "id": "memory-9",
+      "image": "/photos/polaroids/memory-9.jpg",
+      "caption": "~ un soir de concert ~",
+      "date": "Octobre 2025",
+      "rotation": -1,
+      "hiddenMessage": "Tu étais dans cette salle. Moi aussi. On ne se connaissait pas encore. L'univers, lui, savait déjà.",
+      "tapeStyle": "side"
+    },
+    {
+      "id": "memory-10",
+      "image": "/photos/polaroids/memory-10.jpg",
+      "caption": "~ le 16 mars ~",
+      "date": "Mars 2026",
+      "rotation": 3,
+      "hiddenMessage": "Le jour où c'est devenu officiel. Le jour où j'ai arrêté d'avoir peur de ce que je ressentais.",
+      "tapeStyle": "top"
+    },
+    {
+      "id": "memory-11",
+      "image": "/photos/polaroids/memory-11.jpg",
+      "caption": "~ nos nuits ~",
+      "date": "2026",
+      "rotation": -2,
+      "hiddenMessage": "3h du matin, 4h du matin, peu importe. Avec toi le temps passe différemment. Il s'étire. Il devient doux.",
+      "tapeStyle": "both"
+    },
+    {
+      "id": "memory-12",
+      "image": "/photos/polaroids/memory-12.jpg",
       "caption": "~ nous ~",
       "date": "2026",
       "rotation": 1,
-      "hiddenMessage": "Si je pouvais revivre un seul moment de ma vie, ce serait celui-ci.",
+      "hiddenMessage": "Une salle de concert. Un hasard sur internet. Une histoire qui n'aurait jamais dû exister. Et pourtant — nous voilà.",
       "tapeStyle": "side"
     }
   ],
@@ -118,38 +182,38 @@
       "slug": "sad",
       "emoji": "🌧️",
       "title": "Ouvre quand tu es triste",
-      "message": "Je sais que la tristesse arrive parfois sans prevenir. Qu'elle s'installe sans demander la permission.\n\nDans ces moments-la, j'aimerais etre la pour te serrer dans mes bras, te preparer un the, et te rappeler a quel point tu es aimee.\n\nTu n'es pas seule. Tu ne seras jamais seule.\n\nLaisse la pluie tomber — elle finit toujours par s'arreter. Et apres la pluie, il y a toujours un arc-en-ciel.\n\nTu es mon arc-en-ciel.",
+      "message": "Youyou,\n\nLa tristesse a cette façon cruelle de s'installer sans frapper. De rendre tout plus lourd, plus gris, plus silencieux.\n\nDans ces moments-là, j'aimerais être là. Pas forcément pour dire quelque chose — juste être là. Te préparer quelque chose de chaud. Rester à côté sans que tu aies besoin de faire semblant d'aller bien.\n\nMais puisque je ne peux pas être physiquement là tout de suite, laisse-moi te dire ceci : ta tristesse est valide. Tu n'as pas à la justifier, à la minimiser, à t'excuser d'exister dedans.\n\nTu es quelqu'un qui aime la vie, qui aime les gens, qui met de la chaleur partout où tu passes. Et les gens comme toi ressentent parfois les choses plus fort que les autres. C'est un cadeau, même quand ça fait mal.\n\nPleure si tu en as besoin. Ensuite mange quelque chose de bon. Regarde quelque chose de bête qui te fait rire.\n\nEt souviens-toi que moi, à l'autre bout de cette distance, je pense à toi. Tout le temps. Surtout les jours comme celui-là.",
       "theme": "rain",
       "surprise": {
         "type": "hidden_message",
         "trigger": "tap_3_times",
-        "content": "Tu es la personne la plus forte que je connaisse. Meme quand la tristesse est la, elle ne definit pas qui tu es. Elle n'est qu'un nuage qui passe — toi, tu es le soleil derriere."
+        "content": "Tu es la personne la plus forte que je connaisse. Même quand la tristesse est là, elle ne te définit pas. Elle n'est qu'un nuage qui passe — toi, tu es le soleil derrière."
       }
     },
     {
       "slug": "doubt",
       "emoji": "💭",
       "title": "Ouvre quand tu doutes de toi",
-      "message": "Je sais que parfois tu regardes dans le miroir et tu ne vois pas ce que je vois.\n\nAlors laisse-moi te dire ce que je vois : une personne incroyablement intelligente, profondement gentille, et magnifiquement unique.\n\nTu doutes de toi parce que tu es assez intelligente pour voir la complexite du monde. Mais ne confonds jamais l'humilite avec l'incapacite.\n\nTu es capable de tout. Regarde tout ce que tu as deja accompli. Et ce n'est que le debut.",
+      "message": "Youyou,\n\nJe sais que parfois la petite voix dans ta tête n'est pas très gentille avec toi. Qu'elle grossit les doutes et minimise tout ce que tu es.\n\nAlors laisse-moi être l'autre voix aujourd'hui.\n\nTu es quelqu'un de remarquable. Pas de façon spectaculaire — de façon réelle. Dans ta douceur, dans ta façon d'être avec les gens, dans ce rire que tu as qui ne ressemble à aucun autre.\n\nTu doutes de toi parce que tu es assez intelligente pour voir la complexité du monde. Mais ne confonds jamais l'humilité avec l'incapacité.\n\nCe que tu es suffit. Ce que tu es est même beaucoup.\n\nChaque étoile dans le ciel brille différemment. Toi, tu brilles comme personne. Ne laisse jamais personne — même pas toi-même — te dire le contraire.",
       "theme": "stars",
       "surprise": {
         "type": "hidden_message",
         "trigger": "long_press",
-        "content": "Chaque etoile dans le ciel brille differemment. Toi, tu brilles comme personne. Ne laisse jamais personne — meme pas toi-meme — te dire le contraire."
+        "content": "Je te vois, youyou. Je vois tout ce que tu es. Et ce que je vois est quelque chose d'extraordinaire."
       }
     },
     {
       "slug": "cant-sleep",
       "emoji": "🌙",
-      "title": "Ouvre quand tu n'arrives pas a dormir",
-      "message": "Il est tard. Le monde dort. Et toi, tu regardes le plafond en pensant a tout et a rien.\n\nJe suis probablement en train de dormir, ou peut-etre que je pense a toi aussi.\n\nFerme les yeux. Imagine qu'on est allonges cote a cote. Ma main dans la tienne. Le bruit calme de ma respiration.\n\nJe suis la, meme a distance.\n\nCompte les etoiles. Compte mes je t'aime. Il y en a plus que d'etoiles.",
+      "title": "Ouvre quand tu n'arrives pas à dormir",
+      "message": "Youyou,\n\nIl est tard. Le monde dort. Et toi tu regardes le plafond en pensant à tout et à rien.\n\nTu sais ce qu'on fait dans ces moments-là, normalement. Tu m'appelles et on s'endort ensemble. Mais si pour une raison ou une autre tu ne veux pas me réveiller ce soir — je veux que tu saches que tu peux toujours.\n\nToujours.\n\nDepuis qu'on s'appelle pour dormir, j'arrive moins bien à trouver le silence sans ta voix. C'est devenu quelque chose de nécessaire, sans qu'on se le soit jamais dit. Juste comme ça. Naturellement.\n\nAlors ferme les yeux. Imagine ta respiration qui ralentit. Imagine que je suis là, quelque part à l'autre bout du fil, qui m'endors moi aussi.\n\nOn est ensemble même dans le silence.",
       "theme": "night"
     },
     {
       "slug": "sunny-day",
       "emoji": "☀️",
       "title": "Ouvre quand le soleil brille",
-      "message": "Aujourd'hui le soleil brille, et j'espere que tu brilles avec lui.\n\nCes jours-la sont faits pour etre savoures. Souris. Ris. Danse dans ta chambre. Appelle quelqu'un que tu aimes.\n\nLe bonheur est fait de ces petits moments de lumiere. Et savoir que tu vis ces moments, meme loin de moi, me remplit de joie.\n\nLe soleil est chaud aujourd'hui — presque aussi chaud que mon coeur quand je pense a toi.",
+      "message": "Youyou,\n\nAujourd'hui le monde est beau et j'espère que tu le vois.\n\nCes jours-là sont faits pour être savourés lentement. Pour ouvrir la fenêtre, sentir l'air, sourire sans raison particulière. Pour appeler quelqu'un qu'on aime ou danser dans sa chambre sans que personne ne regarde.\n\nLe bonheur c'est fait de ces petits moments de lumière. Et savoir que tu vis ces moments — même loin de moi — me remplit de quelque chose de chaud et de doux.\n\nProfite de cette journée, youyou. Tu la mérites entièrement.\n\nLe soleil est chaud aujourd'hui — presque autant que ce que je ressens quand je pense à toi.",
       "theme": "sunset",
       "surprise": {
         "type": "photo_reveal",
@@ -161,38 +225,43 @@
       "slug": "lonely",
       "emoji": "🫂",
       "title": "Ouvre quand tu te sens seule",
-      "message": "La solitude, ce n'est pas l'absence de gens autour de toi. C'est l'absence de certaines personnes.\n\nEt je sais que je ne suis pas toujours physiquement la. Mais je veux que tu saches une chose : tu es dans mes pensees plus souvent que tu ne l'imagines.\n\nDans les petits moments de ma journee, dans les chansons que j'ecoute, dans tout ce que je vois de beau.\n\nTu n'es jamais vraiment seule — parce qu'une partie de moi est toujours avec toi.",
+      "message": "Youyou,\n\nLa solitude à distance, c'est particulier. Ce n'est pas que personne ne t'aime — tu le sais. C'est juste que parfois on voudrait que les gens qu'on aime soient un peu plus près.\n\nJe pense à toi dans mes petits moments. Quand j'entends une chanson qui te ressemble. Quand quelque chose me fait rire et que tu es la première personne à qui j'ai envie de le dire. Quand je rentre tard le soir et que je sais que tu es éveillée quelque part à attendre que je sois rentré — sans qu'on se le soit jamais vraiment dit.\n\nCes petites choses non-dites, c'est peut-être celles qui comptent le plus.\n\nTu n'es jamais vraiment seule, youyou. Tu vis dans les pensées de quelqu'un qui t'aime profondément, même quand le silence semble trop grand.\n\nAppelle quelqu'un ce soir. Ou appelle-moi. Je décrocherai toujours.",
       "theme": "cozy",
       "surprise": {
         "type": "hidden_message",
         "trigger": "tap_3_times",
-        "content": "Ferme les yeux et prends trois grandes respirations. A chaque inspiration, imagine que c'est un calin que je t'envoie a travers la distance."
+        "content": "Ferme les yeux et prends trois grandes respirations. À chaque inspiration, imagine que c'est un câlin que je t'envoie à travers la distance."
       }
     },
     {
       "slug": "overwhelmed",
       "emoji": "🌊",
       "title": "Ouvre quand tout va trop vite",
-      "message": "Le monde peut etre bruyant. Trop de choses, trop vite, trop fort.\n\nDans ces moments, souviens-toi de respirer. Tu n'as pas besoin de tout faire. Tu n'as pas besoin d'etre parfaite. Tu as juste besoin d'etre toi.\n\nFais une pause. Regarde par la fenetre. Ecoute le silence.\n\nLe monde peut attendre. Toi, tu es plus importante que toutes les urgences du monde.",
+      "message": "Youyou,\n\nStop.\n\nJuste une seconde — stop.\n\nTu n'as pas besoin de tout gérer en même temps. Tu n'as pas besoin d'être parfaite, d'avoir toutes les réponses, de porter tout le monde tout en gardant le sourire.\n\nPose tout ça. Juste pour un moment.\n\nRegarde par la fenêtre. Respire lentement. Rappelle-toi que tu es humaine, et que les humains ont le droit de souffler.\n\nLe monde peut attendre. Les urgences sont rarement aussi urgentes qu'elles le prétendent.\n\nToi, par contre — ta joie, ton énergie, cette façon que tu as de rendre les gens heureux juste en étant là — ça, c'est précieux. Et ça mérite d'être protégé.\n\nPrends soin de toi d'abord. Tout le reste après.",
       "theme": "waves"
     },
     {
       "slug": "courage",
       "emoji": "💪",
       "title": "Ouvre quand tu as besoin de courage",
-      "message": "Je sais que tu as peur parfois. Peur de l'inconnu, peur de l'echec, peur de ne pas etre a la hauteur.\n\nMais laisse-moi te rappeler tous les moments ou tu as ete courageuse sans meme t'en rendre compte. Chaque matin ou tu t'es levee. Chaque defi que tu as releve. Chaque fois que tu as dit je continue alors que tout te disait d'abandonner.\n\nTu es tellement plus forte que tu ne le crois.\n\nEt je crois en toi plus que personne.",
-      "theme": "aurora"
+      "message": "Youyou,\n\nJe sais que tu as peur parfois. De l'inconnu, de l'échec, de ne pas être à la hauteur.\n\nMais laisse-moi te rappeler quelque chose.\n\nTu es quelqu'un qui a aimé sans filet. Qui a fait confiance quand c'était risqué. Qui a choisi quelque chose de rare et d'incertain et qui a dit oui quand même.\n\nC'est ça, le courage. Pas l'absence de peur — mais avancer malgré elle.\n\nTu l'as déjà fait. Tu le feras encore.\n\nEt pendant que tu avances, je suis là en fond. Pas toujours visible, pas toujours bruyant — mais là. À croire en toi plus fort que tu ne crois en toi-même.\n\nVas-y. Tu es prête.",
+      "theme": "aurora",
+      "surprise": {
+        "type": "hidden_message",
+        "trigger": "tap_3_times",
+        "content": "Chaque fois que tu as eu peur et que tu as avancé quand même — c'est du courage. Tu en as plus que tu ne le crois."
+      }
     },
     {
       "slug": "just-because",
       "emoji": "❤️",
       "title": "Juste parce que je t'aime",
-      "message": "Ceci n'a pas besoin de raison particuliere. Pas besoin que tu sois triste, ou joyeuse, ou que tu aies besoin de courage.\n\nOuvre-le juste parce que.\n\nParce que tu existes et que c'est deja la plus belle chose qui soit.\n\nParce que chaque jour ou tu es dans ce monde est un jour meilleur. Parce que je t'aime, tout simplement. Sans condition, sans raison, sans fin.\n\nMerci d'etre toi. Merci d'etre la. Merci pour tout ce que tu es.",
+      "message": "Youyou,\n\nPas de raison particulière aujourd'hui. Pas de larmes à sécher, pas de peur à calmer, pas de défi à relever.\n\nJuste toi. Juste moi. Juste ça.\n\nJe voulais juste que tu saches que tu es aimée — pas pour ce que tu fais, pas pour qui tu essaies d'être, mais pour ce que tu es naturellement, sans effort.\n\nCette façon que tu as d'aimer les gens vraiment. De rire avec tout ton corps. De rêver les yeux grands ouverts. De rendre la vie plus douce juste en étant là.\n\nOn s'est trouvés par hasard dans une salle de concert, puis par miracle sur internet. Et malgré tout ce qui aurait pu ne jamais arriver —\n\nte voilà. Me voilà. Nous voilà.\n\nMerci, youyou. Pour tout. Pour toi.",
       "theme": "golden",
       "surprise": {
         "type": "hidden_message",
         "trigger": "tap_3_times",
-        "content": "Tu es la plus belle chose qui me soit arrivee. Chaque jour, je remercie l'univers de t'avoir mise sur mon chemin."
+        "content": "Tu es la plus belle chose qui me soit arrivée. Chaque jour je remercie l'univers de t'avoir mise sur mon chemin."
       }
     }
   ],
