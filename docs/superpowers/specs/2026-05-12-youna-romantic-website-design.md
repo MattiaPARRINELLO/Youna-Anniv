@@ -18,17 +18,17 @@ A scrapbook / journal intime that comes alive through scroll and touch. Like som
 
 ## Tech Stack
 
-| Layer | Choice |
-|-------|--------|
-| Framework | React 18+ |
-| Bundler | Vite |
-| Styling | TailwindCSS |
-| Animation | Framer Motion |
-| Routing | react-router-dom (for auto-generated Open When routes) |
-| Icons | react-icons |
-| Typewriter | react-type-animation |
-| Map | Leaflet + react-leaflet |
-| Scroll detection | react-intersection-observer |
+| Layer            | Choice                                                 |
+| ---------------- | ------------------------------------------------------ |
+| Framework        | React 18+                                              |
+| Bundler          | Vite                                                   |
+| Styling          | TailwindCSS                                            |
+| Animation        | Framer Motion                                          |
+| Routing          | react-router-dom (for auto-generated Open When routes) |
+| Icons            | react-icons                                            |
+| Typewriter       | react-type-animation                                   |
+| Map              | Leaflet + react-leaflet                                |
+| Scroll detection | react-intersection-observer                            |
 
 ---
 
@@ -43,11 +43,11 @@ A scrapbook / journal intime that comes alive through scroll and touch. Like som
 
 ### Typography
 
-| Role | Font | Style |
-|------|------|-------|
-| Emotional titles | Playfair Display (Google Fonts) | Serif, elegant, cinematic |
-| Captions, intimate notes | Caveat (Google Fonts) | Handwritten, personal |
-| Body text | Inter (Google Fonts) | Clean, readable |
+| Role                     | Font                            | Style                     |
+| ------------------------ | ------------------------------- | ------------------------- |
+| Emotional titles         | Playfair Display (Google Fonts) | Serif, elegant, cinematic |
+| Captions, intimate notes | Caveat (Google Fonts)           | Handwritten, personal     |
+| Body text                | Inter (Google Fonts)            | Clean, readable           |
 
 ### Atmosphere
 
@@ -116,6 +116,7 @@ App
 **Purpose**: Immediate emotional connection upon landing.
 
 **Design**:
+
 - Full viewport, dark warm background
 - Golden floating particles drifting upward
 - Subtle grain overlay (CSS noise)
@@ -125,6 +126,7 @@ App
 - Text appears centered, Playfair Display, warm gold
 
 **Example Text**:
+
 ```
 parfois,
 on rencontre quelqu'un
@@ -138,6 +140,7 @@ c'est pour toi
 ```
 
 **Animations**:
+
 - Particles: perpetual gentle upward drift
 - Text: sequential fade-in, 2-3s delay between lines
 - Vignette: warm radial gradient at edges
@@ -153,9 +156,10 @@ c'est pour toi
 | 20 Fév 2026 | Premier appel |
 | 16 Mars 2026 | Début de la relation |
 | 16 Mai 2026 | Première rencontre IRL |
-| 22 Mai 2026 | Anniversaire de Youna |
+| 23 Mai 2026 | Anniversaire de Youna |
 
 **Interaction**:
+
 - Section triggers when scrolled into view
 - Horizontal swipe to navigate between 5 cards
 - Snap-to-center (one card at a time)
@@ -164,6 +168,7 @@ c'est pour toi
 - Style: journal card on paper texture
 
 **States**:
+
 - Default: card with photo and date
 - Tap: hidden message slides in from bottom
 - End of timeline: "et ce n'est que le début..."
@@ -175,18 +180,20 @@ c'est pour toi
 **Component**: `PolaroidCard` — reusable
 
 **Props**:
+
 ```typescript
 interface PolaroidCardProps {
   image: string;
   caption: string;
   date?: string;
-  rotation?: number;        // -3 to +3 degrees
-  hiddenMessage?: string;   // revealed on long-press
-  tapeStyle?: 'top' | 'side' | 'both';
+  rotation?: number; // -3 to +3 degrees
+  hiddenMessage?: string; // revealed on long-press
+  tapeStyle?: "top" | "side" | "both";
 }
 ```
 
 **Visual Design**:
+
 - White/cream card with wide bottom margin (classic polaroid)
 - Photo area on top
 - Handwritten caption (Caveat font) below
@@ -196,6 +203,7 @@ interface PolaroidCardProps {
 - Subtle perpetual float animation
 
 **Interaction**:
+
 - Horizontal swipe to browse
 - Tap: lightbox zoom
 - Long press (>500ms): hidden message fades in over the photo
@@ -206,6 +214,7 @@ interface PolaroidCardProps {
 **Purpose**: Auto-generated emotional experiences from JSON data.
 
 **Hub Design**:
+
 - 2×4 grid of portal cards
 - Each card: emoji + short title
 - Glassmorphism style (dark frosted glass)
@@ -213,6 +222,7 @@ interface PolaroidCardProps {
 - Hover/tap: subtle golden glow pulse
 
 **Portal (Fullscreen Overlay)**:
+
 - Slides up from bottom
 - Themed background animation (rain, stars, sunset, etc.)
 - Message centered, progressively appearing
@@ -222,24 +232,26 @@ interface PolaroidCardProps {
 - Close button (×) top right
 
 **JSON Schema**:
+
 ```typescript
 interface OpenWhenEntry {
-  slug: string;           // URL-safe ID
-  title: string;          // "Ouvre quand tu es triste"
-  emoji: string;          // "🌧️"
-  message: string;        // Emotional text
-  theme: ThemeType;       // "rain" | "stars" | "sunset" | "night" | "cozy" | "waves" | "aurora" | "golden"
-  photos?: string[];      // Optional photo paths
-  audio?: string;         // Optional audio path
+  slug: string; // URL-safe ID
+  title: string; // "Ouvre quand tu es triste"
+  emoji: string; // "🌧️"
+  message: string; // Emotional text
+  theme: ThemeType; // "rain" | "stars" | "sunset" | "night" | "cozy" | "waves" | "aurora" | "golden"
+  photos?: string[]; // Optional photo paths
+  audio?: string; // Optional audio path
   surprise?: {
-    type: 'hidden_message' | 'photo_reveal' | 'audio_clip';
-    trigger: 'tap_3_times' | 'long_press' | 'swipe_up';
+    type: "hidden_message" | "photo_reveal" | "audio_clip";
+    trigger: "tap_3_times" | "long_press" | "swipe_up";
     content: string;
   };
 }
 ```
 
 **8 Scenarios**:
+
 1. 🌧️ Quand tu es triste (theme: rain)
 2. 💭 Quand tu doutes de toi (theme: stars)
 3. 🌙 Quand tu n'arrives pas à dormir (theme: night)
@@ -266,10 +278,12 @@ interface OpenWhenEntry {
 **Purpose**: Sentimental map of important places.
 
 **Locations**:
+
 1. 💫 Lieu de la première rencontre IRL — 16 Mai 2026
 2. 🌹 Lieu du premier rendez-vous officiel
 
 **Design**:
+
 - Opens as fullscreen overlay from a map card in the scroll
 - Leaflet.js with dark/vintage tile theme
 - Custom heart/star markers (not default pins)
@@ -279,6 +293,7 @@ interface OpenWhenEntry {
 - Close button to return to scroll
 
 **Popup Content**:
+
 - Small photo
 - Date
 - Title ("Notre première rencontre")
@@ -312,6 +327,7 @@ interface OpenWhenEntry {
 ### 7. Music Player
 
 **Design**:
+
 - Fixed bottom bar
 - Glassmorphism (backdrop-blur, dark translucent)
 - Minimal: play/pause + volume
@@ -320,6 +336,7 @@ interface OpenWhenEntry {
 - Unobtrusive, elegant
 
 **Behavior**:
+
 - Autoplay blocked until first user interaction (browser policy)
 - After first tap/scroll anywhere → music fades in
 - Smooth volume transitions
@@ -328,20 +345,21 @@ interface OpenWhenEntry {
 
 ### 8. Easter Eggs & Hidden Secrets
 
-| Secret | Trigger | Effect |
-|--------|---------|--------|
-| Star whisper | Tap a specific star 5 times | Hidden love message appears |
-| Hidden letter | Long press on 3rd polaroid | Full letter reveals |
-| Konami-like code | Tap top-left corner 3×, bottom-right 2× | Unlocks secret page |
-| Floating symbol | Randomly appears anywhere | Tap = surprise message |
-| Time-based message | Checks system time | Different message at night vs day |
-| Scroll to bottom secret | Scroll past ending | Hidden "P.S." message |
+| Secret                  | Trigger                                 | Effect                            |
+| ----------------------- | --------------------------------------- | --------------------------------- |
+| Star whisper            | Tap a specific star 5 times             | Hidden love message appears       |
+| Hidden letter           | Long press on 3rd polaroid              | Full letter reveals               |
+| Konami-like code        | Tap top-left corner 3×, bottom-right 2× | Unlocks secret page               |
+| Floating symbol         | Randomly appears anywhere               | Tap = surprise message            |
+| Time-based message      | Checks system time                      | Different message at night vs day |
+| Scroll to bottom secret | Scroll past ending                      | Hidden "P.S." message             |
 
 ---
 
 ## Data Architecture
 
 ### File Structure
+
 ```
 src/
 ├── components/

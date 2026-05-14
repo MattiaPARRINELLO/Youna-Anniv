@@ -59,7 +59,10 @@ const UNLOCK_DATE = new Date(config.dates.unlock);
 
 export default function App() {
   const [introDone, setIntroDone] = useState(false);
-  const [unlocked, setUnlocked] = useState(() => new Date() >= UNLOCK_DATE);
+  const [unlocked, setUnlocked] = useState(() => {
+    if (import.meta.env.DEV) return true;
+    return new Date() >= UNLOCK_DATE;
+  });
 
   useEffect(() => {
     if (unlocked) return;

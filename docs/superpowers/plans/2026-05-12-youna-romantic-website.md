@@ -444,7 +444,7 @@ export const timelineEvents: TimelineEvent[] = [
   },
   {
     id: 'birthday',
-    date: '22 Mai 2026',
+    date: '23 Mai 2026',
     title: 'Ton anniversaire',
     subtitle: '\uD83C\uDF82',
     message: "Celebrer le jour ou le monde a eu la chance de te voir naitre. J'espere que cette annee sera la plus belle de toutes.",
