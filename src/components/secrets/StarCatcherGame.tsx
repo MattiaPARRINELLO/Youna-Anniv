@@ -29,17 +29,18 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
   const gameOver = useRef(false);
   const timerRef = useRef<ReturnType<typeof setInterval>>();
   const spawnRef = useRef<ReturnType<typeof setInterval>>();
+  const gameAreaRef = useRef<HTMLDivElement>(null);
 
   const spawnStar = useCallback(() => {
     if (gameOver.current) return;
     const id = nextId.current++;
     setStars(prev => {
-      if (prev.length >= MAX_STARS_ON_SCREEN) return prev;
+      if (prev.filter(s => !s.caught).length >= MAX_STARS_ON_SCREEN) return prev;
       return [...prev, {
         id,
         x: 10 + Math.random() * 80,
-        size: 34 + Math.random() * 22,
-        duration: 5 + Math.random() * 5,
+        size: 36 + Math.random() * 28,
+        duration: 6 + Math.random() * 5,
         caught: false,
       }];
     });
@@ -77,6 +78,17 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
     }
   }, [gameState, onComplete]);
 
+  useEffect(() => {
+    const caughtIds = stars.filter(s => s.caught).map(s => s.id);
+    if (caughtIds.length === 0) return;
+
+    const timer = setTimeout(() => {
+      setStars(prev => prev.filter(s => !caughtIds.includes(s.id)));
+    }, 600);
+
+    return () => clearTimeout(timer);
+  }, [stars.filter(s => s.caught).length]);
+
   const handleCatch = useCallback((starId: number) => {
     setStars(prev => prev.map(s =>
       s.id === starId && !s.caught ? { ...s, caught: true } : s
@@ -88,11 +100,9 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
     });
   }, []);
 
-  const handleAnimationComplete = useCallback((starId: number) => {
-    setStars(prev => prev.filter(s => s.id !== starId));
-  }, []);
-
   const progress = (timeLeft / (GAME_DURATION / 1000)) * 100;
+
+  const gameHeight = gameAreaRef.current?.clientHeight || 700;
 
   return (
     <motion.div
@@ -122,42 +132,40 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
       </div>
 
       <div
+        ref={gameAreaRef}
         className="flex-1 relative overflow-hidden"
         style={{ touchAction: 'none' }}
       >
-        <AnimatePresence>
-          {stars.map((star) => (
-            <motion.button
-              key={star.id}
-              className="absolute text-gold active:scale-150 transition-transform p-2"
-              style={{
-                left: `${star.x}%`,
-                top: -star.size,
-                fontSize: star.size,
-                filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.6))',
-                pointerEvents: star.caught ? 'none' : 'auto',
-              }}
-              initial={{ y: -star.size }}
-              animate={star.caught
-                ? { scale: [1, 1.5, 0], opacity: [1, 1, 0] }
-                : { y: `calc(100vh - ${star.size * 2}px)` }
-              }
-              exit={{ opacity: 0 }}
-              transition={
-                star.caught
-                  ? { duration: 0.4 }
-                  : { duration: star.duration, ease: 'linear' }
-              }
-              onPointerDown={(e) => {
-                e.preventDefault();
-                if (!star.caught) handleCatch(star.id);
-              }}
-              onAnimationComplete={() => handleAnimationComplete(star.id)}
-            >
-              ✦
-            </motion.button>
-          ))}
-        </AnimatePresence>
+        {stars.map((star) => (
+          <motion.button
+            key={star.id}
+            className="absolute text-gold active:scale-125 transition-transform p-3"
+            style={{
+              left: `${star.x}%`,
+              top: -star.size,
+              fontSize: star.size,
+              filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.6))',
+              pointerEvents: star.caught ? 'none' : 'auto',
+            }}
+            initial={{ y: 0 }}
+            animate={star.caught
+              ? { scale: [1, 1.5, 0], opacity: [1, 1, 0] }
+              : { y: gameHeight + star.size * 2 }
+            }
+            exit={{ opacity: 0 }}
+            transition={
+              star.caught
+                ? { duration: 0.4 }
+                : { duration: star.duration, ease: 'easeIn' }
+            }
+            onPointerDown={(e) => {
+              e.preventDefault();
+              if (!star.caught) handleCatch(star.id);
+            }}
+          >
+            ✦
+          </motion.button>
+        ))}
 
         {gameState !== 'playing' && (
           <motion.div
