@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSecrets } from '../../context/SecretContext';
 
@@ -6,22 +6,32 @@ export function GemCounter() {
   const { getFoundCount } = useSecrets();
   const found = getFoundCount();
   const [visible, setVisible] = useState(false);
-  const [lastFound, setLastFound] = useState(found);
+  const lastFoundRef = useRef(found);
 
   useEffect(() => {
-    if (found > lastFound) {
+    if (found > lastFoundRef.current) {
+      lastFoundRef.current = found;
       setVisible(true);
-      setLastFound(found);
       const hide = setTimeout(() => setVisible(false), 5000);
       return () => clearTimeout(hide);
     }
-  }, [found, lastFound]);
+  }, [found]);
 
   useEffect(() => {
-    const show = () => setVisible(true);
+    let hideTimer: ReturnType<typeof setTimeout>;
+    const show = () => {
+      setVisible(true);
+      hideTimer = setTimeout(() => setVisible(false), 5000);
+    };
+
     window.addEventListener('scroll', show, { once: true });
-    setTimeout(show, 8000);
-    return () => window.removeEventListener('scroll', show);
+    const showTimer = setTimeout(show, 8000);
+
+    return () => {
+      window.removeEventListener('scroll', show);
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
   }, []);
 
   return (
