@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const phases = [
@@ -13,23 +13,28 @@ interface ProgressiveRevealProps {
 
 export function ProgressiveReveal({ onComplete }: ProgressiveRevealProps) {
   const [currentPhase, setCurrentPhase] = useState(-1);
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
     const t1 = setTimeout(() => setCurrentPhase(0), 500);
     const t2 = setTimeout(() => setCurrentPhase(1), 5500);
     const t3 = setTimeout(() => setCurrentPhase(2), 11500);
     const t4 = setTimeout(() => onComplete(), 18000);
+    timersRef.current = [t1, t2, t3, t4];
 
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
+      timersRef.current.forEach(clearTimeout);
     };
   }, [onComplete]);
 
+  const handleSkip = useCallback(() => {
+    timersRef.current.forEach(clearTimeout);
+    setCurrentPhase(2);
+    setTimeout(onComplete, 2000);
+  }, [onComplete]);
+
   return (
-    <div className="relative z-10 text-center px-6">
+    <motion.div className="relative z-10 text-center px-6" onClick={handleSkip}>
       {phases.map((phase, phaseIdx) => (
         <AnimatePresence key={phase.id}>
           {currentPhase >= phaseIdx && (
@@ -57,6 +62,7 @@ export function ProgressiveReveal({ onComplete }: ProgressiveRevealProps) {
           )}
         </AnimatePresence>
       ))}
-    </div>
+      <p className="text-cream-dark/10 text-[10px] mt-8 font-body">tap pour continuer</p>
+    </motion.div>
   );
 }

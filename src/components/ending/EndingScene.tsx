@@ -14,7 +14,7 @@ import config from '../../config.json';
 
 export function EndingScene() {
   const [phase, setPhase] = useState<'waiting' | 'reveal' | 'bilan' | 'letter' | 'heart' | 'restart'>('waiting');
-  const [ref, inView] = useInView({ threshold: 0.5 });
+  const [ref, inView] = useInView({ threshold: 0.2 });
   const { getFoundCount, gem5, unlockGem } = useSecrets();
   const [showGame, setShowGame] = useState(false);
   const [showGem, setShowGem] = useState(false);
