@@ -73,8 +73,8 @@ export function SecretProvider({ children }: { children: ReactNode }) {
   }, [state]);
 
   const getFoundCount = useCallback(() => {
-    return [state.gem1, state.gem2, state.gem3, state.gem4, state.gem5].filter(Boolean).length;
-  }, [state]);
+    return state.totalGems;
+  }, [state.totalGems]);
 
   const getSessionDuration = useCallback(() => {
     return Math.floor((Date.now() - state.sessionStartTime) / 1000);
