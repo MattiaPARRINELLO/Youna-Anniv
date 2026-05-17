@@ -7,10 +7,16 @@ import { ProgressDots } from './ProgressDots';
 import { timelineEvents } from '../../data/timeline';
 import { TiltCard } from '../ui/TiltCard';
 import { FloatingElements } from '../ui/FloatingElements';
+import { useSecrets } from '../../context/SecretContext';
+import { GemAnimation } from '../secrets/GemAnimation';
 
 export function TimelineSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { gem1, unlockGem } = useSecrets();
+  const [secretTapOrder, setSecretTapOrder] = useState<number[]>([]);
+  const [showGem, setShowGem] = useState(false);
+  const SECRET_ORDER = [0, 1, 2, 3, 4];
 
   const handleScroll = useCallback(() => {
     const el = scrollRef.current;
@@ -19,6 +25,23 @@ export function TimelineSection() {
     const index = Math.round(el.scrollLeft / cardWidth);
     setActiveIndex(Math.min(index, timelineEvents.length - 1));
   }, []);
+
+  const handleCardTap = useCallback((index: number) => {
+    if (gem1) return;
+    setSecretTapOrder(prev => {
+      const nextExpected = prev.length;
+      if (index === SECRET_ORDER[nextExpected]) {
+        const next = [...prev, index];
+        if (next.length === 5) {
+          unlockGem(1);
+          setShowGem(true);
+          return [];
+        }
+        return next;
+      }
+      return [];
+    });
+  }, [gem1, unlockGem]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -40,11 +63,15 @@ export function TimelineSection() {
         className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-[7.5vw] w-full no-scrollbar"
         style={{ scrollSnapType: 'x mandatory' }}
       >
-        {timelineEvents.map((event) => (
+        {timelineEvents.map((event, index) => (
           <TiltCard key={event.id}>
             <TimelineCard
               event={event}
-              isActive={timelineEvents.indexOf(event) === activeIndex}
+              isActive={index === activeIndex}
+              isSecretActive={!gem1 && secretTapOrder.length > 0}
+              secretHighlightIndex={SECRET_ORDER[secretTapOrder.length]}
+              secretIndex={index}
+              onSecretTap={handleCardTap}
             />
           </TiltCard>
         ))}
@@ -58,6 +85,11 @@ export function TimelineSection() {
         </p>
       </FadeInOnScroll>
       <FloatingElements type="star" countDesktop={4} countMobile={2} />
+      <GemAnimation
+        trigger={showGem}
+        message="tu connais notre histoire par coeur..."
+        onComplete={() => setShowGem(false)}
+      />
     </SectionWrapper>
   );
 }
