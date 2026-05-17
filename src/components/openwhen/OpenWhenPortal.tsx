@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiArrowDown } from 'react-icons/fi';
 import { ThemeBackground } from './ThemeBackground';
@@ -48,12 +48,15 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
   const [surpriseRevealed, setSurpriseRevealed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
 
+  const gem3Ref = useRef(gem3);
+  gem3Ref.current = gem3;
+
   useEffect(() => {
-    markPortalVisited(entry.slug);
-    if (entry.secretLetter && !gem3) {
-      addRevealedLetter(entry.secretLetter);
+    if (!gem3Ref.current) {
+      markPortalVisited(entry.slug);
+      if (entry.secretLetter) addRevealedLetter(entry.secretLetter);
     }
-  }, [entry.slug, entry.secretLetter, markPortalVisited, addRevealedLetter, gem3]);
+  }, [entry.slug, entry.secretLetter, markPortalVisited, addRevealedLetter]);
 
   useEffect(() => {
     if (tapCount === 0) return;

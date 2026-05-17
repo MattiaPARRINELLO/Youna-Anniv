@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
 
@@ -11,6 +11,15 @@ interface SecretPasswordProps {
 export function SecretPassword({ onCorrect, onClose, passwordWord }: SecretPasswordProps) {
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
+  const correctTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const errorTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => {
+    return () => {
+      if (correctTimerRef.current) clearTimeout(correctTimerRef.current);
+      if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
+    };
+  }, []);
 
   const handleKey = useCallback((key: string) => {
     if (error) return;
@@ -18,10 +27,10 @@ export function SecretPassword({ onCorrect, onClose, passwordWord }: SecretPassw
     setInput(next);
     if (next.length === passwordWord.length) {
       if (next.toUpperCase() === passwordWord.toUpperCase()) {
-        setTimeout(onCorrect, 500);
+        correctTimerRef.current = setTimeout(onCorrect, 500);
       } else {
         setError(true);
-        setTimeout(() => { setInput(''); setError(false); }, 800);
+        errorTimerRef.current = setTimeout(() => { setInput(''); setError(false); }, 800);
       }
     }
   }, [input, error, passwordWord, onCorrect]);

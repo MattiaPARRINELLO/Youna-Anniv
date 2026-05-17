@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { FadeInOnScroll } from '../ui/FadeInOnScroll';
@@ -16,13 +16,14 @@ export function OpenWhenHub() {
   const [activeEntry, setActiveEntry] = useState<OpenWhenEntry | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showGem, setShowGem] = useState(false);
+  const passwordDismissed = useRef(false);
 
   useEffect(() => {
-    if (openWhenPortalsVisited.length >= 8 && !gem3 && !showPassword) {
+    if (openWhenPortalsVisited.length >= 8 && !gem3 && !passwordDismissed.current) {
       const timer = setTimeout(() => setShowPassword(true), 1500);
       return () => clearTimeout(timer);
     }
-  }, [openWhenPortalsVisited, gem3, showPassword]);
+  }, [openWhenPortalsVisited, gem3]);
 
   return (
     <SectionWrapper className="bg-gradient-to-b from-warm-dark-mid to-warm-dark py-20">
@@ -65,7 +66,7 @@ export function OpenWhenHub() {
               unlockGem(3);
               setShowGem(true);
             }}
-            onClose={() => setShowPassword(false)}
+            onClose={() => { setShowPassword(false); passwordDismissed.current = true; }}
           />
         )}
       </AnimatePresence>
