@@ -17,22 +17,26 @@ function renderMessage(text: string, secretLetter?: string) {
       return <div key={i} className="h-4" />;
     }
 
-    if (secretLetter && !letterUsed && line.includes(secretLetter)) {
-      const idx = line.indexOf(secretLetter);
-      letterUsed = true;
-      return (
-        <p key={i} className="font-body text-cream/80 text-sm sm:text-base leading-relaxed">
-          {line.slice(0, idx)}
-          <motion.span
-            className="text-gold font-bold"
-            animate={{ textShadow: ['0 0 8px rgba(212,175,55,0)', '0 0 12px rgba(212,175,55,0.6)', '0 0 8px rgba(212,175,55,0)'] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            {secretLetter}
-          </motion.span>
-          {line.slice(idx + 1)}
-        </p>
-      );
+    if (secretLetter && !letterUsed) {
+      const upperLine = line.toUpperCase();
+      const upperLetter = secretLetter.toUpperCase();
+      if (upperLine.includes(upperLetter)) {
+        const idx = upperLine.indexOf(upperLetter);
+        letterUsed = true;
+        return (
+          <p key={i} className="font-body text-cream/80 text-sm sm:text-base leading-relaxed">
+            {line.slice(0, idx)}
+            <motion.span
+              className="text-gold font-bold"
+              animate={{ textShadow: ['0 0 8px rgba(212,175,55,0)', '0 0 12px rgba(212,175,55,0.6)', '0 0 8px rgba(212,175,55,0)'] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              {line.slice(idx, idx + 1)}
+            </motion.span>
+            {line.slice(idx + 1)}
+          </p>
+        );
+      }
     }
 
     return (

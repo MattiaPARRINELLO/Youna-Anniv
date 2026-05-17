@@ -15,14 +15,14 @@ export function EasterEggs() {
   useEffect(() => {
     if (appeared.current || gem4) return;
     const hour = new Date().getHours();
-    if (hour >= 23 || hour < 6) {
+    if (hour >= 22 || hour < 6) {
       const outerTimer = setTimeout(() => {
         setShowTimeMessage(true);
         appeared.current = true;
         unlockGem(4);
         setShowGem(true);
         messageTimerRef.current = setTimeout(() => setShowTimeMessage(false), 5000);
-      }, 120000);
+      }, 30000);
       return () => {
         clearTimeout(outerTimer);
         if (messageTimerRef.current) clearTimeout(messageTimerRef.current);

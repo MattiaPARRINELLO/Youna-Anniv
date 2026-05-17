@@ -12,8 +12,10 @@ export function GemCounter() {
     if (found > lastFoundRef.current) {
       lastFoundRef.current = found;
       setVisible(true);
-      const hide = setTimeout(() => setVisible(false), 5000);
-      return () => clearTimeout(hide);
+      if (found === 0) {
+        const hide = setTimeout(() => setVisible(false), 5000);
+        return () => clearTimeout(hide);
+      }
     }
   }, [found]);
 
@@ -21,11 +23,13 @@ export function GemCounter() {
     let hideTimer: ReturnType<typeof setTimeout>;
     const show = () => {
       setVisible(true);
-      hideTimer = setTimeout(() => setVisible(false), 5000);
+      if (lastFoundRef.current === 0) {
+        hideTimer = setTimeout(() => setVisible(false), 5000);
+      }
     };
 
     window.addEventListener('scroll', show, { once: true });
-    const showTimer = setTimeout(show, 8000);
+    const showTimer = setTimeout(show, 4000);
 
     return () => {
       window.removeEventListener('scroll', show);

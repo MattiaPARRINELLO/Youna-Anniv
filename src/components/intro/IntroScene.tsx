@@ -7,6 +7,7 @@ import { PortalExplosion } from './PortalExplosion';
 import { ReactiveParticles } from '../ui/ReactiveParticles';
 import { FloatingElements } from '../ui/FloatingElements';
 import { useMusic } from '../../context/MusicContext';
+import config from '../../config.json';
 
 type ActState = 'heartbeat' | 'title' | 'portal' | 'exploding' | 'done';
 
@@ -14,6 +15,58 @@ const AUTO_DURATION = 12000;
 
 interface IntroSceneProps {
   onComplete: () => void;
+}
+
+function TypewriterOverlay({ act, exploding }: { act: ActState; exploding: boolean }) {
+  const [visibleLines, setVisibleLines] = useState(0);
+
+  useEffect(() => {
+    const lines = config.intro.lines;
+    const interval = setInterval(() => {
+      setVisibleLines(prev => {
+        if (prev >= lines.length) {
+          clearInterval(interval);
+          return prev;
+        }
+        return prev + 1;
+      });
+    }, 900);
+    return () => clearInterval(interval);
+  }, []);
+
+  const isVisible = act !== 'heartbeat' || visibleLines > 0;
+  const opacity = act === 'heartbeat' ? 0.25 : act === 'exploding' || exploding ? 1 : 0.55;
+
+  return (
+    <motion.div
+      className="absolute bottom-20 sm:bottom-32 left-0 right-0 z-20 flex flex-col items-center px-6"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isVisible ? opacity : 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="text-center space-y-1.5 max-w-xs mx-auto">
+        {config.intro.lines.map((line, i) => {
+          if (i >= visibleLines) return null;
+          const isSpecial = line.startsWith('-');
+          return (
+            <motion.p
+              key={i}
+              className={`${
+                isSpecial
+                  ? 'text-cream-dark/10 text-[10px] tracking-[0.3em]'
+                  : 'font-body text-cream/60 text-xs sm:text-sm'
+              }`}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.15, duration: 0.4 }}
+            >
+              {isSpecial ? '· · ·' : line}
+            </motion.p>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
 }
 
 export function IntroScene({ onComplete }: IntroSceneProps) {
@@ -56,6 +109,8 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
       <div className="absolute inset-0 vignette z-10 pointer-events-none" />
       <ReactiveParticles countDesktop={30} countMobile={15} />
       <FloatingElements type="mixed" countDesktop={4} countMobile={2} />
+
+      <TypewriterOverlay act={act} exploding={exploding} />
 
       <AnimatePresence mode="wait">
         {act === 'heartbeat' && (
