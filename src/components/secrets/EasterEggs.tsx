@@ -1,23 +1,30 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FloatingElements } from '../ui/FloatingElements';
+import { useSecrets } from '../../context/SecretContext';
+import { GemAnimation } from './GemAnimation';
+import config from '../../config.json';
 
 export function EasterEggs() {
   const [showTimeMessage, setShowTimeMessage] = useState(false);
+  const [showGem, setShowGem] = useState(false);
   const appeared = useRef(false);
+  const { gem4, unlockGem } = useSecrets();
 
   useEffect(() => {
-    if (appeared.current) return;
+    if (appeared.current || gem4) return;
     const hour = new Date().getHours();
-    if (hour >= 22 || hour < 5) {
+    if (hour >= 23 || hour < 6) {
       const timer = setTimeout(() => {
         setShowTimeMessage(true);
         appeared.current = true;
+        unlockGem(4);
+        setShowGem(true);
         setTimeout(() => setShowTimeMessage(false), 5000);
-      }, 30000);
+      }, 120000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [gem4, unlockGem]);
 
   return (
     <>
@@ -32,11 +39,17 @@ export function EasterEggs() {
             exit={{ opacity: 0, y: 10 }}
           >
             <p className="font-body text-cream/40 text-[11px] tracking-wide">
-              il est tard... tu devrais dormir, mon amour {'\uD83C\uDF19'}
+              il est tard... tu devrais dormir, mon amour 🌙
             </p>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <GemAnimation
+        trigger={showGem}
+        message={config.secrets.nightGemMessage}
+        onComplete={() => setShowGem(false)}
+      />
     </>
   );
 }
