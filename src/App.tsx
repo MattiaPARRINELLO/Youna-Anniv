@@ -86,6 +86,15 @@ export default function App() {
     };
   }, [introDone]);
 
+  useEffect(() => {
+    if (introDone) {
+      const timeout = setTimeout(() => {
+        window.scrollBy({ top: window.innerHeight * 0.9, behavior: 'smooth' });
+      }, 1000);
+      return () => clearTimeout(timeout);
+    }
+  }, [introDone]);
+
   return (
     <>
       {!unlocked ? (
@@ -102,46 +111,6 @@ export default function App() {
             <ScrollInteractionCatcher />
 
             <IntroScene onComplete={() => setIntroDone(true)} />
-
-            <AnimatePresence>
-              {introDone && (
-                <motion.div
-                  className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[90] flex flex-col items-center gap-1 pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                  onAnimationComplete={() => {
-                    const hideOnScroll = () => {
-                      const el = document.getElementById('scroll-hint');
-                      if (el) el.style.opacity = '0';
-                      window.removeEventListener('scroll', hideOnScroll);
-                    };
-                    window.addEventListener('scroll', hideOnScroll, { once: true });
-                  }}
-                >
-                  <div
-                    id="scroll-hint"
-                    className="transition-opacity duration-500 flex flex-col items-center gap-1"
-                  >
-                    <motion.span
-                      className="text-cream-dark/20 text-[10px] font-body tracking-wider"
-                      animate={{ opacity: [0.3, 0.6, 0.3] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      glisse
-                    </motion.span>
-                    <motion.span
-                      className="text-cream-dark/20 text-sm"
-                      animate={{ y: [0, 6, 0], opacity: [0.3, 0.6, 0.3] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      ↓
-                    </motion.span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
 
             <AnimatePresence>
               {introDone && (
