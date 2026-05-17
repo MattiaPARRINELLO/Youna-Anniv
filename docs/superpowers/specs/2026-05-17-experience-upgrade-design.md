@@ -248,7 +248,19 @@ src/
 
 ---
 
-## 5. Contraintes et Risques
+## 5. Liberte Technique
+
+**Aucune limitation sur les dependances.** On peut utiliser :
+- **Three.js / React Three Fiber** pour des effets 3D, particules WebGL, scenes immersives
+- **GSAP** pour des animations avancees et sequences complexes
+- **Canvas 2D** pour des effects particulaires ou dessins personnalises
+- Toute autre librairie qui ameliore l'experience
+
+Le seul critere : que ca reste fluide sur mobile (60fps cible, 30fps acceptable sur vieux telephones).
+
+---
+
+## 6. Contraintes et Risques
 
 | Risque | Mitigation |
 |--------|-----------|
