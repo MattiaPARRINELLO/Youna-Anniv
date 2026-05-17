@@ -8,6 +8,11 @@ interface PolaroidCardProps {
   rotation: number;
   hiddenMessage?: string;
   tapeStyle: 'top' | 'side' | 'both';
+  hasHotspot?: boolean;
+  hotspotX?: number;
+  hotspotY?: number;
+  onHotspotFound?: () => void;
+  hotspotFound?: boolean;
 }
 
 export function PolaroidCard({
@@ -17,15 +22,45 @@ export function PolaroidCard({
   rotation,
   hiddenMessage,
   tapeStyle,
+  hasHotspot,
+  hotspotX,
+  hotspotY,
+  onHotspotFound,
+  hotspotFound,
 }: PolaroidCardProps) {
   const [showHidden, setShowHidden] = useState(false);
   const [longPressTimer, setLongPressTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleTouchStart = useCallback(() => {
+  const handlePointerDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+    if (hasHotspot && !hotspotFound) {
+      const imgEl = (e.currentTarget as HTMLElement).querySelector('.aspect-square');
+      if (imgEl) {
+        const rect = imgEl.getBoundingClientRect();
+        let clientX: number, clientY: number;
+        if ('touches' in e) {
+          clientX = e.touches[0].clientX;
+          clientY = e.touches[0].clientY;
+        } else {
+          clientX = e.clientX;
+          clientY = e.clientY;
+        }
+        const xPercent = ((clientX - rect.left) / rect.width) * 100;
+        const yPercent = ((clientY - rect.top) / rect.height) * 100;
+        if (
+          hotspotX !== undefined && hotspotY !== undefined &&
+          Math.abs(xPercent - hotspotX) < 15 &&
+          Math.abs(yPercent - hotspotY) < 15
+        ) {
+          onHotspotFound?.();
+          return;
+        }
+      }
+    }
+
     if (!hiddenMessage) return;
     const timer = setTimeout(() => setShowHidden(true), 600);
     setLongPressTimer(timer);
-  }, [hiddenMessage]);
+  }, [hasHotspot, hotspotFound, hotspotX, hotspotY, onHotspotFound, hiddenMessage]);
 
   const handleTouchEnd = useCallback(() => {
     if (longPressTimer) {
@@ -40,10 +75,10 @@ export function PolaroidCard({
       style={{ transform: `rotate(${rotation}deg)` }}
       whileHover={{ scale: 1.02, rotate: rotation * 0.5, zIndex: 10 }}
       transition={{ duration: 0.3 }}
-      onTouchStart={handleTouchStart}
+      onTouchStart={handlePointerDown}
       onTouchEnd={handleTouchEnd}
       onTouchMove={handleTouchEnd}
-      onMouseDown={handleTouchStart}
+      onMouseDown={handlePointerDown}
       onMouseUp={handleTouchEnd}
       onMouseLeave={handleTouchEnd}
     >

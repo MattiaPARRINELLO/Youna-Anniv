@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { FadeInOnScroll } from '../ui/FadeInOnScroll';
@@ -6,9 +6,22 @@ import { PolaroidCard } from './PolaroidCard';
 import { polaroids } from '../../data/polaroids';
 import { TiltCard } from '../ui/TiltCard';
 import { FloatingElements } from '../ui/FloatingElements';
+import config from '../../config.json';
+import { useSecrets } from '../../context/SecretContext';
+import { GemAnimation } from '../secrets/GemAnimation';
 
 export function MemoryGallery() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { gem2, unlockGem } = useSecrets();
+  const [showGem, setShowGem] = useState(false);
+  const hotspotIndex = config.secrets.hotspotImageIndex;
+
+  const handleHotspotFound = useCallback(() => {
+    if (!gem2) {
+      unlockGem(2);
+      setShowGem(true);
+    }
+  }, [gem2, unlockGem]);
 
   return (
     <SectionWrapper className="bg-gradient-to-b from-warm-dark to-warm-dark-mid py-20">
@@ -26,7 +39,7 @@ export function MemoryGallery() {
           className="flex gap-8 overflow-x-auto snap-x snap-mandatory px-8 py-12 no-scrollbar items-center"
           style={{ scrollSnapType: 'x mandatory' }}
         >
-          {polaroids.map((p) => (
+          {polaroids.map((p, index) => (
             <TiltCard key={p.id}>
               <div className="flex-shrink-0 snap-center py-4 px-2">
                 <PolaroidCard
@@ -36,6 +49,11 @@ export function MemoryGallery() {
                   rotation={p.rotation}
                   hiddenMessage={p.hiddenMessage}
                   tapeStyle={p.tapeStyle}
+                  hasHotspot={index === hotspotIndex && !gem2}
+                  hotspotX={config.secrets.hotspotX}
+                  hotspotY={config.secrets.hotspotY}
+                  onHotspotFound={handleHotspotFound}
+                  hotspotFound={gem2}
                 />
               </div>
             </TiltCard>
@@ -45,6 +63,12 @@ export function MemoryGallery() {
 
       <p className="text-cream-dark/15 text-xs mt-4 font-body">&larr; glisse pour decouvrir &rarr;</p>
       <FloatingElements type="butterfly" countDesktop={5} countMobile={2} />
+
+      <GemAnimation
+        trigger={showGem}
+        message={config.secrets.hotspotMessage}
+        onComplete={() => setShowGem(false)}
+      />
     </SectionWrapper>
   );
 }
