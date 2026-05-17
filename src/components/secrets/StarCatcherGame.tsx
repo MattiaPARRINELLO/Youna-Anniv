@@ -40,7 +40,7 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
         id,
         x: 10 + Math.random() * 80,
         size: 36 + Math.random() * 28,
-        duration: 6 + Math.random() * 5,
+        duration: 4 + Math.random() * 3,
         caught: false,
       }];
     });
@@ -156,7 +156,7 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
             transition={
               star.caught
                 ? { duration: 0.4 }
-                : { duration: star.duration, ease: 'easeIn' }
+                : { duration: star.duration, ease: 'linear' }
             }
             onPointerDown={(e) => {
               e.preventDefault();
