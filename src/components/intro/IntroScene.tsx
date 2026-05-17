@@ -1,12 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HeartbeatGlow } from './HeartbeatGlow';
+import { LightSweep } from './LightSweep';
+import { PortalButton } from './PortalButton';
+import { PortalExplosion } from './PortalExplosion';
 import { ReactiveParticles } from '../ui/ReactiveParticles';
 import { FloatingElements } from '../ui/FloatingElements';
-import { TypewriterText } from './TypewriterText';
 import { useMusic } from '../../context/MusicContext';
 import config from '../../config.json';
 
-const INTRO_DURATION = 10000;
+type ActState = 'heartbeat' | 'title' | 'portal' | 'exploding' | 'done';
+
+const AUTO_DURATION = 12000;
 
 interface IntroSceneProps {
   onComplete: () => void;
@@ -14,65 +19,82 @@ interface IntroSceneProps {
 
 export function IntroScene({ onComplete }: IntroSceneProps) {
   const { markInteraction } = useMusic();
-  const [canScroll, setCanScroll] = useState(false);
+  const [act, setAct] = useState<ActState>('heartbeat');
+  const [exploding, setExploding] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCanScroll(true);
-      onComplete();
-    }, INTRO_DURATION);
-    return () => clearTimeout(timer);
+    const t1 = setTimeout(() => setAct('title'), 2500);
+    const t2 = setTimeout(() => setAct('portal'), 6500);
+    const t3 = setTimeout(() => {
+      markInteraction();
+      setExploding(true);
+      setAct('exploding');
+    }, AUTO_DURATION);
+
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, [markInteraction]);
+
+  const handlePortalClick = useCallback(() => {
+    markInteraction();
+    if (act !== 'exploding' && act !== 'done') {
+      setExploding(true);
+      setAct('exploding');
+    }
+  }, [markInteraction, act]);
+
+  const handleExplosionComplete = useCallback(() => {
+    setAct('done');
+    setTimeout(onComplete, 600);
   }, [onComplete]);
 
-  const handleInteraction = useCallback(() => {
-    markInteraction();
-    if (!canScroll) {
-      setCanScroll(true);
-      onComplete();
-    }
-  }, [markInteraction, canScroll, onComplete]);
-
   return (
-    <section
-      className="relative min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-b from-warm-darkest via-warm-dark to-warm-dark-mid overflow-hidden"
-      onClick={handleInteraction}
-    >
+    <section className="relative min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-b from-[#0a0a0f] via-[#14101E] to-warm-dark-mid overflow-hidden">
       <div className="absolute inset-0 vignette z-10 pointer-events-none" />
-      <ReactiveParticles countDesktop={50} countMobile={20} />
+      <ReactiveParticles countDesktop={30} countMobile={15} />
       <FloatingElements type="mixed" countDesktop={4} countMobile={2} />
 
-      <motion.p
-        className="text-gold/40 text-xs tracking-[0.3em] uppercase mb-6 font-body"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 2 }}
-      >
-        {config.intro.label}
-      </motion.p>
-      <TypewriterText lines={config.intro.lines} />
+      <AnimatePresence mode="wait">
+        {act === 'heartbeat' && (
+          <motion.div key="heartbeat" exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
+            <HeartbeatGlow />
+          </motion.div>
+        )}
 
-      <motion.div
-        className="absolute bottom-24 flex flex-col items-center gap-3"
-        animate={{ opacity: [0.3, 0.7, 0.3] }}
-        transition={{ duration: 3, delay: 2, repeat: Infinity }}
-      >
-        <motion.div
-          className="w-12 h-12 rounded-full glass flex items-center justify-center"
-          whileTap={{ scale: 1.3 }}
-          whileHover={{ scale: 1.05 }}
-        >
-          <motion.span
-            className="text-gold text-xl"
-            animate={{ scale: [1, 1.15, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
+        {act === 'title' && (
+          <motion.div
+            key="title"
+            className="flex flex-col items-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            {'\u2728'}
-          </motion.span>
-        </motion.div>
-        <span className="text-cream-dark/40 text-[10px] font-body tracking-widest uppercase">
-          touche l&apos;ecran
-        </span>
-      </motion.div>
+            <LightSweep delay={0.2}>
+              <p className="font-serif italic text-gold text-4xl sm:text-5xl md:text-6xl tracking-[0.15em]"
+                style={{ textShadow: '0 0 40px rgba(212,175,55,0.3)' }}>
+                pour toi
+              </p>
+            </LightSweep>
+          </motion.div>
+        )}
+
+        {act === 'portal' && (
+          <motion.div
+            key="portal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <PortalButton onClick={handlePortalClick} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <PortalExplosion
+        active={exploding}
+        onComplete={handleExplosionComplete}
+      />
     </section>
   );
 }
