@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useSecrets } from '../../context/SecretContext';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
 interface StatsBilanProps {
   onComplete: () => void;
@@ -8,7 +8,8 @@ interface StatsBilanProps {
 
 export function StatsBilan({ onComplete }: StatsBilanProps) {
   const { getFoundCount, gem4, getSessionDuration } = useSecrets();
-  const hasCompleted = useRef(false);
+  const calledRef = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
   const foundCount = getFoundCount();
   const duration = getSessionDuration();
   const minutes = Math.floor(duration / 60);
@@ -24,15 +25,25 @@ export function StatsBilan({ onComplete }: StatsBilanProps) {
     { icon: '\uD83C\uDF19', text: 'Tu es venue un soir, tard...', show: gem4 },
   ].filter(s => s.show);
 
-  const visibleStats = stats.length;
+  const triggerComplete = useCallback(() => {
+    if (calledRef.current) return;
+    calledRef.current = true;
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(onComplete, 1500);
+  }, [onComplete]);
+
+  const handleLastComplete = () => {
+    triggerComplete();
+  };
 
   useEffect(() => {
-    if (hasCompleted.current || visibleStats === 0) return;
-    hasCompleted.current = true;
-    const totalDelay = (0.3 + (visibleStats - 1) * 0.5 + 0.5) * 1000;
-    const timer = setTimeout(onComplete, totalDelay);
-    return () => clearTimeout(timer);
-  }, [visibleStats, onComplete]);
+    const maxDelay = (0.3 + (stats.length - 1) * 0.5 + 0.5) * 1000 + 3000;
+    const fallback = setTimeout(triggerComplete, maxDelay);
+    return () => {
+      clearTimeout(fallback);
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [triggerComplete, stats.length]);
 
   return (
     <motion.div
@@ -42,18 +53,22 @@ export function StatsBilan({ onComplete }: StatsBilanProps) {
       exit={{ opacity: 0 }}
     >
       <div className="flex flex-col items-center gap-4">
-        {stats.map((stat, i) => (
-          <motion.div
-            key={i}
-            className="glass rounded-2xl px-6 py-3 flex items-center gap-3"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + i * 0.5, duration: 0.5 }}
-          >
-            <span className="text-xl">{stat.icon}</span>
-            <span className="font-body text-cream/60 text-sm">{stat.text}</span>
-          </motion.div>
-        ))}
+        {stats.map((stat, i) => {
+          const isLast = i === stats.length - 1;
+          return (
+            <motion.div
+              key={i}
+              className="glass rounded-2xl px-6 py-3 flex items-center gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + i * 0.5, duration: 0.5 }}
+              onAnimationComplete={isLast ? handleLastComplete : undefined}
+            >
+              <span className="text-xl">{stat.icon}</span>
+              <span className="font-body text-cream/60 text-sm">{stat.text}</span>
+            </motion.div>
+          );
+        })}
       </div>
     </motion.div>
   );
