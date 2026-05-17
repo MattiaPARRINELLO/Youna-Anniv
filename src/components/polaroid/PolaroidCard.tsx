@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface PolaroidCardProps {
@@ -30,34 +30,34 @@ export function PolaroidCard({
 }: PolaroidCardProps) {
   const [showHidden, setShowHidden] = useState(false);
   const [longPressTimer, setLongPressTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
 
   const handlePointerDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     if (hasHotspot && !hotspotFound) {
-      const imgEl = (e.currentTarget as HTMLElement).querySelector('.aspect-square');
-      if (imgEl) {
-        const rect = imgEl.getBoundingClientRect();
-        let clientX: number, clientY: number;
-        if ('touches' in e) {
-          clientX = e.touches[0].clientX;
-          clientY = e.touches[0].clientY;
-        } else {
-          clientX = e.clientX;
-          clientY = e.clientY;
-        }
-        const xPercent = ((clientX - rect.left) / rect.width) * 100;
-        const yPercent = ((clientY - rect.top) / rect.height) * 100;
-        if (
-          hotspotX !== undefined && hotspotY !== undefined &&
-          Math.abs(xPercent - hotspotX) < 15 &&
-          Math.abs(yPercent - hotspotY) < 15
-        ) {
-          onHotspotFound?.();
-          return;
-        }
+      if (!imageRef.current) return;
+      const rect = imageRef.current.getBoundingClientRect();
+      let clientX: number, clientY: number;
+      if ('touches' in e) {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+      const xPercent = ((clientX - rect.left) / rect.width) * 100;
+      const yPercent = ((clientY - rect.top) / rect.height) * 100;
+      if (
+        hotspotX !== undefined && hotspotY !== undefined &&
+        Math.abs(xPercent - hotspotX) < 15 &&
+        Math.abs(yPercent - hotspotY) < 15
+      ) {
+        onHotspotFound?.();
+        return;
       }
     }
 
     if (!hiddenMessage) return;
+    if (longPressTimer) clearTimeout(longPressTimer);
     const timer = setTimeout(() => setShowHidden(true), 600);
     setLongPressTimer(timer);
   }, [hasHotspot, hotspotFound, hotspotX, hotspotY, onHotspotFound, hiddenMessage]);
@@ -90,7 +90,7 @@ export function PolaroidCard({
           <div className="absolute -top-2 right-2 w-4 h-12 tape z-10" />
         )}
 
-        <div className="relative aspect-square w-44 sm:w-56 overflow-hidden bg-cream-dark flex items-center justify-center">
+        <div ref={imageRef} className="relative aspect-square w-44 sm:w-56 overflow-hidden bg-cream-dark flex items-center justify-center">
           <img
             src={image}
             alt={caption}
