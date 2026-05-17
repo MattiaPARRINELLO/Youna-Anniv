@@ -15,6 +15,7 @@ import { OpenWhenHub } from "./components/openwhen/OpenWhenHub";
 import { CounterSection } from "./components/counter/CounterSection";
 import { MusicPlayer } from "./components/music/MusicPlayer";
 import { EasterEggs } from "./components/secrets/EasterEggs";
+import { GemCounter } from "./components/secrets/GemCounter";
 import { LockScreen } from "./components/lock/LockScreen";
 import config from "./config.json";
 
@@ -128,6 +129,7 @@ export default function App() {
             </AnimatePresence>
 
             <MusicPlayer />
+            <GemCounter />
             <EasterEggs />
           </div>
         </SecretProvider>
