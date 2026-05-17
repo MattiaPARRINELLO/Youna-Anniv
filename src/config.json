@@ -29,6 +29,13 @@
     "label": "notre chanson",
     "src": "/music/your-song.mp3"
   },
+  "sfx": {
+    "portalExplosion": "/sounds/portal-explosion.mp3",
+    "gemFound": "/sounds/gem-found.mp3",
+    "typewriter": "/sounds/typewriter.mp3",
+    "penWriting": "/sounds/pen-writing.mp3",
+    "starCatch": "/sounds/star-catch.mp3"
+  },
   "timeline": [
     {
       "id": "first-meeting",

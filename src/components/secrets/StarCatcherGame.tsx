@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
+import { useSfx } from '../../hooks/useSfx';
 
 interface Star {
   id: number;
@@ -89,7 +90,10 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
     return () => clearTimeout(timer);
   }, [stars.filter(s => s.caught).length]);
 
+  const { playStarCatch } = useSfx();
+
   const handleCatch = useCallback((starId: number) => {
+    playStarCatch();
     setStars(prev => prev.map(s =>
       s.id === starId && !s.caught ? { ...s, caught: true } : s
     ));
@@ -98,7 +102,7 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
       scoreRef.current = next;
       return next;
     });
-  }, []);
+  }, [playStarCatch]);
 
   const progress = (timeLeft / (GAME_DURATION / 1000)) * 100;
 

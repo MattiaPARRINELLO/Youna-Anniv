@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { motion, useAnimationControls, type Variants } from 'framer-motion';
+import { useSfx } from '../../hooks/useSfx';
 
 interface PortalExplosionProps {
   active: boolean;
@@ -27,6 +28,7 @@ const CREAM = 'rgba(255,248,236,';
 export function PortalExplosion({ active, onComplete }: PortalExplosionProps) {
   const controls = useAnimationControls();
   const explodedRef = useRef(false);
+  const { playExplosion } = useSfx();
 
   const particles = useMemo<Particle[]>(() => {
     const items: Particle[] = [];
@@ -95,6 +97,7 @@ export function PortalExplosion({ active, onComplete }: PortalExplosionProps) {
   useEffect(() => {
     if (!active || explodedRef.current) return;
     explodedRef.current = true;
+    playExplosion();
     let timeoutId: ReturnType<typeof setTimeout>;
     controls.start('explode').then(() => {
       timeoutId = setTimeout(onComplete, 600);

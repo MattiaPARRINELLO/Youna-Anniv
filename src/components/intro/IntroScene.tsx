@@ -7,6 +7,7 @@ import { PortalExplosion } from './PortalExplosion';
 import { ReactiveParticles } from '../ui/ReactiveParticles';
 import { FloatingElements } from '../ui/FloatingElements';
 import { useMusic } from '../../context/MusicContext';
+import { useSfx } from '../../hooks/useSfx';
 import config from '../../config.json';
 
 type ActState = 'typewriter' | 'heartbeat' | 'title' | 'portal' | 'exploding' | 'done';
@@ -21,6 +22,7 @@ interface IntroSceneProps {
 
 export function IntroScene({ onComplete }: IntroSceneProps) {
   const { markInteraction } = useMusic();
+  const { playTypewriter, playExplosion } = useSfx();
   const [act, setAct] = useState<ActState>('typewriter');
   const [exploding, setExploding] = useState(false);
   const [visibleLines, setVisibleLines] = useState(0);
@@ -38,6 +40,7 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
       if (cancelled) return;
       const next = current + 1;
       setVisibleLines(next);
+      playTypewriter();
 
       if (next >= config.intro.lines.length) {
         lineTimerRef.current = setTimeout(() => {
