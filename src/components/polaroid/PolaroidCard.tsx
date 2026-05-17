@@ -60,7 +60,7 @@ export function PolaroidCard({
     if (longPressTimer) clearTimeout(longPressTimer);
     const timer = setTimeout(() => setShowHidden(true), 600);
     setLongPressTimer(timer);
-  }, [hasHotspot, hotspotFound, hotspotX, hotspotY, onHotspotFound, hiddenMessage]);
+  }, [hasHotspot, hotspotFound, hotspotX, hotspotY, onHotspotFound, hiddenMessage, longPressTimer]);
 
   const handleTouchEnd = useCallback(() => {
     if (longPressTimer) {
