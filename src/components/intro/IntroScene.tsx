@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HeartbeatGlow } from './HeartbeatGlow';
 import { LightSweep } from './LightSweep';
@@ -7,7 +7,6 @@ import { PortalExplosion } from './PortalExplosion';
 import { ReactiveParticles } from '../ui/ReactiveParticles';
 import { FloatingElements } from '../ui/FloatingElements';
 import { useMusic } from '../../context/MusicContext';
-import config from '../../config.json';
 
 type ActState = 'heartbeat' | 'title' | 'portal' | 'exploding' | 'done';
 
@@ -21,6 +20,7 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
   const { markInteraction } = useMusic();
   const [act, setAct] = useState<ActState>('heartbeat');
   const [exploding, setExploding] = useState(false);
+  const completeTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     const t1 = setTimeout(() => setAct('title'), 2500);
@@ -44,8 +44,12 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
 
   const handleExplosionComplete = useCallback(() => {
     setAct('done');
-    setTimeout(onComplete, 600);
+    completeTimerRef.current = setTimeout(onComplete, 600);
   }, [onComplete]);
+
+  useEffect(() => {
+    return () => clearTimeout(completeTimerRef.current);
+  }, []);
 
   return (
     <section className="relative min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-b from-[#0a0a0f] via-[#14101E] to-warm-dark-mid overflow-hidden">
