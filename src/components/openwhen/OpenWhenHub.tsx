@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { FadeInOnScroll } from '../ui/FadeInOnScroll';
@@ -6,9 +6,23 @@ import { PortalCard } from './PortalCard';
 import { OpenWhenPortal } from './OpenWhenPortal';
 import { openWhenEntries, type OpenWhenEntry } from '../../data/openWhen';
 import { FloatingElements } from '../ui/FloatingElements';
+import { useSecrets } from '../../context/SecretContext';
+import { GemAnimation } from '../secrets/GemAnimation';
+import { SecretPassword } from '../secrets/SecretPassword';
+import config from '../../config.json';
 
 export function OpenWhenHub() {
+  const { openWhenPortalsVisited, gem3, unlockGem } = useSecrets();
   const [activeEntry, setActiveEntry] = useState<OpenWhenEntry | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showGem, setShowGem] = useState(false);
+
+  useEffect(() => {
+    if (openWhenPortalsVisited.length >= 8 && !gem3 && !showPassword) {
+      const timer = setTimeout(() => setShowPassword(true), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [openWhenPortalsVisited, gem3, showPassword]);
 
   return (
     <SectionWrapper className="bg-gradient-to-b from-warm-dark-mid to-warm-dark py-20">
@@ -41,6 +55,26 @@ export function OpenWhenHub() {
         )}
       </AnimatePresence>
       <FloatingElements type="mixed" countDesktop={4} countMobile={2} />
+
+      <AnimatePresence>
+        {showPassword && (
+          <SecretPassword
+            passwordWord={config.secrets.passwordWord}
+            onCorrect={() => {
+              setShowPassword(false);
+              unlockGem(3);
+              setShowGem(true);
+            }}
+            onClose={() => setShowPassword(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      <GemAnimation
+        trigger={showGem}
+        message="chaque lettre etait cachee pour toi..."
+        onComplete={() => setShowGem(false)}
+      />
     </SectionWrapper>
   );
 }

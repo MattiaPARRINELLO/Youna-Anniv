@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiArrowDown } from 'react-icons/fi';
 import { ThemeBackground } from './ThemeBackground';
+import { useSecrets } from '../../context/SecretContext';
 import type { OpenWhenEntry } from '../../data/openWhen';
 
 interface OpenWhenPortalProps {
@@ -9,11 +10,31 @@ interface OpenWhenPortalProps {
   onClose: () => void;
 }
 
-function renderMessage(text: string) {
+function renderMessage(text: string, secretLetter?: string) {
+  let letterUsed = false;
   return text.split('\n').map((line, i) => {
     if (line === '') {
       return <div key={i} className="h-4" />;
     }
+
+    if (secretLetter && !letterUsed && line.includes(secretLetter)) {
+      const idx = line.indexOf(secretLetter);
+      letterUsed = true;
+      return (
+        <p key={i} className="font-body text-cream/80 text-sm sm:text-base leading-relaxed">
+          {line.slice(0, idx)}
+          <motion.span
+            className="text-gold font-bold"
+            animate={{ textShadow: ['0 0 8px rgba(212,175,55,0)', '0 0 12px rgba(212,175,55,0.6)', '0 0 8px rgba(212,175,55,0)'] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            {secretLetter}
+          </motion.span>
+          {line.slice(idx + 1)}
+        </p>
+      );
+    }
+
     return (
       <p key={i} className="font-body text-cream/80 text-sm sm:text-base leading-relaxed">
         {line}
@@ -23,8 +44,16 @@ function renderMessage(text: string) {
 }
 
 export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
+  const { markPortalVisited, addRevealedLetter, gem3 } = useSecrets();
   const [surpriseRevealed, setSurpriseRevealed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
+
+  useEffect(() => {
+    markPortalVisited(entry.slug);
+    if (entry.secretLetter && !gem3) {
+      addRevealedLetter(entry.secretLetter);
+    }
+  }, [entry.slug, entry.secretLetter, markPortalVisited, addRevealedLetter, gem3]);
 
   useEffect(() => {
     if (tapCount === 0) return;
@@ -77,7 +106,7 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 1 }}
           >
-            {renderMessage(entry.message)}
+            {renderMessage(entry.message, entry.secretLetter)}
           </motion.div>
 
           <AnimatePresence>

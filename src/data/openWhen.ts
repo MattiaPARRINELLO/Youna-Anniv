@@ -22,6 +22,7 @@ export interface OpenWhenEntry {
   title: string;
   message: string;
   theme: OpenWhenTheme;
+  secretLetter?: string;
   photos?: string[];
   audio?: string;
   surprise?: OpenWhenSurprise;
