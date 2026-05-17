@@ -112,10 +112,12 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <motion.div layout className="text-center space-y-2 max-w-xs mx-auto">
+            <motion.div layout className="text-center space-y-1.5 max-w-xs mx-auto">
               {lines.map((line, i) => {
                 if (i >= visibleLines) return null;
                 const isSpecial = line.startsWith('-');
+                const distanceFromLatest = visibleLines - 1 - i;
+                const fadeOpacity = Math.max(0.35, 1 - distanceFromLatest * 0.22);
                 return (
                   <motion.p
                     layout
@@ -125,12 +127,13 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
                         ? 'text-cream-dark/15 text-[11px] tracking-[0.3em]'
                         : 'font-body text-cream/70 text-sm sm:text-base leading-relaxed'
                     }`}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 12, scale: 0.97 }}
+                    animate={{ opacity: fadeOpacity, y: 0, scale: 1 }}
                     transition={{
                       opacity: { duration: 0.4 },
                       y: { duration: 0.4 },
-                      layout: { type: 'spring', stiffness: 300, damping: 30 },
+                      scale: { duration: 0.4 },
+                      layout: { type: 'spring', stiffness: 200, damping: 35 },
                     }}
                   >
                     {isSpecial ? '· · ·' : line}
