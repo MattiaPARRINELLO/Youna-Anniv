@@ -79,16 +79,22 @@
       "date": "Février 2026",
       "rotation": -2,
       "hiddenMessage": "Je rentrai de boite. J'avais peur de m'endormir. Tu m'as appelé. Je ne savais pas encore que ce trajet allait changer quelque chose en moi.",
-      "tapeStyle": "top"
+      "tapeStyle": "top",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-2",
-      "image": "/photos/polaroids/memory-2.png",
-      "caption": "~ le trajet ~",
-      "date": "Février 2026",
+      "image": "/photos/polaroids/memory-2.jpg",
+      "caption": "~ ton rire ~",
+      "date": "2026",
       "rotation": 3,
-      "hiddenMessage": "On a parlé tout le trajet. Des photos dans mon sac, la nuit dehors, et ta voix. Je me souviens de tout.",
-      "tapeStyle": "both"
+      "hiddenMessage": "Il y a quelque chose de particulièrement doux dans ton rire. C'est un mélange de légèreté et de sincérité qui rend tout plus lumineux.",
+      "tapeStyle": "both",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-3",
@@ -97,7 +103,10 @@
       "date": "2026",
       "rotation": -1,
       "hiddenMessage": "On construit une maison dans un monde de pixels. Mais ce qu'on construit vraiment, c'est autre chose. C'est nous.",
-      "tapeStyle": "side"
+      "tapeStyle": "side",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-4",
@@ -106,7 +115,10 @@
       "date": "2026",
       "rotation": 2,
       "hiddenMessage": "Tu poses un bloc. Je pose un bloc. On ne se dit rien pendant cinq minutes et c'est parfait.",
-      "tapeStyle": "top"
+      "tapeStyle": "top",
+      "hasHotspot": true,
+      "hotspotX": 45,
+      "hotspotY": 30
     },
     {
       "id": "memory-5",
@@ -115,7 +127,10 @@
       "date": "2026",
       "rotation": -3,
       "hiddenMessage": "On ne s'est jamais dit qu'on le ferait. Ça s'est juste passé. Moi éveillé, à attendre que tu sois rentrée. Et toi éveillée, à attendre que je sois rentré. Certaines choses n'ont pas besoin d'être dites pour être réelles.",
-      "tapeStyle": "both"
+      "tapeStyle": "both",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-6",
@@ -124,7 +139,10 @@
       "date": "2026",
       "rotation": 1,
       "hiddenMessage": "On sait plus vraiment dormir sans s'appeler. Je sais pas quand c'est devenu une nécessité. Je sais juste que ça l'est.",
-      "tapeStyle": "side"
+      "tapeStyle": "side",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-7",
@@ -133,7 +151,10 @@
       "date": "2026",
       "rotation": -2,
       "hiddenMessage": "Il y a quelque chose de particulièrement doux dans ta voix quand tu t'endors. Comme si le monde devenait plus calme.",
-      "tapeStyle": "top"
+      "tapeStyle": "top",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-8",
@@ -142,7 +163,10 @@
       "date": "2026",
       "rotation": 2,
       "hiddenMessage": "Des kilomètres entre nous. Et pourtant, chaque soir, la même routine. Ta voix. Mon silence. Ensemble quand même.",
-      "tapeStyle": "both"
+      "tapeStyle": "both",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-9",
@@ -151,7 +175,10 @@
       "date": "Octobre 2025",
       "rotation": -1,
       "hiddenMessage": "Tu étais dans cette salle. Moi aussi. On ne se connaissait pas encore. L'univers, lui, savait déjà.",
-      "tapeStyle": "side"
+      "tapeStyle": "side",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-10",
@@ -160,7 +187,10 @@
       "date": "Mars 2026",
       "rotation": 3,
       "hiddenMessage": "Le jour où c'est devenu officiel. Le jour où j'ai arrêté d'avoir peur de ce que je ressentais.",
-      "tapeStyle": "top"
+      "tapeStyle": "top",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-11",
@@ -169,7 +199,10 @@
       "date": "2026",
       "rotation": -2,
       "hiddenMessage": "3h du matin, 4h du matin, peu importe. Avec toi le temps passe différemment. Il s'étire. Il devient doux.",
-      "tapeStyle": "both"
+      "tapeStyle": "both",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     },
     {
       "id": "memory-12",
@@ -178,7 +211,10 @@
       "date": "2026",
       "rotation": 1,
       "hiddenMessage": "Une salle de concert. Un hasard sur internet. Une histoire qui n'aurait jamais dû exister. Et pourtant, nous voilà.",
-      "tapeStyle": "side"
+      "tapeStyle": "side",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
     }
   ],
   "openWhen": [
@@ -188,6 +224,7 @@
       "title": "Ouvre quand tu es triste",
       "message": "Youyou,\n\nLa tristesse a cette façon cruelle de s'installer sans frapper. De rendre tout plus lourd, plus gris, plus silencieux.\n\nDans ces moments-là, j'aimerais être là. Pas forcément pour dire quelque chose, juste être là. Te préparer quelque chose de chaud. Rester à côté sans que tu aies besoin de faire semblant d'aller bien.\n\nMais puisque je ne peux pas être physiquement là tout de suite, laisse-moi te dire ceci : ta tristesse est valide. Tu n'as pas à la justifier, à la minimiser, à t'excuser d'exister dedans.\n\nTu es quelqu'un qui aime la vie, qui aime les gens, qui met de la chaleur partout où tu passes. Et les gens comme toi ressentent parfois les choses plus fort que les autres. C'est un cadeau, même quand ça fait mal.\n\nPleure si tu en as besoin. Ensuite mange quelque chose de bon. Regarde quelque chose de bête qui te fait rire.\n\nEt souviens-toi que moi, à l'autre bout de cette distance, je pense à toi. Tout le temps. Surtout les jours comme celui-là.",
       "theme": "rain",
+      "secretLetter": "J",
       "surprise": {
         "type": "hidden_message",
         "trigger": "tap_3_times",
@@ -200,6 +237,7 @@
       "title": "Ouvre quand tu doutes de toi",
       "message": "Youyou,\n\nJe sais que parfois la petite voix dans ta tête n'est pas très gentille avec toi. Qu'elle grossit les doutes et minimise tout ce que tu es.\n\nAlors laisse-moi être l'autre voix aujourd'hui.\n\nTu es quelqu'un de remarquable. Pas de façon spectaculaire, de façon réelle. Dans ta douceur, dans ta façon d'être avec les gens, dans ce rire que tu as qui ne ressemble à aucun autre.\n\nTu doutes de toi parce que tu es assez intelligente pour voir la complexité du monde. Mais ne confonds jamais l'humilité avec l'incapacité.\n\nCe que tu es suffit. Ce que tu es est même beaucoup.\n\nChaque étoile dans le ciel brille différemment. Toi, tu brilles comme personne. Ne laisse jamais personne, même pas toi-même, te dire le contraire.",
       "theme": "stars",
+      "secretLetter": "E",
       "surprise": {
         "type": "hidden_message",
         "trigger": "long_press",
@@ -211,7 +249,8 @@
       "emoji": "🌙",
       "title": "Ouvre quand tu n'arrives pas à dormir",
       "message": "Youyou,\n\nIl est tard. Le monde dort. Et toi tu regardes le plafond en pensant à tout et à rien.\n\nTu sais ce qu'on fait dans ces moments-là, normalement. Tu m'appelles et on s'endort ensemble. Mais si pour une raison ou une autre tu ne veux pas me réveiller ce soir, je veux que tu saches que tu peux toujours.\n\nToujours.\n\nDepuis qu'on s'appelle pour dormir, j'arrive moins bien à trouver le silence sans ta voix. C'est devenu quelque chose de nécessaire, sans qu'on se le soit jamais dit. Juste comme ça. Naturellement.\n\nAlors ferme les yeux. Imagine ta respiration qui ralentit. Imagine que je suis là, quelque part à l'autre bout du fil, qui m'endors moi aussi.\n\nOn est ensemble même dans le silence.",
-      "theme": "night"
+      "theme": "night",
+      "secretLetter": "T"
     },
     {
       "slug": "sunny-day",
@@ -219,6 +258,7 @@
       "title": "Ouvre quand le soleil brille",
       "message": "Youyou,\n\nAujourd'hui le monde est beau et j'espère que tu le vois.\n\nCes jours-là sont faits pour être savourés lentement. Pour ouvrir la fenêtre, sentir l'air, sourire sans raison particulière. Pour appeler quelqu'un qu'on aime ou danser dans sa chambre sans que personne ne regarde.\n\nLe bonheur c'est fait de ces petits moments de lumière. Et savoir que tu vis ces moments, même loin de moi, me remplit de quelque chose de chaud et de doux.\n\nProfite de cette journée, youyou. Tu la mérites entièrement.\n\nLe soleil est chaud aujourd'hui, presque autant que ce que je ressens quand je pense à toi.",
       "theme": "sunset",
+      "secretLetter": "A",
       "surprise": {
         "type": "photo_reveal",
         "trigger": "swipe_up",
@@ -231,6 +271,7 @@
       "title": "Ouvre quand tu te sens seule",
       "message": "Youyou,\n\nLa solitude à distance, c'est particulier. Ce n'est pas que personne ne t'aime, tu le sais. C'est juste que parfois on voudrait que les gens qu'on aime soient un peu plus près.\n\nJe pense à toi dans mes petits moments. Quand j'entends une chanson qui te ressemble. Quand quelque chose me fait rire et que tu es la première personne à qui j'ai envie de le dire. Quand je rentre tard le soir et que je sais que tu es éveillée quelque part à attendre que je sois rentré, sans qu'on se le soit jamais vraiment dit.\n\nCes petites choses non-dites, c'est peut-être celles qui comptent le plus.\n\nTu n'es jamais vraiment seule, youyou. Tu vis dans les pensées de quelqu'un qui t'aime profondément, même quand le silence semble trop grand.\n\nAppelle quelqu'un ce soir. Ou appelle-moi. Je décrocherai toujours.",
       "theme": "cozy",
+      "secretLetter": "I",
       "surprise": {
         "type": "hidden_message",
         "trigger": "tap_3_times",
@@ -242,7 +283,8 @@
       "emoji": "🌊",
       "title": "Ouvre quand tout va trop vite",
       "message": "Youyou,\n\nStop.\n\nJuste une seconde, stop.\n\nTu n'as pas besoin de tout gérer en même temps. Tu n'as pas besoin d'être parfaite, d'avoir toutes les réponses, de porter tout le monde tout en gardant le sourire.\n\nPose tout ça. Juste pour un moment.\n\nRegarde par la fenêtre. Respire lentement. Rappelle-toi que tu es humaine, et que les humains ont le droit de souffler.\n\nLe monde peut attendre. Les urgences sont rarement aussi urgentes qu'elles le prétendent.\n\nToi, par contre, ta joie, ton énergie, cette façon que tu as de rendre les gens heureux juste en étant là, ça, c'est précieux. Et ça mérite d'être protégé.\n\nPrends soin de toi d'abord. Tout le reste après.",
-      "theme": "waves"
+      "theme": "waves",
+      "secretLetter": "M"
     },
     {
       "slug": "courage",
@@ -250,6 +292,7 @@
       "title": "Ouvre quand tu as besoin de courage",
       "message": "Youyou,\n\nJe sais que tu as peur parfois. De l'inconnu, de l'échec, de ne pas être à la hauteur.\n\nMais laisse-moi te rappeler quelque chose.\n\nTu es quelqu'un qui a aimé sans filet. Qui a fait confiance quand c'était risqué. Qui a choisi quelque chose de rare et d'incertain et qui a dit oui quand même.\n\nC'est ça, le courage. Pas l'absence de peur, mais avancer malgré elle.\n\nTu l'as déjà fait. Tu le feras encore.\n\nEt pendant que tu avances, je suis là en fond. Pas toujours visible, pas toujours bruyant, mais là. À croire en toi plus fort que tu ne crois en toi-même.\n\nVas-y. Tu es prête.",
       "theme": "aurora",
+      "secretLetter": "E",
       "surprise": {
         "type": "hidden_message",
         "trigger": "tap_3_times",
@@ -262,6 +305,7 @@
       "title": "Juste parce que je t'aime",
       "message": "Youyou,\n\nPas de raison particulière aujourd'hui. Pas de larmes à sécher, pas de peur à calmer, pas de défi à relever.\n\nJuste toi. Juste moi. Juste ça.\n\nJe voulais juste que tu saches que tu es aimée, pas pour ce que tu fais, pas pour qui tu essaies d'être, mais pour ce que tu es naturellement, sans effort.\n\nCette façon que tu as d'aimer les gens vraiment. De rire avec tout ton corps. De rêver les yeux grands ouverts. De rendre la vie plus douce juste en étant là.\n\nOn s'est trouvés par hasard dans une salle de concert, puis par miracle sur internet. Et malgré tout ce qui aurait pu ne jamais arriver,\n\nte voilà. Me voilà. Nous voilà.\n\nMerci, youyou. Pour tout. Pour toi.",
       "theme": "golden",
+      "secretLetter": "",
       "surprise": {
         "type": "hidden_message",
         "trigger": "tap_3_times",
@@ -290,5 +334,15 @@
       "photo": "/photos/map/first-date.jpg",
       "emoji": "🌹"
     }
-  ]
+  ],
+  "secrets": {
+    "passwordWord": "JETAIME",
+    "hotspotImageIndex": 3,
+    "hotspotX": 45,
+    "hotspotY": 30,
+    "hotspotMessage": "tu m'as trouvee...",
+    "starCatcherMessage": "tu es une collectionneuse d'etoiles, mon amour",
+    "nightGemMessage": "tu penses a moi tard la nuit..."
+  },
+  "finalLetter": "Ma Youna...\n\nQuand j'ai commence a creer ce site, je ne savais pas vraiment ou j'allais. Tout ce que je savais, c'est que je voulais te dire quelque chose.\n\n..."
 }
