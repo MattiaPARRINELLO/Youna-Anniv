@@ -99,7 +99,11 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
   const lines = config.intro.lines;
 
   return (
-    <section className="relative min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-b from-[#0a0a0f] via-[#14101E] to-warm-dark-mid overflow-hidden">
+    <section
+      className="relative min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-b from-[#0a0a0f] via-[#14101E] to-warm-dark-mid overflow-hidden"
+      onClick={() => markRef.current()}
+      onTouchStart={() => markRef.current()}
+    >
       <div className="absolute inset-0 vignette z-10 pointer-events-none" />
       <ReactiveParticles countDesktop={30} countMobile={15} />
       <FloatingElements type="mixed" countDesktop={4} countMobile={2} />
