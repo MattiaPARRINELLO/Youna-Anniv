@@ -9,20 +9,24 @@ export function EasterEggs() {
   const [showTimeMessage, setShowTimeMessage] = useState(false);
   const [showGem, setShowGem] = useState(false);
   const appeared = useRef(false);
+  const messageTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const { gem4, unlockGem } = useSecrets();
 
   useEffect(() => {
     if (appeared.current || gem4) return;
     const hour = new Date().getHours();
     if (hour >= 23 || hour < 6) {
-      const timer = setTimeout(() => {
+      const outerTimer = setTimeout(() => {
         setShowTimeMessage(true);
         appeared.current = true;
         unlockGem(4);
         setShowGem(true);
-        setTimeout(() => setShowTimeMessage(false), 5000);
+        messageTimerRef.current = setTimeout(() => setShowTimeMessage(false), 5000);
       }, 120000);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(outerTimer);
+        if (messageTimerRef.current) clearTimeout(messageTimerRef.current);
+      };
     }
   }, [gem4, unlockGem]);
 
