@@ -145,7 +145,7 @@ export function EndingScene() {
 
             {!hasAllGems && (
               <motion.button
-                className="font-body text-gold/30 text-xs sm:text-sm tracking-wider hover:text-gold/60 transition-colors duration-500 underline underline-offset-4 decoration-gold/10 mt-4 block mx-auto"
+                className="font-body text-gold/60 text-xs sm:text-sm tracking-wider hover:text-gold transition-colors duration-500 underline underline-offset-4 decoration-gold/30 mt-4 block mx-auto"
                 onClick={() => setShowGame(true)}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
