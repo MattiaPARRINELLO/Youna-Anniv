@@ -9,12 +9,11 @@ import { FloatingElements } from '../ui/FloatingElements';
 import { useMusic } from '../../context/MusicContext';
 import config from '../../config.json';
 
-type ActState = 'heartbeat' | 'title' | 'portal' | 'exploding' | 'done';
+type ActState = 'typewriter' | 'heartbeat' | 'title' | 'portal' | 'exploding' | 'done';
 
 const LINE_DELAY = 500;
-const ACT_PAUSE = 1200;
-const ACT1_END = 5;
-const ACT2_END = 13;
+const TITLE_DURATION = 4000;
+const PORTAL_DELAY = 4000;
 
 interface IntroSceneProps {
   onComplete: () => void;
@@ -22,11 +21,13 @@ interface IntroSceneProps {
 
 export function IntroScene({ onComplete }: IntroSceneProps) {
   const { markInteraction } = useMusic();
-  const [act, setAct] = useState<ActState>('heartbeat');
+  const [act, setAct] = useState<ActState>('typewriter');
   const [exploding, setExploding] = useState(false);
   const [visibleLines, setVisibleLines] = useState(0);
+  const [typewriterDone, setTypewriterDone] = useState(false);
   const completeTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const lineTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const cinematicTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const markRef = useRef(markInteraction);
   markRef.current = markInteraction;
 
@@ -38,34 +39,43 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
       const next = current + 1;
       setVisibleLines(next);
 
-      if (next > config.intro.lines.length - 1) {
+      if (next >= config.intro.lines.length) {
         lineTimerRef.current = setTimeout(() => {
           if (!cancelled) {
+            setTypewriterDone(true);
             markRef.current();
-            setExploding(true);
-            setAct('exploding');
+            startCinematic();
           }
-        }, ACT_PAUSE * 2);
+        }, 800);
         return;
       }
 
-      let delay = LINE_DELAY;
-      if (next === ACT1_END + 1) {
-        delay = ACT_PAUSE;
-        setAct('title');
-      } else if (next === ACT2_END + 1) {
-        delay = ACT_PAUSE;
-        setAct('portal');
-      }
-
-      lineTimerRef.current = setTimeout(() => advanceLine(next), delay);
+      lineTimerRef.current = setTimeout(() => advanceLine(next), LINE_DELAY);
     }
 
-    lineTimerRef.current = setTimeout(() => advanceLine(0), 600);
+    function startCinematic() {
+      setAct('heartbeat');
+      cinematicTimerRef.current = setTimeout(() => {
+        if (cancelled) return;
+        setAct('title');
+        cinematicTimerRef.current = setTimeout(() => {
+          if (cancelled) return;
+          setAct('portal');
+          cinematicTimerRef.current = setTimeout(() => {
+            if (cancelled) return;
+            setExploding(true);
+            setAct('exploding');
+          }, PORTAL_DELAY);
+        }, TITLE_DURATION);
+      }, 2500);
+    }
+
+    lineTimerRef.current = setTimeout(() => advanceLine(0), 500);
 
     return () => {
       cancelled = true;
       if (lineTimerRef.current) clearTimeout(lineTimerRef.current);
+      if (cinematicTimerRef.current) clearTimeout(cinematicTimerRef.current);
     };
   }, []);
 
@@ -94,38 +104,46 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
       <ReactiveParticles countDesktop={30} countMobile={15} />
       <FloatingElements type="mixed" countDesktop={4} countMobile={2} />
 
-      <motion.div
-        className="absolute bottom-20 sm:bottom-32 left-0 right-0 z-20 flex flex-col items-center px-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: visibleLines > 0 ? 1 : 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="text-center space-y-1.5 max-w-xs mx-auto">
-          {lines.map((line, i) => {
-            if (i >= visibleLines) return null;
-            const isSpecial = line.startsWith('-');
-            return (
-              <motion.p
-                key={i}
-                className={`${
-                  isSpecial
-                    ? 'text-cream-dark/10 text-[10px] tracking-[0.3em]'
-                    : 'font-body text-cream/60 text-xs sm:text-sm'
-                }`}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                {isSpecial ? '· · ·' : line}
-              </motion.p>
-            );
-          })}
-        </div>
-      </motion.div>
-
       <AnimatePresence mode="wait">
+        {act === 'typewriter' && (
+          <motion.div
+            key="typewriter"
+            className="relative z-20 flex flex-col items-center px-6"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="text-center space-y-2 max-w-xs mx-auto">
+              {lines.map((line, i) => {
+                if (i >= visibleLines) return null;
+                const isSpecial = line.startsWith('-');
+                return (
+                  <motion.p
+                    key={i}
+                    className={`${
+                      isSpecial
+                        ? 'text-cream-dark/15 text-[11px] tracking-[0.3em]'
+                        : 'font-body text-cream/70 text-sm sm:text-base leading-relaxed'
+                    }`}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {isSpecial ? '· · ·' : line}
+                  </motion.p>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+
         {act === 'heartbeat' && (
-          <motion.div key="heartbeat" exit={{ opacity: 0 }} transition={{ duration: 0.8 }}>
+          <motion.div
+            key="heartbeat"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             <HeartbeatGlow />
           </motion.div>
         )}
