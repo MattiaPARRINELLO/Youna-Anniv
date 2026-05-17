@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react';
-import { motion, useAnimationControls } from 'framer-motion';
+import { useEffect, useMemo, useRef } from 'react';
+import { motion, useAnimationControls, type Variants } from 'framer-motion';
 
 interface PortalExplosionProps {
   active: boolean;
@@ -26,6 +26,7 @@ const CREAM = 'rgba(255,248,236,';
 
 export function PortalExplosion({ active, onComplete }: PortalExplosionProps) {
   const controls = useAnimationControls();
+  const explodedRef = useRef(false);
 
   const particles = useMemo<Particle[]>(() => {
     const items: Particle[] = [];
@@ -62,8 +63,38 @@ export function PortalExplosion({ active, onComplete }: PortalExplosionProps) {
     return items;
   }, []);
 
+  const flashVariants: Variants = {
+    idle: { opacity: 0 },
+    flash: { opacity: [0, 1, 0], transition: { duration: 0.6, times: [0, 0.1, 1] } },
+  };
+
+  const glowVariants: Variants = {
+    idle: { opacity: 0, width: 60, height: 60, x: '-50%', y: '-50%' },
+    glow: {
+      opacity: [0, 1, 0],
+      width: [60, 500, 600],
+      height: [60, 500, 600],
+      x: '-50%',
+      y: '-50%',
+      transition: { duration: 1.2, times: [0, 0.3, 1], ease: 'easeOut' },
+    },
+  };
+
+  const ringVariants: Variants = {
+    idle: { opacity: 0 },
+    ring: {
+      opacity: [0, 0.7, 0],
+      width: [30, 350, 400],
+      height: [30, 350, 400],
+      marginLeft: [-15, -175, -200],
+      marginTop: [-15, -175, -200],
+      transition: { duration: 1, delay: 0.1, ease: 'easeOut' },
+    },
+  };
+
   useEffect(() => {
-    if (!active) return;
+    if (!active || explodedRef.current) return;
+    explodedRef.current = true;
     let timeoutId: ReturnType<typeof setTimeout>;
     controls.start('explode').then(() => {
       timeoutId = setTimeout(onComplete, 600);
@@ -78,61 +109,39 @@ export function PortalExplosion({ active, onComplete }: PortalExplosionProps) {
       animate={active ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.2 }}
     >
-      {/* White flash */}
       <motion.div
         className="absolute inset-0"
         style={{ background: 'radial-gradient(circle, rgba(255,248,236,0.3) 0%, transparent 60%)' }}
-        initial={{ opacity: 0 }}
-        animate={active ? { opacity: [0, 1, 0] } : {}}
-        transition={{ duration: 0.6, times: [0, 0.1, 1] }}
+        variants={flashVariants}
+        initial="idle"
+        animate={active ? 'flash' : 'idle'}
       />
 
-      {/* Gold glow burst */}
       <motion.div
         className="absolute"
         style={{
           left: '50%',
           top: '50%',
-          width: 0,
-          height: 0,
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(212,175,55,0.4) 0%, rgba(212,175,55,0) 70%)',
         }}
-        initial={{ opacity: 0, width: 60, height: 60, x: '-50%', y: '-50%' }}
-        animate={active ? {
-          opacity: [0, 1, 0],
-          width: [60, 500, 600],
-          height: [60, 500, 600],
-          x: '-50%',
-          y: '-50%',
-        } : {}}
-        transition={{ duration: 1.2, times: [0, 0.3, 1], ease: 'easeOut' }}
+        variants={glowVariants}
+        initial="idle"
+        animate={active ? 'glow' : 'idle'}
       />
 
-      {/* Shockwave ring */}
       <motion.div
         className="absolute rounded-full"
         style={{
           left: '50%',
           top: '50%',
-          width: 30,
-          height: 30,
-          marginLeft: -15,
-          marginTop: -15,
           border: '2px solid rgba(212,175,55,0.4)',
         }}
-        initial={{ opacity: 0 }}
-        animate={active ? {
-          opacity: [0, 0.7, 0],
-          width: [30, 350, 400],
-          height: [30, 350, 400],
-          marginLeft: [-15, -175, -200],
-          marginTop: [-15, -175, -200],
-        } : {}}
-        transition={{ duration: 1, delay: 0.1, ease: 'easeOut' }}
+        variants={ringVariants}
+        initial="idle"
+        animate={active ? 'ring' : 'idle'}
       />
 
-      {/* Particles */}
       {particles.map((p) => (
         <motion.div
           key={p.id}
@@ -181,7 +190,6 @@ export function PortalExplosion({ active, onComplete }: PortalExplosionProps) {
         </motion.div>
       ))}
 
-      {/* Screen shake wrapper */}
       <motion.div
         className="absolute inset-0 flex items-center justify-center"
         animate={active ? { x: [0, r(-4, 4), r(-3, 3), r(-2, 2), 0], y: [0, r(-3, 3), r(-2, 2), r(-1, 1), 0] } : {}}
