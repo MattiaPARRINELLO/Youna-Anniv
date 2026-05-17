@@ -112,27 +112,32 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="text-center space-y-2 max-w-xs mx-auto">
+            <motion.div layout className="text-center space-y-2 max-w-xs mx-auto">
               {lines.map((line, i) => {
                 if (i >= visibleLines) return null;
                 const isSpecial = line.startsWith('-');
                 return (
                   <motion.p
+                    layout
                     key={i}
                     className={`${
                       isSpecial
                         ? 'text-cream-dark/15 text-[11px] tracking-[0.3em]'
                         : 'font-body text-cream/70 text-sm sm:text-base leading-relaxed'
                     }`}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{
+                      opacity: { duration: 0.4 },
+                      y: { duration: 0.4 },
+                      layout: { type: 'spring', stiffness: 300, damping: 30 },
+                    }}
                   >
                     {isSpecial ? '· · ·' : line}
                   </motion.p>
                 );
               })}
-            </div>
+            </motion.div>
           </motion.div>
         )}
 
