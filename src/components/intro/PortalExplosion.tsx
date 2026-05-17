@@ -22,11 +22,12 @@ export function PortalExplosion({ active, onComplete }: PortalExplosionProps) {
   );
 
   useEffect(() => {
-    if (active) {
-      controls.start('explode').then(() => {
-        setTimeout(onComplete, 500);
-      });
-    }
+    if (!active) return;
+    let timeoutId: ReturnType<typeof setTimeout>;
+    controls.start('explode').then(() => {
+      timeoutId = setTimeout(onComplete, 500);
+    });
+    return () => clearTimeout(timeoutId);
   }, [active, controls, onComplete]);
 
   return (

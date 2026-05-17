@@ -32,7 +32,7 @@ export function PortalButton({ onClick }: PortalButtonProps) {
         {[0, 72, 144, 216, 288].map((angle, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 rounded-full bg-gold"
+            className="absolute w-2 h-2 rounded-full"
             style={{
               boxShadow: '0 0 8px rgba(212,175,55,0.8)',
             }}
@@ -48,8 +48,8 @@ export function PortalButton({ onClick }: PortalButtonProps) {
             <div
               className="absolute"
               style={{
-                width: 2,
-                height: 2,
+                width: 8,
+                height: 8,
                 borderRadius: '50%',
                 background: '#d4af37',
                 transform: `rotate(${angle}deg) translate(34px)`,
