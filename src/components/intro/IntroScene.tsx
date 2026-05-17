@@ -11,7 +11,7 @@ import config from '../../config.json';
 
 type ActState = 'typewriter' | 'heartbeat' | 'title' | 'portal' | 'exploding' | 'done';
 
-const LINE_DELAY = 500;
+const LINE_DELAY = 850;
 const TITLE_DURATION = 4000;
 const PORTAL_DELAY = 4000;
 
