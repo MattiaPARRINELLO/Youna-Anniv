@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { StarField } from './StarField';
 import { ProgressiveReveal } from './ProgressiveReveal';
+import { StatsBilan } from './StatsBilan';
+import { HandwrittenLetter } from './HandwrittenLetter';
 import { useInView } from '../../hooks/useInView';
 import { FloatingElements } from '../ui/FloatingElements';
 import { useSecrets } from '../../context/SecretContext';
@@ -11,11 +13,13 @@ import { GemAnimation } from '../secrets/GemAnimation';
 import config from '../../config.json';
 
 export function EndingScene() {
-  const [phase, setPhase] = useState<'waiting' | 'reveal' | 'heart' | 'restart'>('waiting');
+  const [phase, setPhase] = useState<'waiting' | 'reveal' | 'bilan' | 'letter' | 'heart' | 'restart'>('waiting');
   const [ref, inView] = useInView({ threshold: 0.5 });
-  const { gem5, unlockGem } = useSecrets();
+  const { getFoundCount, gem5, unlockGem } = useSecrets();
   const [showGame, setShowGame] = useState(false);
   const [showGem, setShowGem] = useState(false);
+  const foundCount = getFoundCount();
+  const hasAllGems = foundCount === 5;
 
   const handleRestart = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -53,6 +57,21 @@ export function EndingScene() {
         {inView && phase === 'waiting' && (
           <ProgressiveReveal
             key="reveal"
+            onComplete={() => setPhase('bilan')}
+          />
+        )}
+
+        {phase === 'bilan' && (
+          <StatsBilan
+            key="bilan"
+            onComplete={() => setPhase(hasAllGems ? 'letter' : 'heart')}
+          />
+        )}
+
+        {phase === 'letter' && (
+          <HandwrittenLetter
+            key="letter"
+            text={config.finalLetter}
             onComplete={() => setPhase('heart')}
           />
         )}
@@ -108,7 +127,7 @@ export function EndingScene() {
               revivre cette histoire
             </motion.button>
 
-            {!gem5 && (
+            {!hasAllGems && (
               <motion.button
                 className="font-body text-gold/30 text-xs sm:text-sm tracking-wider hover:text-gold/60 transition-colors duration-500 underline underline-offset-4 decoration-gold/10 mt-4 block mx-auto"
                 onClick={() => setShowGame(true)}
