@@ -11,8 +11,8 @@ interface Star {
 }
 
 const GAME_DURATION = 15000;
-const TARGET_SCORE = 10;
-const MAX_STARS_ON_SCREEN = 3;
+const TARGET_SCORE = 8;
+const MAX_STARS_ON_SCREEN = 4;
 
 interface StarCatcherGameProps {
   onComplete: (won: boolean) => void;
@@ -38,15 +38,15 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
       return [...prev, {
         id,
         x: 10 + Math.random() * 80,
-        size: 24 + Math.random() * 16,
-        duration: 3 + Math.random() * 3,
+        size: 34 + Math.random() * 22,
+        duration: 5 + Math.random() * 5,
         caught: false,
       }];
     });
   }, []);
 
   useEffect(() => {
-    spawnRef.current = setInterval(spawnStar, 800);
+    spawnRef.current = setInterval(spawnStar, 1200);
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -129,7 +129,7 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
           {stars.map((star) => (
             <motion.button
               key={star.id}
-              className="absolute text-gold active:scale-150 transition-transform"
+              className="absolute text-gold active:scale-150 transition-transform p-2"
               style={{
                 left: `${star.x}%`,
                 top: -star.size,
