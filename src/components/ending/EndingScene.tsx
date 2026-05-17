@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { StarField } from './StarField';
@@ -21,9 +21,25 @@ export function EndingScene() {
   const foundCount = getFoundCount();
   const hasAllGems = foundCount === 5;
 
+  const restartTimerRef = useRef<number | null>(null);
+  const heartTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (restartTimerRef.current !== null) clearTimeout(restartTimerRef.current);
+      if (heartTimerRef.current !== null) clearTimeout(heartTimerRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (hasAllGems && phase === 'restart') {
+      setPhase('letter');
+    }
+  }, [hasAllGems, phase]);
+
   const handleRestart = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => window.location.reload(), 1500);
+    restartTimerRef.current = window.setTimeout(() => window.location.reload(), 1500);
   };
 
   const handleGameComplete = useCallback((won: boolean) => {
@@ -89,9 +105,9 @@ export function EndingScene() {
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: 'easeOut' }}
-              onAnimationComplete={() =>
-                setTimeout(() => setPhase('restart'), 3000)
-              }
+              onAnimationComplete={() => {
+                heartTimerRef.current = window.setTimeout(() => setPhase('restart'), 3000);
+              }}
             >
               <span className="text-3xl sm:text-4xl animate-heartbeat inline-block">
                 {'\u2764\uFE0F'}
