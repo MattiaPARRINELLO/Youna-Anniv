@@ -23,7 +23,7 @@ export function TimelineCard({ event, isActive, isSecretActive, secretHighlightI
     >
       <div
         className="bg-cream/5 border border-cream-dark/10 rounded-2xl p-6 backdrop-blur-sm cursor-pointer relative"
-        onClick={() => { setRevealed(!revealed); onSecretTap?.(secretIndex!); }}
+        onClick={() => { setRevealed(!revealed); if (secretIndex !== undefined) onSecretTap?.(secretIndex); }}
       >
         <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-5 bg-gradient-to-br from-cream-dark/10 to-violet/10 flex items-center justify-center">
           <img

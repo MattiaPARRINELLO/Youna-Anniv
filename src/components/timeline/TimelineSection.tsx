@@ -10,13 +10,14 @@ import { FloatingElements } from '../ui/FloatingElements';
 import { useSecrets } from '../../context/SecretContext';
 import { GemAnimation } from '../secrets/GemAnimation';
 
+const SECRET_ORDER = [0, 1, 2, 3, 4];
+
 export function TimelineSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { gem1, unlockGem } = useSecrets();
   const [secretTapOrder, setSecretTapOrder] = useState<number[]>([]);
   const [showGem, setShowGem] = useState(false);
-  const SECRET_ORDER = [0, 1, 2, 3, 4];
 
   const handleScroll = useCallback(() => {
     const el = scrollRef.current;
