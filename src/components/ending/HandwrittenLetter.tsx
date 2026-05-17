@@ -18,7 +18,8 @@ export function HandwrittenLetter({ text, onComplete }: HandwrittenLetterProps) 
     if (skipped) {
       setDisplayedChars(text.length);
       setIsComplete(true);
-      return;
+      const completeTimer = setTimeout(onComplete, 3000);
+      return () => clearTimeout(completeTimer);
     }
 
     if (displayedChars >= text.length) {
@@ -53,7 +54,7 @@ export function HandwrittenLetter({ text, onComplete }: HandwrittenLetterProps) 
         className="rounded-2xl p-8"
         style={{
           background: 'linear-gradient(135deg, rgba(30,26,36,0.8), rgba(20,16,30,0.9))',
-          border: '1px solid rgba(212,175,55,0.1)',
+          border: '1px solid rgba(212,175,55,0.3)',
         }}
       >
         <p
