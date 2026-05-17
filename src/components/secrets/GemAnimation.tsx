@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface GemAnimationProps {
@@ -9,17 +9,24 @@ interface GemAnimationProps {
 
 export function GemAnimation({ trigger, message, onComplete }: GemAnimationProps) {
   const [show, setShow] = useState(false);
+  const prevTrigger = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    if (trigger && !show) setShow(true);
-  }, [trigger, show]);
+    if (trigger && !prevTrigger.current) {
+      setShow(true);
+    }
+    prevTrigger.current = trigger;
+  }, [trigger]);
 
-  const handleComplete = useCallback(() => {
-    setTimeout(() => {
+  useEffect(() => {
+    if (!show) return;
+    timerRef.current = setTimeout(() => {
       setShow(false);
       onComplete?.();
     }, 2000);
-  }, [onComplete]);
+    return () => clearTimeout(timerRef.current);
+  }, [show, onComplete]);
 
   return (
     <AnimatePresence>
@@ -29,7 +36,6 @@ export function GemAnimation({ trigger, message, onComplete }: GemAnimationProps
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onAnimationComplete={handleComplete}
         >
           <motion.span
             className="text-6xl"
