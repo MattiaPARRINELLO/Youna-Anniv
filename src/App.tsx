@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMusic } from "./context/MusicContext";
+import { SecretProvider } from "./context/SecretContext";
 import { GrainOverlay } from "./components/ui/GrainOverlay";
 import { ScrollProgressBar } from "./components/ui/ScrollProgressBar";
 import { DynamicVignette } from "./components/ui/DynamicVignette";
@@ -89,45 +90,47 @@ export default function App() {
       {!unlocked ? (
         <LockScreen onUnlock={() => setUnlocked(true)} />
       ) : (
-        <div className="relative bg-warm-darkest text-cream font-body overflow-x-hidden">
-          <GrainOverlay />
-          <ScrollProgressBar />
-          <CursorGlow />
-          <AmbientGlow />
-          <EvolvingBackground />
-          <DynamicVignette intensity={introDone ? 0.3 : 0.6} />
-          <ScrollInteractionCatcher />
+        <SecretProvider>
+          <div className="relative bg-warm-darkest text-cream font-body overflow-x-hidden">
+            <GrainOverlay />
+            <ScrollProgressBar />
+            <CursorGlow />
+            <AmbientGlow />
+            <EvolvingBackground />
+            <DynamicVignette intensity={introDone ? 0.3 : 0.6} />
+            <ScrollInteractionCatcher />
 
-          <IntroScene onComplete={() => setIntroDone(true)} />
+            <IntroScene onComplete={() => setIntroDone(true)} />
 
-          <AnimatePresence>
-            {introDone && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-              >
-                <TimelineSection />
-                <MemoryGallery />
-                <OpenWhenHub />
+            <AnimatePresence>
+              {introDone && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                >
+                  <TimelineSection />
+                  <MemoryGallery />
+                  <OpenWhenHub />
 
-                {/* MapSection cachee temporairement — a reactiver plus tard */}
-                {/* <Suspense fallback={<SectionFallback />}>
-              <MapSection />
-            </Suspense> */}
+                  {/* MapSection cachee temporairement — a reactiver plus tard */}
+                  {/* <Suspense fallback={<SectionFallback />}>
+                <MapSection />
+              </Suspense> */}
 
-                <CounterSection />
+                  <CounterSection />
 
-                <Suspense fallback={<SectionFallback />}>
-                  <EndingScene />
-                </Suspense>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  <Suspense fallback={<SectionFallback />}>
+                    <EndingScene />
+                  </Suspense>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-          <MusicPlayer />
-          <EasterEggs />
-        </div>
+            <MusicPlayer />
+            <EasterEggs />
+          </div>
+        </SecretProvider>
       )}
     </>
   );
