@@ -11,81 +11,63 @@ import config from '../../config.json';
 
 type ActState = 'heartbeat' | 'title' | 'portal' | 'exploding' | 'done';
 
-const AUTO_DURATION = 12000;
+const LINE_DELAY = 500;
+const ACT_PAUSE = 1200;
+const ACT1_END = 5;
+const ACT2_END = 13;
 
 interface IntroSceneProps {
   onComplete: () => void;
-}
-
-function TypewriterOverlay({ act, exploding }: { act: ActState; exploding: boolean }) {
-  const [visibleLines, setVisibleLines] = useState(0);
-
-  useEffect(() => {
-    const lines = config.intro.lines;
-    const interval = setInterval(() => {
-      setVisibleLines(prev => {
-        if (prev >= lines.length) {
-          clearInterval(interval);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 900);
-    return () => clearInterval(interval);
-  }, []);
-
-  const isVisible = act !== 'heartbeat' || visibleLines > 0;
-  const opacity = act === 'heartbeat' ? 0.25 : act === 'exploding' || exploding ? 1 : 0.55;
-
-  return (
-    <motion.div
-      className="absolute bottom-20 sm:bottom-32 left-0 right-0 z-20 flex flex-col items-center px-6"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isVisible ? opacity : 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="text-center space-y-1.5 max-w-xs mx-auto">
-        {config.intro.lines.map((line, i) => {
-          if (i >= visibleLines) return null;
-          const isSpecial = line.startsWith('-');
-          return (
-            <motion.p
-              key={i}
-              className={`${
-                isSpecial
-                  ? 'text-cream-dark/10 text-[10px] tracking-[0.3em]'
-                  : 'font-body text-cream/60 text-xs sm:text-sm'
-              }`}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.15, duration: 0.4 }}
-            >
-              {isSpecial ? '· · ·' : line}
-            </motion.p>
-          );
-        })}
-      </div>
-    </motion.div>
-  );
 }
 
 export function IntroScene({ onComplete }: IntroSceneProps) {
   const { markInteraction } = useMusic();
   const [act, setAct] = useState<ActState>('heartbeat');
   const [exploding, setExploding] = useState(false);
+  const [visibleLines, setVisibleLines] = useState(0);
   const completeTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const lineTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const markRef = useRef(markInteraction);
+  markRef.current = markInteraction;
 
   useEffect(() => {
-    const t1 = setTimeout(() => setAct('title'), 2500);
-    const t2 = setTimeout(() => setAct('portal'), 6500);
-    const t3 = setTimeout(() => {
-      markInteraction();
-      setExploding(true);
-      setAct('exploding');
-    }, AUTO_DURATION);
+    let cancelled = false;
 
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
-  }, [markInteraction]);
+    function advanceLine(current: number) {
+      if (cancelled) return;
+      const next = current + 1;
+      setVisibleLines(next);
+
+      if (next > config.intro.lines.length - 1) {
+        lineTimerRef.current = setTimeout(() => {
+          if (!cancelled) {
+            markRef.current();
+            setExploding(true);
+            setAct('exploding');
+          }
+        }, ACT_PAUSE * 2);
+        return;
+      }
+
+      let delay = LINE_DELAY;
+      if (next === ACT1_END + 1) {
+        delay = ACT_PAUSE;
+        setAct('title');
+      } else if (next === ACT2_END + 1) {
+        delay = ACT_PAUSE;
+        setAct('portal');
+      }
+
+      lineTimerRef.current = setTimeout(() => advanceLine(next), delay);
+    }
+
+    lineTimerRef.current = setTimeout(() => advanceLine(0), 600);
+
+    return () => {
+      cancelled = true;
+      if (lineTimerRef.current) clearTimeout(lineTimerRef.current);
+    };
+  }, []);
 
   const handlePortalClick = useCallback(() => {
     markInteraction();
@@ -104,13 +86,42 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
     return () => clearTimeout(completeTimerRef.current);
   }, []);
 
+  const lines = config.intro.lines;
+
   return (
     <section className="relative min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-b from-[#0a0a0f] via-[#14101E] to-warm-dark-mid overflow-hidden">
       <div className="absolute inset-0 vignette z-10 pointer-events-none" />
       <ReactiveParticles countDesktop={30} countMobile={15} />
       <FloatingElements type="mixed" countDesktop={4} countMobile={2} />
 
-      <TypewriterOverlay act={act} exploding={exploding} />
+      <motion.div
+        className="absolute bottom-20 sm:bottom-32 left-0 right-0 z-20 flex flex-col items-center px-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: visibleLines > 0 ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="text-center space-y-1.5 max-w-xs mx-auto">
+          {lines.map((line, i) => {
+            if (i >= visibleLines) return null;
+            const isSpecial = line.startsWith('-');
+            return (
+              <motion.p
+                key={i}
+                className={`${
+                  isSpecial
+                    ? 'text-cream-dark/10 text-[10px] tracking-[0.3em]'
+                    : 'font-body text-cream/60 text-xs sm:text-sm'
+                }`}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                {isSpecial ? '· · ·' : line}
+              </motion.p>
+            );
+          })}
+        </div>
+      </motion.div>
 
       <AnimatePresence mode="wait">
         {act === 'heartbeat' && (
