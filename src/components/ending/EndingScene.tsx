@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { StarField } from './StarField';
 import { ProgressiveReveal } from './ProgressiveReveal';
 import { useInView } from '../../hooks/useInView';
 import { FloatingElements } from '../ui/FloatingElements';
+import { useSecrets } from '../../context/SecretContext';
+import { StarCatcherGame } from '../secrets/StarCatcherGame';
+import { GemAnimation } from '../secrets/GemAnimation';
+import config from '../../config.json';
 
 export function EndingScene() {
   const [phase, setPhase] = useState<'waiting' | 'reveal' | 'heart' | 'restart'>('waiting');
   const [ref, inView] = useInView({ threshold: 0.5 });
+  const { gem5, unlockGem } = useSecrets();
+  const [showGame, setShowGame] = useState(false);
+  const [showGem, setShowGem] = useState(false);
 
   const handleRestart = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => window.location.reload(), 1500);
   };
+
+  const handleGameComplete = useCallback((won: boolean) => {
+    setShowGame(false);
+    if (won && !gem5) {
+      unlockGem(5);
+      setShowGem(true);
+    }
+  }, [gem5, unlockGem]);
 
   return (
     <SectionWrapper className="bg-warm-darkest min-h-screen relative overflow-hidden">
@@ -92,10 +107,37 @@ export function EndingScene() {
             >
               revivre cette histoire
             </motion.button>
+
+            {!gem5 && (
+              <motion.button
+                className="font-body text-gold/30 text-xs sm:text-sm tracking-wider hover:text-gold/60 transition-colors duration-500 underline underline-offset-4 decoration-gold/10 mt-4 block mx-auto"
+                onClick={() => setShowGame(true)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.8, duration: 1 }}
+              >
+                decouvre un secret
+              </motion.button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
       <FloatingElements type="heart" countDesktop={6} countMobile={3} />
+
+      <AnimatePresence>
+        {showGame && (
+          <StarCatcherGame
+            onComplete={handleGameComplete}
+            onClose={() => setShowGame(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      <GemAnimation
+        trigger={showGem}
+        message={config.secrets.starCatcherMessage}
+        onComplete={() => setShowGem(false)}
+      />
     </SectionWrapper>
   );
 }
