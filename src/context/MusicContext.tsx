@@ -4,6 +4,7 @@ interface MusicContextType {
   isPlaying: boolean;
   volume: number;
   hasInteracted: boolean;
+  musicError: boolean;
   togglePlay: () => void;
   setVolume: (v: number) => void;
   markInteraction: () => void;
@@ -16,6 +17,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolumeState] = useState(0.5);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [musicError, setMusicError] = useState(false);
 
   useEffect(() => {
     const audio = new Audio('/music/your-song.mp3');
@@ -23,6 +25,8 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     audio.volume = volume;
     audio.preload = 'auto';
     audioRef.current = audio;
+
+    audio.addEventListener('error', () => setMusicError(true));
 
     return () => {
       audio.pause();
@@ -72,7 +76,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   }, [volume]);
 
   return (
-    <MusicContext.Provider value={{ isPlaying, volume, hasInteracted, togglePlay, setVolume, markInteraction }}>
+    <MusicContext.Provider value={{ isPlaying, volume, hasInteracted, togglePlay, setVolume, markInteraction, musicError }}>
       {children}
     </MusicContext.Provider>
   );

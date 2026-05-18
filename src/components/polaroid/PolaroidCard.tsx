@@ -31,7 +31,12 @@ export function PolaroidCard({
 }: PolaroidCardProps) {
   const [showHidden, setShowHidden] = useState(false);
   const [longPressTimer, setLongPressTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const [imageError, setImageError] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
+
+  const handleImageError = useCallback(() => {
+    setImageError(true);
+  }, []);
 
   const handlePointerDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     if (hasHotspot && !hotspotFound) {
@@ -93,12 +98,19 @@ export function PolaroidCard({
           )}
 
           <div ref={imageRef} className="relative aspect-square w-44 sm:w-56 overflow-hidden bg-cream-dark flex items-center justify-center">
-            <img
-              src={image}
-              alt={caption}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
+            {imageError ? (
+              <div className="w-full h-full flex items-center justify-center text-4xl">
+                📷
+              </div>
+            ) : (
+              <img
+                src={image}
+                alt={caption}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={handleImageError}
+              />
+            )}
 
             <AnimatePresence>
               {showHidden && hiddenMessage && (

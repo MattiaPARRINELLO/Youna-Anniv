@@ -4,7 +4,9 @@ import { FiPlay, FiPause, FiVolume2, FiVolumeX } from 'react-icons/fi';
 import { useMusic } from '../../context/MusicContext';
 
 export function MusicPlayer() {
-  const { isPlaying, volume, togglePlay, setVolume, hasInteracted } = useMusic();
+  const { isPlaying, volume, togglePlay, setVolume, hasInteracted, musicError } = useMusic();
+
+  if (musicError) return null;
   const [showVolume, setShowVolume] = useState(false);
   const [muted, setMuted] = useState(false);
 
