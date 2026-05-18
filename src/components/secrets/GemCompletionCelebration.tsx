@@ -1,26 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSecrets } from '../../context/SecretContext';
 
 export function GemCompletionCelebration() {
   const { totalGems } = useSecrets();
   const [phase, setPhase] = useState<'hidden' | 'flash' | 'circle' | 'done'>('hidden');
-  const [triggered, setTriggered] = useState(false);
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
-    if (totalGems === 5 && !triggered) {
-      setTriggered(true);
+    if (totalGems === 5) {
       setPhase('flash');
-      const flashTimer = setTimeout(() => setPhase('circle'), 500);
-      const circleTimer = setTimeout(() => setPhase('done'), 2500);
-      const cleanupTimer = setTimeout(() => setPhase('hidden'), 3000);
+      timersRef.current = [
+        setTimeout(() => setPhase('circle'), 500),
+        setTimeout(() => setPhase('done'), 2500),
+        setTimeout(() => setPhase('hidden'), 3000),
+      ];
       return () => {
-        clearTimeout(flashTimer);
-        clearTimeout(circleTimer);
-        clearTimeout(cleanupTimer);
+        timersRef.current.forEach(clearTimeout);
       };
     }
-  }, [totalGems, triggered]);
+  }, [totalGems]);
 
   const gems = Array.from({ length: 5 }, (_, i) => {
     const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;

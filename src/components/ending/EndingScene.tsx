@@ -24,6 +24,14 @@ export function EndingScene({ id }: { id?: string }) {
 
   const restartTimerRef = useRef<number | null>(null);
   const heartTimerRef = useRef<number | null>(null);
+  const gemLetterRef = useRef(false);
+
+  useEffect(() => {
+    if (hasAllGems && phase === 'restart' && !gemLetterRef.current) {
+      gemLetterRef.current = true;
+      setPhase('letter');
+    }
+  }, [hasAllGems, phase]);
 
   useEffect(() => {
     return () => {
