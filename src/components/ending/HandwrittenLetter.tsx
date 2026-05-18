@@ -82,7 +82,7 @@ export function HandwrittenLetter({ text, onComplete }: HandwrittenLetterProps) 
 
       {isComplete && (
         <motion.button
-          className="block mx-auto mt-8 px-8 py-3 rounded-full bg-gold/10 text-gold font-body text-sm tracking-wide hover:bg-gold/20 transition-colors border border-gold/20"
+          className="block mx-auto mt-8 mb-16 px-8 py-3 rounded-full bg-gold/10 text-gold font-body text-sm tracking-wide hover:bg-gold/20 transition-colors border border-gold/20"
           onClick={onComplete}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
