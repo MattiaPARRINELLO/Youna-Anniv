@@ -11,8 +11,14 @@ interface SecretPasswordProps {
 export function SecretPassword({ onCorrect, onClose, passwordWord }: SecretPasswordProps) {
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   const correctTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const errorTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowHint(true), 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -69,6 +75,17 @@ export function SecretPassword({ onCorrect, onClose, passwordWord }: SecretPassw
             </div>
           ))}
         </div>
+
+        {showHint && (
+          <motion.p
+            className="font-body text-cream-dark/40 text-xs italic text-center"
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            As-tu remarque les lettres dorees dans chaque message ?
+          </motion.p>
+        )}
 
         <div className="grid grid-cols-7 gap-1.5 w-full">
           {letters.map((l) => (
