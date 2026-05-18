@@ -28,11 +28,11 @@ function useTimeSince() {
   return diff;
 }
 
-export function CounterSection() {
+export function CounterSection({ id }: { id?: string }) {
   const { days, hours, minutes, seconds } = useTimeSince();
 
   return (
-    <SectionWrapper className="bg-gradient-to-b from-warm-dark-mid to-warm-dark py-20">
+    <SectionWrapper id={id} className="bg-gradient-to-b from-warm-dark-mid to-warm-dark py-20">
       <FloatingElements type="heart" countDesktop={5} countMobile={2} />
 
       <FadeInOnScroll className="text-center px-6">

@@ -12,12 +12,13 @@ import { StarCatcherGame } from '../secrets/StarCatcherGame';
 import { GemAnimation } from '../secrets/GemAnimation';
 import config from '../../config.json';
 
-export function EndingScene() {
+export function EndingScene({ id }: { id?: string }) {
   const [phase, setPhase] = useState<'waiting' | 'reveal' | 'bilan' | 'letter' | 'heart' | 'restart'>('waiting');
   const [ref, inView] = useInView({ threshold: 0.2 });
-  const { getFoundCount, gem5, unlockGem } = useSecrets();
+  const { getFoundCount, gem5, unlockGem, resetAll } = useSecrets();
   const [showGame, setShowGame] = useState(false);
   const [showGem, setShowGem] = useState(false);
+  const [resetting, setResetting] = useState(false);
   const foundCount = getFoundCount();
   const hasAllGems = foundCount === 5;
 
@@ -38,8 +39,12 @@ export function EndingScene() {
   }, [hasAllGems, phase]);
 
   const handleRestart = () => {
+    setResetting(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    restartTimerRef.current = window.setTimeout(() => window.location.reload(), 1500);
+    restartTimerRef.current = window.setTimeout(() => {
+      resetAll();
+      window.scrollTo({ top: 0 });
+    }, 800);
   };
 
   const handleGameComplete = useCallback((won: boolean) => {
@@ -51,8 +56,12 @@ export function EndingScene() {
   }, [gem5, unlockGem]);
 
   return (
-    <SectionWrapper className="bg-warm-darkest min-h-screen relative overflow-hidden">
+    <SectionWrapper id={id} className="bg-warm-darkest min-h-screen relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-warm-darkest via-[#14101E] to-warm-darkest" />
+      {resetting && (
+        <motion.div className="fixed inset-0 z-[300] bg-warm-darkest"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} />
+      )}
       <StarField />
 
       <div ref={ref as React.RefObject<HTMLDivElement>} className="absolute inset-0 pointer-events-none" />

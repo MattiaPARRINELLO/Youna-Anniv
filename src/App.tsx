@@ -1,7 +1,7 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMusic } from "./context/MusicContext";
-import { SecretProvider } from "./context/SecretContext";
+import { SecretProvider, useSecrets } from "./context/SecretContext";
 import { GrainOverlay } from "./components/ui/GrainOverlay";
 import { ScrollProgressBar } from "./components/ui/ScrollProgressBar";
 import { DynamicVignette } from "./components/ui/DynamicVignette";
@@ -57,6 +57,38 @@ function SectionFallback() {
   );
 }
 
+function AppContent({ introDone }: { introDone: boolean }) {
+  const { totalGems } = useSecrets();
+  const [resetKey, setResetKey] = useState(0);
+  const prevGems = useRef(totalGems);
+
+  useEffect(() => {
+    if (totalGems === 0 && prevGems.current > 0) setResetKey(k => k + 1);
+    prevGems.current = totalGems;
+  }, [totalGems]);
+
+  return (
+    <>
+      <DynamicVignette intensity={introDone ? 0.3 : 0.6} />
+      <ScrollInteractionCatcher />
+      <AnimatePresence>
+        {introDone && (
+          <motion.div key={`content-${resetKey}`}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+            <TimelineSection id="timeline" />
+            <MemoryGallery id="memories" />
+            <OpenWhenHub id="openwhen" />
+            <CounterSection id="counter" />
+            <Suspense fallback={<SectionFallback />}>
+              <EndingScene id="ending" />
+            </Suspense>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
 const UNLOCK_DATE = new Date(config.dates.unlock);
 
 export default function App() {
@@ -107,35 +139,9 @@ export default function App() {
             <CursorGlow />
             <AmbientGlow />
             <EvolvingBackground />
-            <DynamicVignette intensity={introDone ? 0.3 : 0.6} />
-            <ScrollInteractionCatcher />
-
             <IntroScene onComplete={() => setIntroDone(true)} />
 
-            <AnimatePresence>
-              {introDone && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1 }}
-                >
-                  <TimelineSection />
-                  <MemoryGallery />
-                  <OpenWhenHub />
-
-                  {/* MapSection cachee temporairement — a reactiver plus tard */}
-                  {/* <Suspense fallback={<SectionFallback />}>
-                <MapSection />
-              </Suspense> */}
-
-                  <CounterSection />
-
-                  <Suspense fallback={<SectionFallback />}>
-                    <EndingScene />
-                  </Suspense>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <AppContent introDone={introDone} />
 
             <MusicPlayer />
             <GemCounter />

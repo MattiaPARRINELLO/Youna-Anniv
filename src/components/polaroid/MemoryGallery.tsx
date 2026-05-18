@@ -10,7 +10,7 @@ import config from '../../config.json';
 import { useSecrets } from '../../context/SecretContext';
 import { GemAnimation } from '../secrets/GemAnimation';
 
-export function MemoryGallery() {
+export function MemoryGallery({ id }: { id?: string }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { gem2, unlockGem } = useSecrets();
   const [showGem, setShowGem] = useState(false);
@@ -24,7 +24,7 @@ export function MemoryGallery() {
   }, [gem2, unlockGem]);
 
   return (
-    <SectionWrapper className="bg-gradient-to-b from-warm-dark to-warm-dark-mid py-20">
+    <SectionWrapper id={id} className="bg-gradient-to-b from-warm-dark to-warm-dark-mid py-20">
       <FadeInOnScroll className="text-center mb-12">
         <p className="text-gold/40 text-xs tracking-[0.3em] uppercase mb-3 font-body">souvenirs</p>
         <h2 className="font-serif text-cream text-3xl sm:text-4xl mb-2">Les polaroids</h2>

@@ -19,6 +19,7 @@ interface SecretContextType extends SecretState {
   getMissingGems: () => number[];
   getFoundCount: () => number;
   getSessionDuration: () => number;
+  resetAll: () => void;
 }
 
 const STORAGE_KEY = 'youna-secrets';
@@ -80,6 +81,17 @@ export function SecretProvider({ children }: { children: ReactNode }) {
     return Math.floor((Date.now() - state.sessionStartTime) / 1000);
   }, [state.sessionStartTime]);
 
+  const resetAll = useCallback(() => {
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    setState({
+      gem1: false, gem2: false, gem3: false, gem4: false, gem5: false,
+      openWhenPortalsVisited: [],
+      openWhenLettersRevealed: [],
+      totalGems: 0,
+      sessionStartTime: Date.now(),
+    });
+  }, []);
+
   return (
     <SecretContext.Provider value={{
       ...state,
@@ -89,6 +101,7 @@ export function SecretProvider({ children }: { children: ReactNode }) {
       getMissingGems,
       getFoundCount,
       getSessionDuration,
+      resetAll,
     }}>
       {children}
     </SecretContext.Provider>

@@ -11,7 +11,7 @@ import { GemAnimation } from '../secrets/GemAnimation';
 import { SecretPassword } from '../secrets/SecretPassword';
 import config from '../../config.json';
 
-export function OpenWhenHub() {
+export function OpenWhenHub({ id }: { id?: string }) {
   const { openWhenPortalsVisited, gem3, unlockGem } = useSecrets();
   const [activeEntry, setActiveEntry] = useState<OpenWhenEntry | null>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +26,7 @@ export function OpenWhenHub() {
   }, [openWhenPortalsVisited, gem3]);
 
   return (
-    <SectionWrapper className="bg-gradient-to-b from-warm-dark-mid to-warm-dark py-20">
+    <SectionWrapper id={id} className="bg-gradient-to-b from-warm-dark-mid to-warm-dark py-20">
       <FadeInOnScroll className="text-center mb-10">
         <p className="text-gold/40 text-xs tracking-[0.3em] uppercase mb-3 font-body">pour plus tard</p>
         <h2 className="font-serif text-cream text-3xl sm:text-4xl mb-2">Ouvre quand...</h2>

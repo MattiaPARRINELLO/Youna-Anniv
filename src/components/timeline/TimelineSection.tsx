@@ -12,7 +12,7 @@ import { GemAnimation } from '../secrets/GemAnimation';
 
 const SECRET_ORDER = [0, 1, 2, 3, 4];
 
-export function TimelineSection() {
+export function TimelineSection({ id }: { id?: string }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { gem1, unlockGem } = useSecrets();
@@ -52,7 +52,7 @@ export function TimelineSection() {
   }, [handleScroll]);
 
   return (
-    <SectionWrapper className="bg-gradient-to-b from-warm-dark-mid to-warm-dark py-20">
+    <SectionWrapper id={id} className="bg-gradient-to-b from-warm-dark-mid to-warm-dark py-20">
       <FadeInOnScroll className="text-center mb-10">
         <p className="text-gold/40 text-xs tracking-[0.3em] uppercase mb-3 font-body">notre histoire</p>
         <h2 className="font-serif text-cream text-3xl sm:text-4xl mb-2">La timeline</h2>
