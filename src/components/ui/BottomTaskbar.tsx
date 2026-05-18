@@ -22,10 +22,6 @@ export function BottomTaskbar() {
     }
   };
 
-  const handleScrollToEnd = () => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  };
-
   if (!hasInteracted) return null;
 
   return (
@@ -87,14 +83,6 @@ export function BottomTaskbar() {
           <span className="text-xs">{'\uD83D\uDC8E'}</span>
           <span className="text-gold font-serif text-sm">{found}</span>
           <span className="text-cream-dark/30 text-xs">/ 5</span>
-          {found === 4 && (
-            <button
-              className="text-gold/50 text-[10px] font-body hover:text-gold transition-colors underline underline-offset-2 decoration-gold/20 ml-1"
-              onClick={handleScrollToEnd}
-            >
-              dernier secret
-            </button>
-          )}
         </div>
       )}
     </motion.div>
