@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 
 interface SecretState {
   gem1: boolean;
@@ -23,13 +23,7 @@ interface SecretContextType extends SecretState {
   resetCount: number;
 }
 
-const STORAGE_KEY = 'youna-secrets';
-
-function loadState(): SecretState {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) return JSON.parse(stored);
-  } catch {}
+function defaultState(): SecretState {
   return {
     gem1: false, gem2: false, gem3: false, gem4: false, gem5: false,
     openWhenPortalsVisited: [],
@@ -42,12 +36,8 @@ function loadState(): SecretState {
 const SecretContext = createContext<SecretContextType | null>(null);
 
 export function SecretProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<SecretState>(loadState);
+  const [state, setState] = useState<SecretState>(defaultState);
   const [resetCount, setResetCount] = useState(0);
-
-  useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
-  }, [state]);
 
   const unlockGem = useCallback((gem: 1 | 2 | 3 | 4 | 5) => {
     setState(prev => {
@@ -84,14 +74,7 @@ export function SecretProvider({ children }: { children: ReactNode }) {
   }, [state.sessionStartTime]);
 
   const resetAll = useCallback(() => {
-    try { localStorage.removeItem(STORAGE_KEY); } catch {}
-    setState({
-      gem1: false, gem2: false, gem3: false, gem4: false, gem5: false,
-      openWhenPortalsVisited: [],
-      openWhenLettersRevealed: [],
-      totalGems: 0,
-      sessionStartTime: Date.now(),
-    });
+    setState(defaultState());
     setResetCount(c => c + 1);
   }, []);
 
