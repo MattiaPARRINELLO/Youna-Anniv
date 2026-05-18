@@ -7,11 +7,11 @@ const TARGET = new Date(config.dates.unlock);
 
 async function fetchRealTime(): Promise<Date> {
   try {
-    const res = await fetch('https://gateway.timeapi.world/timezone/Europe/Paris', {
+    const res = await fetch('https://www.timeapi.io/api/Time/current/zone?timeZone=Europe/Paris', {
       signal: AbortSignal.timeout(5000)
     });
     const data = await res.json();
-    return new Date(data.utc_datetime);
+    return new Date(data.dateTime);
   } catch {
     return new Date();
   }
