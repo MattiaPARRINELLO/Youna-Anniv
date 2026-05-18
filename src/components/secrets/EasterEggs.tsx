@@ -24,7 +24,7 @@ export function EasterEggs() {
       if (isNight) {
         messageTimerRef.current = setTimeout(() => setShowTimeMessage(false), 5000);
       }
-    }, 30000);
+    }, 120000);
     return () => {
       clearTimeout(outerTimer);
       if (messageTimerRef.current) clearTimeout(messageTimerRef.current);
