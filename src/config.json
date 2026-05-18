@@ -152,6 +152,18 @@
       "hotspotY": 0
     },
     {
+      "id": "memory-7",
+      "image": "/photos/polaroids/memory-7.jpg",
+      "caption": "~ ta voix avant de dormir ~",
+      "date": "2026",
+      "rotation": -2,
+      "hiddenMessage": "Il y a quelque chose de particulièrement doux dans ta voix quand tu t'endors. Comme si le monde devenait plus calme.",
+      "tapeStyle": "top",
+      "hasHotspot": false,
+      "hotspotX": 0,
+      "hotspotY": 0
+    },
+    {
       "id": "memory-8",
       "image": "/photos/polaroids/memory-8.png",
       "caption": "~ la distance ~",
