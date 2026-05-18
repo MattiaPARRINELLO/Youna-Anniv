@@ -13,11 +13,10 @@ import { TimelineSection } from "./components/timeline/TimelineSection";
 import { MemoryGallery } from "./components/polaroid/MemoryGallery";
 import { OpenWhenHub } from "./components/openwhen/OpenWhenHub";
 import { CounterSection } from "./components/counter/CounterSection";
-import { MusicPlayer } from "./components/music/MusicPlayer";
 import { EasterEggs } from "./components/secrets/EasterEggs";
-import { GemCounter } from "./components/secrets/GemCounter";
 import { GemCompletionCelebration } from "./components/secrets/GemCompletionCelebration";
 import { SectionNavDots } from "./components/ui/SectionNavDots";
+import { BottomTaskbar } from "./components/ui/BottomTaskbar";
 import { LockScreen } from "./components/lock/LockScreen";
 import config from "./config.json";
 
@@ -151,8 +150,7 @@ export default function App() {
 
             <AppContent introDone={introDone} />
 
-            <MusicPlayer />
-            <GemCounter />
+            <BottomTaskbar />
             <EasterEggs />
             <GemCompletionCelebration />
           </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useSfx } from '../../hooks/useSfx';
 
 interface HandwrittenLetterProps {
@@ -20,14 +20,12 @@ export function HandwrittenLetter({ text, onComplete }: HandwrittenLetterProps) 
     if (skipped) {
       setDisplayedChars(text.length);
       setIsComplete(true);
-      const completeTimer = setTimeout(onComplete, 3000);
-      return () => clearTimeout(completeTimer);
+      return;
     }
 
     if (displayedChars >= text.length) {
       setIsComplete(true);
-      const timer = setTimeout(onComplete, 3000);
-      return () => clearTimeout(timer);
+      return;
     }
 
     const timer = setTimeout(() => {
@@ -36,11 +34,12 @@ export function HandwrittenLetter({ text, onComplete }: HandwrittenLetterProps) 
     }, CHAR_SPEED);
 
     return () => clearTimeout(timer);
-  }, [displayedChars, text.length, skipped, onComplete]);
+  }, [displayedChars, text.length, skipped, playPenWriting]);
 
-  const handleSkip = useCallback(() => {
+  const handleTap = useCallback(() => {
+    if (isComplete) return;
     setSkipped(true);
-  }, []);
+  }, [isComplete]);
 
   const displayedText = text.slice(0, displayedChars);
 
@@ -51,14 +50,14 @@ export function HandwrittenLetter({ text, onComplete }: HandwrittenLetterProps) 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={handleSkip}
     >
       <div
-        className="rounded-2xl p-8"
+        className="rounded-2xl p-8 cursor-pointer"
         style={{
           background: 'linear-gradient(135deg, rgba(30,26,36,0.8), rgba(20,16,30,0.9))',
           border: '1px solid rgba(212,175,55,0.3)',
         }}
+        onClick={handleTap}
       >
         <p
           className="font-handwritten text-cream/80 text-lg sm:text-xl leading-relaxed whitespace-pre-line"
@@ -81,14 +80,16 @@ export function HandwrittenLetter({ text, onComplete }: HandwrittenLetterProps) 
         </p>
       )}
 
-      {isComplete && !skipped && (
-        <motion.p
-          className="text-cream-dark/10 text-[10px] text-center mt-3 font-body"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+      {isComplete && (
+        <motion.button
+          className="block mx-auto mt-8 px-8 py-3 rounded-full bg-gold/10 text-gold font-body text-sm tracking-wide hover:bg-gold/20 transition-colors border border-gold/20"
+          onClick={onComplete}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
         >
-          --
-        </motion.p>
+          continuer →
+        </motion.button>
       )}
     </motion.div>
   );
