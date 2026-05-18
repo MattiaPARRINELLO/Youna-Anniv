@@ -24,6 +24,7 @@ export function EndingScene({ id }: { id?: string }) {
 
   const restartTimerRef = useRef<number | null>(null);
   const heartTimerRef = useRef<number | null>(null);
+  const gemsOnMount = useRef(foundCount);
 
   useEffect(() => {
     return () => {
@@ -33,10 +34,10 @@ export function EndingScene({ id }: { id?: string }) {
   }, []);
 
   useEffect(() => {
-    if (hasAllGems && phase === 'restart') {
+    if (hasAllGems && foundCount > gemsOnMount.current && phase === 'restart') {
       setPhase('letter');
     }
-  }, [hasAllGems, phase]);
+  }, [hasAllGems, phase, foundCount]);
 
   const handleRestart = () => {
     if (resetting) return;

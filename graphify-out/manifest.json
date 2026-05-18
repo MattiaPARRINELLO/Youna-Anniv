@@ -1,0 +1,398 @@
+{
+  "/home/mattia/Documents/Perso/Youna Anniv/vite.config.ts": {
+    "mtime": 1778623642.992849,
+    "hash": "8b51daf9c9eb56b610266b6a41065c3b"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/postcss.config.js": {
+    "mtime": 1778623671.263684,
+    "hash": "c735540bb63936a123bc867d950c9f69"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/tailwind.config.ts": {
+    "mtime": 1778623695.8691347,
+    "hash": "b0afcbc81e676ddf55f9ef2b9667691f"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/vite-env.d.ts": {
+    "mtime": 1778623673.769168,
+    "hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/App.tsx": {
+    "mtime": 1779047462.8312902,
+    "hash": "601cc289c8212e41197c91df0aae9133"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/main.tsx": {
+    "mtime": 1778624800.4593215,
+    "hash": "e44b863d54a5a0bd55d33ad12c00a3ef"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/SectionWrapper.tsx": {
+    "mtime": 1778693991.1884327,
+    "hash": "c2fc060d32298cdac92cd215e1a2bf3d"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/FadeInOnScroll.tsx": {
+    "mtime": 1778624906.0133064,
+    "hash": "de219a88bdb7cd3dbf0444fd19f2feae"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/GrainOverlay.tsx": {
+    "mtime": 1778623921.4247937,
+    "hash": "d17a5d7e1e2759f7d82b05a88523624e"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/ParallaxLayer.tsx": {
+    "mtime": 1778689799.9432402,
+    "hash": "f4a5d9c201daa0a5bbde69bbf194ec15"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/ScrollProgressBar.tsx": {
+    "mtime": 1778693998.9360578,
+    "hash": "2f7b5d2905988404001c6034929e4abb"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/DynamicVignette.tsx": {
+    "mtime": 1778689811.1901932,
+    "hash": "bd1c92319018a3b58636bb2592c6633a"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/EvolvingBackground.tsx": {
+    "mtime": 1778689823.2421424,
+    "hash": "e3e8b651ed674e748e469a183bc10dac"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/ReactiveParticles.tsx": {
+    "mtime": 1778693962.8166146,
+    "hash": "848b2dfb920c7b46f7e3ac0e63ef3db3"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/CursorGlow.tsx": {
+    "mtime": 1778689848.9790347,
+    "hash": "c3091faf07c555fd20e8a879081a3e1e"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/AmbientGlow.tsx": {
+    "mtime": 1778689854.3423398,
+    "hash": "6580149f4fdd2c816db1a6f0d981a708"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/TiltCard.tsx": {
+    "mtime": 1778693948.182435,
+    "hash": "a11b7ec3943ce7c50a7448229dd13887"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ui/FloatingElements.tsx": {
+    "mtime": 1778693982.7048585,
+    "hash": "9f4c2d66c52aae076bfdd1d06e1e6a0b"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/intro/FloatingParticles.tsx": {
+    "mtime": 1778624371.2741141,
+    "hash": "53904ccdf4e0f015470d2a26b91de360"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/intro/TypewriterText.tsx": {
+    "mtime": 1778670841.6271353,
+    "hash": "4322b2b1586e89c7aa04f77978e9e777"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/intro/IntroScene.tsx": {
+    "mtime": 1779052161.6669223,
+    "hash": "ee5e7002f0478e517a473450e47fa3ea"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/intro/HeartbeatGlow.tsx": {
+    "mtime": 1779026409.2128694,
+    "hash": "396f3bdead40d0e060e47cd919ba8d99"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/intro/LightSweep.tsx": {
+    "mtime": 1779026502.8673925,
+    "hash": "bc6555c71ed11395734c7fdd9f27ae90"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/intro/PortalButton.tsx": {
+    "mtime": 1779027118.2701592,
+    "hash": "c650e6138a01a983a5533b0c06d828e1"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/intro/PortalExplosion.tsx": {
+    "mtime": 1779051949.2898567,
+    "hash": "160ba0dfca8f43484b835cb9e86717dd"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/timeline/ProgressDots.tsx": {
+    "mtime": 1778624410.8770545,
+    "hash": "4dadc0be538d44e3898cc605ced2a2f0"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/timeline/TimelineCard.tsx": {
+    "mtime": 1779028199.8647943,
+    "hash": "ac63210f7f6b22be1b341463019b28b7"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/timeline/TimelineSection.tsx": {
+    "mtime": 1779028210.3322976,
+    "hash": "5e7217deb79d16d7945173ad2043f217"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/polaroid/PolaroidCard.tsx": {
+    "mtime": 1779028875.8236551,
+    "hash": "f3e0f1924af01e03b3fc9dbff68a15c0"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/polaroid/MemoryGallery.tsx": {
+    "mtime": 1779028506.8666794,
+    "hash": "2391fd811801737aaa1d7487c390110d"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/openwhen/ThemeBackground.tsx": {
+    "mtime": 1778624575.4318056,
+    "hash": "658378998fe51b844bd7e716529bf8a8"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/openwhen/PortalCard.tsx": {
+    "mtime": 1778690134.0568392,
+    "hash": "46dd867c358ae8c3bb780d5a3d8d13c1"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/openwhen/OpenWhenPortal.tsx": {
+    "mtime": 1779035392.950536,
+    "hash": "509bca013b76ee2947dee51ea872329c"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/openwhen/OpenWhenHub.tsx": {
+    "mtime": 1779029407.0633488,
+    "hash": "59189f6b1bd3468ffb57170c283c7da0"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/map/MemoryPopup.tsx": {
+    "mtime": 1778624514.8098974,
+    "hash": "81f68348ff04fdafa89abcadc8ce1c17"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/map/MapSection.tsx": {
+    "mtime": 1778671282.8003619,
+    "hash": "de4cb6751ce490e0acc490e64f79b098"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ending/StarField.tsx": {
+    "mtime": 1778690069.7542233,
+    "hash": "b09004a4fc6664652b582c5e0186650f"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ending/ProgressiveReveal.tsx": {
+    "mtime": 1779038702.1250951,
+    "hash": "efd5760d0725157f9cd67ef6cbece013"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ending/HeartAnimation.tsx": {
+    "mtime": 1778624676.0846536,
+    "hash": "a9d27b18a56292093daeb7a675589691"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ending/EndingScene.tsx": {
+    "mtime": 1779038712.8855,
+    "hash": "20cd90d7c0c03b57e207d1c464dde57e"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ending/StatsBilan.tsx": {
+    "mtime": 1779039762.5252497,
+    "hash": "b439f3fb9bfd1fa15852f53ba55ffae2"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/ending/HandwrittenLetter.tsx": {
+    "mtime": 1779052116.0709083,
+    "hash": "8a07324ed72bf14808b81f3a08313d54"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/music/MusicPlayer.tsx": {
+    "mtime": 1778624637.440712,
+    "hash": "0154efb9f177944153b80eab6f6b6797"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/secrets/EasterEggs.tsx": {
+    "mtime": 1779035844.180873,
+    "hash": "6bda661c163a4c99b81ecf04dc4e72a9"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/secrets/GemCounter.tsx": {
+    "mtime": 1779038367.0248332,
+    "hash": "58b49b37ad5a1b3e368a7c9a1e725c3d"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/secrets/GemAnimation.tsx": {
+    "mtime": 1779051960.2399085,
+    "hash": "24c5ddd6f607da7deaffdfe882dd00bc"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/secrets/SecretPassword.tsx": {
+    "mtime": 1779029422.6729033,
+    "hash": "049dda2bfa58afa035fa0d3a15727139"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/secrets/StarCatcherGame.tsx": {
+    "mtime": 1779052078.3648965,
+    "hash": "9aa4733d3c1ccfa065bde8771b3369da"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/counter/CounterSection.tsx": {
+    "mtime": 1778706818.3224094,
+    "hash": "969ef30138a8c9459c5b685aa15adea9"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/components/lock/LockScreen.tsx": {
+    "mtime": 1778707159.0463943,
+    "hash": "e60b2bea995b1788c8556291b31c3f0c"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/data/timeline.ts": {
+    "mtime": 1778670979.7232568,
+    "hash": "b9ee85b6455c4169a87fb5c3b304605c"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/data/polaroids.ts": {
+    "mtime": 1778670983.0441854,
+    "hash": "2e22e3f65bc5ff677a0aa385be9cf985"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/data/openWhen.ts": {
+    "mtime": 1779029036.2731054,
+    "hash": "a43e04a163791a986600be4aab707a27"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/data/mapLocations.ts": {
+    "mtime": 1778670992.4635344,
+    "hash": "2523f9c6c9a812d8ce4538c08033d66c"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/context/MusicContext.tsx": {
+    "mtime": 1779088636.6966105,
+    "hash": "b619d1cd246b524f35c3799834c64649"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/context/SecretContext.tsx": {
+    "mtime": 1779025244.2389212,
+    "hash": "2da2e3b6da5510633eef766bb20dd115"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/hooks/useScrollProgress.ts": {
+    "mtime": 1778623877.6968598,
+    "hash": "79a0d7279a2c8803813a3beba56c14bc"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/hooks/useInView.ts": {
+    "mtime": 1778623885.0398488,
+    "hash": "a6fe5a91114dfc857b6f9c29357c7042"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/hooks/useMediaQuery.ts": {
+    "mtime": 1778623893.3788362,
+    "hash": "370a87c47bcef85d05e7f61a4e8182a0"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/hooks/useScrollVelocity.ts": {
+    "mtime": 1778689781.6143172,
+    "hash": "655296142cd09e8fbcc565540c643a32"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/hooks/useSectionVisibility.ts": {
+    "mtime": 1778689793.779266,
+    "hash": "428991f9d1aa2726c50e3038f2c961a1"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/src/hooks/useSfx.ts": {
+    "mtime": 1779051838.087822,
+    "hash": "a18b987bffc12a615a0df2a6f3b6dc15"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/scripts/generate-a4.js": {
+    "mtime": 1778754874.760847,
+    "hash": "3d87c1eec9851f204fae66d5bdfaad36"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/index.html": {
+    "mtime": 1778671489.0211818,
+    "hash": "68b64d3cf699f34dd0cecdc2f1a22a7e"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/a4-qrcode.html": {
+    "mtime": 1778754901.576773,
+    "hash": "6136e1a386d89c5fb15296f69bce7614"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/docs/superpowers/specs/2026-05-12-youna-romantic-website-design.md": {
+    "mtime": 1778707311.7140813,
+    "hash": "da029e2a13b4b219c0037269809de645"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/docs/superpowers/specs/2026-05-13-experience-profonde-design.md": {
+    "mtime": 1778689109.8731341,
+    "hash": "de203e2253c6e9ca54a8b591e53370d4"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/docs/superpowers/specs/2026-05-14-a4-qrcode-design.md": {
+    "mtime": 1778752952.2029717,
+    "hash": "5761042571466a3030f3770caf4d5c47"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/docs/superpowers/specs/2026-05-17-experience-upgrade-design.md": {
+    "mtime": 1779023194.4123614,
+    "hash": "ba5537d26912b7acadf730481cef2c47"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/docs/superpowers/plans/2026-05-12-youna-romantic-website.md": {
+    "mtime": 1778707323.1790311,
+    "hash": "418ad07a8a22a009fcc64d90ea6b5f99"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/docs/superpowers/plans/2026-05-13-experience-profonde.md": {
+    "mtime": 1778689381.496995,
+    "hash": "5e75a2195ee2f5d76325c95844a7084e"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/docs/superpowers/plans/2026-05-14-a4-qrcode.md": {
+    "mtime": 1778753216.5819743,
+    "hash": "152310ab8e5ac8c3a7aba0fe09b6ae73"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/docs/superpowers/plans/2026-05-17-experience-upgrade-plan.md": {
+    "mtime": 1779023788.0400722,
+    "hash": "9d64258ed8e7b4c9d0a1aae873031a3a"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/favicon.svg": {
+    "mtime": 1778670904.5685596,
+    "hash": "cbc1f1848e3f9d3581197982e0259c96"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/timeline/october.png": {
+    "mtime": 1778625035.77,
+    "hash": "40e614b74b86f7d0df9b62b4eebb617f"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/timeline/february.png": {
+    "mtime": 1778625057.8816297,
+    "hash": "40e614b74b86f7d0df9b62b4eebb617f"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/timeline/october.jpg": {
+    "mtime": 1778695241.0120914,
+    "hash": "b54943b3bb0a82f3620f080a4fe886cf"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/timeline/february.jpg": {
+    "mtime": 1778695392.695856,
+    "hash": "88950eecf2a9226733e35d6d26bd9de2"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/timeline/march.jpg": {
+    "mtime": 1778695604.6457455,
+    "hash": "57a198adc3bee1be69d3f3603216b635"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/timeline/birthday.jpg": {
+    "mtime": 1778695741.2089596,
+    "hash": "358cfe9d350f2753039b0a3ee9655d2a"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/timeline/may-meeting.jpg": {
+    "mtime": 1779020385.149974,
+    "hash": "2b92686efe92671e11971b83e15ad9cf"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-1.jpg": {
+    "mtime": 1778700089.4097636,
+    "hash": "88950eecf2a9226733e35d6d26bd9de2"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-9.jpg": {
+    "mtime": 1778700123.2716107,
+    "hash": "b54943b3bb0a82f3620f080a4fe886cf"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-10.jpg": {
+    "mtime": 1778700183.1255941,
+    "hash": "fc1c5d84c4b3b934c237e76fb96637d9"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-12.jpg": {
+    "mtime": 1778700215.1209784,
+    "hash": "95e8c81ee4a07700009667f7bb8a5427"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-4.png": {
+    "mtime": 1778703093.9125636,
+    "hash": "86a1598641c92703d2d977854a97c623"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-11.jpg": {
+    "mtime": 1778703163.34919,
+    "hash": "76772492c74ee376cd470ca4f8c9af0a"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-3.png": {
+    "mtime": 1778702812.978321,
+    "hash": "c3d0e2d1bd3f5b7d3e7450e73a4b1492"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-8.png": {
+    "mtime": 1778703327.356517,
+    "hash": "01512382d79a3770c0d5818b79fc16b1"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-2.jpg": {
+    "mtime": 1779020485.322243,
+    "hash": "de9a141980e50ca97226da75f1fff209"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-5.jpg": {
+    "mtime": 1779020809.1457314,
+    "hash": "0185deb58c0326fa8cd2416718cdcda1"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/polaroids/memory-6.jpg": {
+    "mtime": 1779020856.8236654,
+    "hash": "e4b18a469923d660bf0f13a7ee996279"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/photos/map/first-date.jpg": {
+    "mtime": 1778632237.6131012,
+    "hash": "f9ca235b5e887fd2bb99d2aaaafe80f4"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/music/your-song.mp3": {
+    "mtime": 1778671660.7141974,
+    "hash": "12c7834856033bd0af6f5f523b178aac"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/sounds/portal-explosion.mp3": {
+    "mtime": 1779051765.4442146,
+    "hash": "2ebff5df28b0e8947ce4d5731fade216"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/sounds/gem-found.mp3": {
+    "mtime": 1779051765.4434536,
+    "hash": "7cf1341e177fbd88dbeea0044b7fcde1"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/sounds/typewriter.mp3": {
+    "mtime": 1779051765.4442942,
+    "hash": "e9fb431320ff71f052024a66d21e2fac"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/sounds/pen-writing.mp3": {
+    "mtime": 1779051765.4438329,
+    "hash": "6e7162f959fa7429177592d795abf107"
+  },
+  "/home/mattia/Documents/Perso/Youna Anniv/public/sounds/star-catch.mp3": {
+    "mtime": 1779051765.4442608,
+    "hash": "05a6b1f56379a976fb7d6936c54805bf"
+  }
+}
