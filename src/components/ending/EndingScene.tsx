@@ -24,7 +24,6 @@ export function EndingScene({ id }: { id?: string }) {
 
   const restartTimerRef = useRef<number | null>(null);
   const heartTimerRef = useRef<number | null>(null);
-  const letterShown = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -32,13 +31,6 @@ export function EndingScene({ id }: { id?: string }) {
       if (heartTimerRef.current !== null) clearTimeout(heartTimerRef.current);
     };
   }, []);
-
-  useEffect(() => {
-    if (phase === 'letter') letterShown.current = true;
-    if (hasAllGems && phase === 'restart' && !letterShown.current) {
-      setPhase('letter');
-    }
-  }, [hasAllGems, phase]);
 
   const handleRestart = () => {
     if (resetting) return;
