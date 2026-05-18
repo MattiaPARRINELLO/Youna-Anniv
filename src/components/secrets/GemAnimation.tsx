@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSfx } from '../../hooks/useSfx';
 
 interface GemAnimationProps {
   trigger: boolean;
@@ -12,12 +11,10 @@ export function GemAnimation({ trigger, message, onComplete }: GemAnimationProps
   const [show, setShow] = useState(false);
   const prevTrigger = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
-  const { playGemFound } = useSfx();
 
   useEffect(() => {
     if (trigger && !prevTrigger.current) {
       setShow(true);
-      playGemFound();
     }
     prevTrigger.current = trigger;
   }, [trigger]);

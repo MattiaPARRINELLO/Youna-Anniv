@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { useSfx } from '../../hooks/useSfx';
 
 interface HandwrittenLetterProps {
   text: string;
@@ -14,7 +13,6 @@ export function HandwrittenLetter({ text, onComplete }: HandwrittenLetterProps) 
   const [isComplete, setIsComplete] = useState(false);
   const [skipped, setSkipped] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { playPenWriting } = useSfx();
 
   useEffect(() => {
     if (skipped) {
@@ -30,11 +28,10 @@ export function HandwrittenLetter({ text, onComplete }: HandwrittenLetterProps) 
 
     const timer = setTimeout(() => {
       setDisplayedChars(prev => Math.min(prev + 1, text.length));
-      playPenWriting();
     }, CHAR_SPEED);
 
     return () => clearTimeout(timer);
-  }, [displayedChars, text.length, skipped, playPenWriting]);
+  }, [displayedChars, text.length, skipped]);
 
   const handleTap = useCallback(() => {
     if (isComplete) return;
