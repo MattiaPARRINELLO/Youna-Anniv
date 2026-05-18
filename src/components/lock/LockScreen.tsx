@@ -67,6 +67,10 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
     if (countdown === null) {
       onUnlock();
     }
+
+    (window as unknown as Record<string, unknown>).unlockNow = () => {
+      onUnlock();
+    };
   }, [countdown, onUnlock]);
 
   return (
