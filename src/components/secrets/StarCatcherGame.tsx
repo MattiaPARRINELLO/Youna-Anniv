@@ -10,9 +10,9 @@ interface Star {
   caught: boolean;
 }
 
-const GAME_DURATION = 15000;
-const TARGET_SCORE = 8;
-const MAX_STARS_ON_SCREEN = 4;
+const GAME_DURATION = 12000;
+const TARGET_SCORE = 10;
+const MAX_STARS_ON_SCREEN = 3;
 
 interface StarCatcherGameProps {
   onComplete: (won: boolean) => void;
@@ -39,15 +39,15 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
       return [...prev, {
         id,
         x: 10 + Math.random() * 80,
-        size: 36 + Math.random() * 28,
-        duration: 4 + Math.random() * 3,
+        size: 24 + Math.random() * 16,
+        duration: 2.5 + Math.random() * 1.5,
         caught: false,
       }];
     });
   }, []);
 
   useEffect(() => {
-    spawnRef.current = setInterval(spawnStar, 1200);
+    spawnRef.current = setInterval(spawnStar, 1500);
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
