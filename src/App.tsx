@@ -16,6 +16,8 @@ import { CounterSection } from "./components/counter/CounterSection";
 import { MusicPlayer } from "./components/music/MusicPlayer";
 import { EasterEggs } from "./components/secrets/EasterEggs";
 import { GemCounter } from "./components/secrets/GemCounter";
+import { GemCompletionCelebration } from "./components/secrets/GemCompletionCelebration";
+import { SectionNavDots } from "./components/ui/SectionNavDots";
 import { LockScreen } from "./components/lock/LockScreen";
 import config from "./config.json";
 
@@ -73,6 +75,7 @@ function AppContent({ introDone }: { introDone: boolean }) {
     <>
       <DynamicVignette intensity={introDone ? 0.3 : 0.6} />
       <ScrollInteractionCatcher />
+      <SectionNavDots />
       <AnimatePresence>
         {introDone && (
           <motion.div key={`content-${resetKey}`}
@@ -142,13 +145,16 @@ export default function App() {
             <CursorGlow />
             <AmbientGlow />
             <EvolvingBackground />
-            <IntroScene onComplete={() => setIntroDone(true)} />
+            <div id="intro">
+              <IntroScene onComplete={() => setIntroDone(true)} />
+            </div>
 
             <AppContent introDone={introDone} />
 
             <MusicPlayer />
             <GemCounter />
             <EasterEggs />
+            <GemCompletionCelebration />
           </div>
         </SecretProvider>
       )}
