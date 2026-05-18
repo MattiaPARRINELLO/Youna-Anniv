@@ -55,24 +55,21 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const markInteraction = useCallback(() => {
-    if (!hasInteracted) {
+    const audio = audioRef.current;
+    if (!audio || !audio.paused) return;
+    audio.volume = 0;
+    audio.play().then(() => {
       setHasInteracted(true);
-      const audio = audioRef.current;
-      if (audio && audio.paused) {
-        audio.volume = 0;
-        audio.play().then(() => {
-          const fadeIn = setInterval(() => {
-            if (audio.volume < volume) {
-              audio.volume = Math.min(volume, audio.volume + 0.02);
-            } else {
-              clearInterval(fadeIn);
-            }
-          }, 120);
-          setIsPlaying(true);
-        }).catch(() => {});
-      }
-    }
-  }, [hasInteracted, volume]);
+      setIsPlaying(true);
+      const fadeIn = setInterval(() => {
+        if (audio.volume < volume) {
+          audio.volume = Math.min(volume, audio.volume + 0.02);
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, 120);
+    }).catch(() => {});
+  }, [volume]);
 
   return (
     <MusicContext.Provider value={{ isPlaying, volume, hasInteracted, togglePlay, setVolume, markInteraction }}>
