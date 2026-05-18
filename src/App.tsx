@@ -58,14 +58,16 @@ function SectionFallback() {
 }
 
 function AppContent({ introDone }: { introDone: boolean }) {
-  const { totalGems } = useSecrets();
+  const { resetCount } = useSecrets();
   const [resetKey, setResetKey] = useState(0);
-  const prevGems = useRef(totalGems);
+  const prevCount = useRef(resetCount);
 
   useEffect(() => {
-    if (totalGems === 0 && prevGems.current > 0) setResetKey(k => k + 1);
-    prevGems.current = totalGems;
-  }, [totalGems]);
+    if (resetCount !== prevCount.current) {
+      setResetKey(k => k + 1);
+      prevCount.current = resetCount;
+    }
+  }, [resetCount]);
 
   return (
     <>
@@ -74,7 +76,8 @@ function AppContent({ introDone }: { introDone: boolean }) {
       <AnimatePresence>
         {introDone && (
           <motion.div key={`content-${resetKey}`}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
             <TimelineSection id="timeline" />
             <MemoryGallery id="memories" />
             <OpenWhenHub id="openwhen" />

@@ -39,10 +39,12 @@ export function EndingScene({ id }: { id?: string }) {
   }, [hasAllGems, phase]);
 
   const handleRestart = () => {
+    if (resetting) return;
     setResetting(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     restartTimerRef.current = window.setTimeout(() => {
       resetAll();
+      setResetting(false);
       window.scrollTo({ top: 0 });
     }, 800);
   };

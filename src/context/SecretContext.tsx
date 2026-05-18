@@ -20,6 +20,7 @@ interface SecretContextType extends SecretState {
   getFoundCount: () => number;
   getSessionDuration: () => number;
   resetAll: () => void;
+  resetCount: number;
 }
 
 const STORAGE_KEY = 'youna-secrets';
@@ -42,6 +43,7 @@ const SecretContext = createContext<SecretContextType | null>(null);
 
 export function SecretProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SecretState>(loadState);
+  const [resetCount, setResetCount] = useState(0);
 
   useEffect(() => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
@@ -90,6 +92,7 @@ export function SecretProvider({ children }: { children: ReactNode }) {
       totalGems: 0,
       sessionStartTime: Date.now(),
     });
+    setResetCount(c => c + 1);
   }, []);
 
   return (
@@ -102,6 +105,7 @@ export function SecretProvider({ children }: { children: ReactNode }) {
       getFoundCount,
       getSessionDuration,
       resetAll,
+      resetCount,
     }}>
       {children}
     </SecretContext.Provider>
