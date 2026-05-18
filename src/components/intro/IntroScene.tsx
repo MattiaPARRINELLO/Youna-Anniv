@@ -40,7 +40,6 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
       if (cancelled) return;
       const next = current + 1;
       setVisibleLines(next);
-      playTypewriter();
 
       if (next >= config.intro.lines.length) {
         lineTimerRef.current = setTimeout(() => {
