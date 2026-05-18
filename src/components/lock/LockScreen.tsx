@@ -4,29 +4,24 @@ import { FloatingElements } from "../ui/FloatingElements";
 import config from "../../config.json";
 
 const TARGET = new Date(config.dates.unlock);
-const MIN_DATE = new Date("2025-01-01");
-const MAX_DATE = new Date("2027-12-31");
 
-function useTrustedDate() {
+async function fetchRealTime(): Promise<Date> {
+  try {
+    const res = await fetch('https://worldtimeapi.org/api/timezone/Europe/Paris', {
+      signal: AbortSignal.timeout(5000)
+    });
+    const data = await res.json();
+    return new Date(data.utc_datetime);
+  } catch {
+    return new Date();
+  }
+}
+
+function useRealTime() {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
-    const stored = sessionStorage.getItem("firstVisit");
-    const firstVisit = stored ? new Date(stored) : null;
-    const current = new Date();
-
-    if (!firstVisit) {
-      sessionStorage.setItem("firstVisit", current.toISOString());
-    }
-
-    const isValidDate = current >= MIN_DATE && current <= MAX_DATE;
-    const firstVisitValid = !firstVisit || firstVisit >= MIN_DATE;
-
-    if (isValidDate && firstVisitValid) {
-      setNow(current);
-    } else {
-      setNow(TARGET);
-    }
+    fetchRealTime().then(setNow);
   }, []);
 
   return now;
@@ -36,11 +31,16 @@ interface LockScreenProps {
   onUnlock: () => void;
 }
 
-function useCountdown(trustedNow: Date | null) {
-  const [now, setNow] = useState(new Date());
+function useCountdown() {
+  const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => setNow(new Date()), 1000);
+    fetchRealTime().then(setNow);
+
+    const interval = setInterval(() => {
+      fetchRealTime().then(setNow).catch(() => {});
+    }, 60000);
+
     return () => clearInterval(interval);
   }, []);
 
@@ -61,8 +61,7 @@ function useCountdown(trustedNow: Date | null) {
 }
 
 export function LockScreen({ onUnlock }: LockScreenProps) {
-  const trustedNow = useTrustedDate();
-  const countdown = useCountdown(trustedNow);
+  const countdown = useCountdown();
 
   useEffect(() => {
     if (countdown === null) {
