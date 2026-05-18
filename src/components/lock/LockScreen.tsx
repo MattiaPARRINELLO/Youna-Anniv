@@ -4,12 +4,39 @@ import { FloatingElements } from "../ui/FloatingElements";
 import config from "../../config.json";
 
 const TARGET = new Date(config.dates.unlock);
+const MIN_DATE = new Date("2025-01-01");
+const MAX_DATE = new Date("2027-12-31");
+
+function useTrustedDate() {
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const stored = sessionStorage.getItem("firstVisit");
+    const firstVisit = stored ? new Date(stored) : null;
+    const current = new Date();
+
+    if (!firstVisit) {
+      sessionStorage.setItem("firstVisit", current.toISOString());
+    }
+
+    const isValidDate = current >= MIN_DATE && current <= MAX_DATE;
+    const firstVisitValid = !firstVisit || firstVisit >= MIN_DATE;
+
+    if (isValidDate && firstVisitValid) {
+      setNow(current);
+    } else {
+      setNow(TARGET);
+    }
+  }, []);
+
+  return now;
+}
 
 interface LockScreenProps {
   onUnlock: () => void;
 }
 
-function useCountdown() {
+function useCountdown(trustedNow: Date | null) {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -18,6 +45,8 @@ function useCountdown() {
   }, []);
 
   const countdown = useMemo(() => {
+    if (!now) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
     const diff = TARGET.getTime() - now.getTime();
     if (diff <= 0) return null;
 
@@ -32,7 +61,8 @@ function useCountdown() {
 }
 
 export function LockScreen({ onUnlock }: LockScreenProps) {
-  const countdown = useCountdown();
+  const trustedNow = useTrustedDate();
+  const countdown = useCountdown(trustedNow);
 
   useEffect(() => {
     if (countdown === null) {
