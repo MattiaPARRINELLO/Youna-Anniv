@@ -2,8 +2,8 @@ import { useState, useEffect, useRef, type RefObject } from 'react';
 
 export function useInView(
   options: IntersectionObserverInit = { threshold: 0.2 }
-): [RefObject<HTMLDivElement | null>, boolean] {
-  const ref = useRef<HTMLDivElement | null>(null);
+): [RefObject<HTMLDivElement>, boolean] {
+  const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
