@@ -11,6 +11,7 @@ interface SecretState {
   gem7: boolean;
   openWhenPortalsVisited: string[];
   openWhenLettersRevealed: string[];
+  portalSecretsRevealed: string[];
   totalGems: number;
   sessionStartTime: number;
 }
@@ -19,6 +20,7 @@ interface SecretContextType extends SecretState {
   unlockGem: (gem: 1 | 2 | 3 | 4 | 5 | 6 | 7) => void;
   markPortalVisited: (slug: string) => void;
   addRevealedLetter: (letter: string) => void;
+  addPortalSecret: (slug: string) => void;
   getMissingGems: () => number[];
   getFoundCount: () => number;
   getSessionDuration: () => number;
@@ -31,6 +33,7 @@ function defaultState(): SecretState {
     gem1: false, gem2: false, gem3: false, gem4: false, gem5: false, gem6: false, gem7: false,
     openWhenPortalsVisited: [],
     openWhenLettersRevealed: [],
+    portalSecretsRevealed: [],
     totalGems: 0,
     sessionStartTime: Date.now(),
   };
@@ -69,6 +72,13 @@ export function SecretProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const addPortalSecret = useCallback((slug: string) => {
+    setState(prev => {
+      if (prev.portalSecretsRevealed.includes(slug)) return prev;
+      return { ...prev, portalSecretsRevealed: [...prev.portalSecretsRevealed, slug] };
+    });
+  }, []);
+
   const getMissingGems = useCallback(() => {
     return ([1,2,3,4,5,6,7] as const).filter(g => !state[`gem${g}`]);
   }, [state]);
@@ -92,6 +102,7 @@ export function SecretProvider({ children }: { children: ReactNode }) {
       unlockGem,
       markPortalVisited,
       addRevealedLetter,
+      addPortalSecret,
       getMissingGems,
       getFoundCount,
       getSessionDuration,

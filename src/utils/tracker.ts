@@ -80,7 +80,7 @@ const GEM_NAMES: Record<string, string> = {
   gem_1: '🔵 Timeline',
   gem_2: '🩷 Hotspot',
   gem_3: '🟡 Mot de passe',
-  gem_4: '🟣 Nocturne',
+  gem_4: '🟣 Fidélité',
   gem_5: '🟠 Étoiles',
   gem_6: '🟢 Memory',
   gem_7: '🩷 Quiz',
@@ -252,8 +252,8 @@ const EMBEDS: Record<string, (details?: string) => EmbedConfig> = {
   }),
 
   gem_4: () => ({
-    title: '💎 Gemme — Visite nocturne',
-    description: 'Une visite tardive, l\'écran s\'est embué de magie… la gemme apparaît dans la nuit. 🌙✨',
+    title: '💎 Gemme — Fidélité',
+    description: '2 minutes sur le site… la patience mérite une gemme. 🩷',
     color: 0x8A2BE2,
     thumbnail: `${SITE_URL}/favicon.svg`,
   }),

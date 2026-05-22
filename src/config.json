@@ -349,13 +349,13 @@
     "hotspotY": 30,
     "hotspotMessage": "tu m'as trouvée...",
     "starCatcherMessage": "tu es une collectionneuse d'étoiles, mon amour",
-    "nightGemMessage": "tu es resté un moment... tu penses à moi",
+    "nightGemMessage": "tu es resté un moment... merci d'être là",
     "memoryGameMessage": "chaque souvenir retrouvé est un trésor...",
     "quizMessage": "tu me connais mieux que personne..."
   },
   "loveReasons": [
     { "word": "ton rire", "phrase": "Cette façon que tu as de rire avec tout ton corps, comme si le monde pouvait attendre." },
-    { "word": "ta voix", "phrase": "Ta voix le soir, grave et douce, celle qui lit tout haut et me fait tout basculer." },
+    { "word": "ta voix", "phrase": "Ta voix le soir, douce, celle qui lit tout haut et me fait tout basculer." },
     { "word": "tes yeux", "phrase": "Tes yeux quand tu regardes quelque chose qui te passionne. Ils brillent différemment." },
     { "word": "ta douceur", "phrase": "Cette douceur inépuisable que tu as, même quand le monde est dur avec toi." },
     { "word": "ton courage", "phrase": "Ta façon d'avancer même quand tu as peur. C'est ça, le courage." },

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { useInView } from '../../hooks/useInView';
@@ -69,6 +69,15 @@ function getAnswerEmoji(index: number): string {
   return ['🇦', '🇧', '🇨', '🇩'][index] || '';
 }
 
+function shuffleArray<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 export function QuizGame({ id }: { id?: string }) {
   const { unlockGem } = useSecrets();
   const [ref, inView] = useInView({ threshold: 0.1 });
@@ -80,8 +89,17 @@ export function QuizGame({ id }: { id?: string }) {
   const [locked, setLocked] = useState(false);
   const [showGem, setShowGem] = useState(false);
   const gemGivenRef = useRef(false);
+  const [retryKey, setRetryKey] = useState(0);
 
-  const current = QUESTIONS[questionIndex];
+  const shuffled = useMemo(() =>
+    QUESTIONS.map(q => {
+      const opts = shuffleArray(q.options);
+      return { ...q, options: opts, correct: opts.indexOf(q.options[q.correct]) };
+    }),
+    [retryKey],
+  );
+
+  const current = shuffled[questionIndex];
 
   const handleAnswer = useCallback((index: number) => {
     if (locked || finished) return;
@@ -119,6 +137,7 @@ export function QuizGame({ id }: { id?: string }) {
     setFinished(false);
     setLocked(false);
     gemGivenRef.current = false;
+    setRetryKey(k => k + 1);
     trackEvent('quiz_retry');
   }, []);
 

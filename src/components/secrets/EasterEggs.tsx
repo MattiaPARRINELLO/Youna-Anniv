@@ -15,19 +15,13 @@ export function EasterEggs() {
 
   useEffect(() => {
     if (appeared.current || gem4) return;
-    const hour = new Date().getHours();
-    const isNight = hour >= 22 || hour < 6;
     const outerTimer = setTimeout(() => {
-      if (isNight) {
-        setShowTimeMessage(true);
-        trackEvent('gem_4', 'Visite nocturne');
-      }
-      appeared.current = true;
+      setShowTimeMessage(true);
+      trackEvent('gem_4', '2 minutes sur le site');
       unlockGem(4);
       setShowGem(true);
-      if (isNight) {
-        messageTimerRef.current = setTimeout(() => setShowTimeMessage(false), 5000);
-      }
+      messageTimerRef.current = setTimeout(() => setShowTimeMessage(false), 5000);
+      appeared.current = true;
     }, 120000);
     return () => {
       clearTimeout(outerTimer);
@@ -48,7 +42,7 @@ export function EasterEggs() {
             exit={{ opacity: 0, y: 10 }}
           >
             <p className="font-body text-cream/40 text-[11px] tracking-wide">
-              il est tard... tu devrais dormir, mon amour 🌙
+              tu es la depuis 2 minutes... merci d'être là 🩷
             </p>
           </motion.div>
         )}

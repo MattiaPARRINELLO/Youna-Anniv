@@ -9,6 +9,7 @@ import { CursorGlow } from "./components/ui/CursorGlow";
 import { AmbientGlow } from "./components/ui/AmbientGlow";
 import { EvolvingBackground } from "./components/ui/EvolvingBackground";
 import { IntroScene } from "./components/intro/IntroScene";
+import { GemMissionPopup } from "./components/intro/GemMissionPopup";
 import { TimelineSection } from "./components/timeline/TimelineSection";
 import { MemoryGallery } from "./components/polaroid/MemoryGallery";
 import { OpenWhenHub } from "./components/openwhen/OpenWhenHub";
@@ -171,6 +172,10 @@ export default function App() {
             </div>
 
             <AppContent introDone={introDone} />
+
+            <AnimatePresence>
+              {introDone && <GemMissionPopup />}
+            </AnimatePresence>
 
             <BottomTaskbar />
             <EasterEggs />

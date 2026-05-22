@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, FiArrowDown } from 'react-icons/fi';
+import { FiX, FiArrowUp } from 'react-icons/fi';
 import { ThemeBackground } from './ThemeBackground';
 import { useSecrets } from '../../context/SecretContext';
 import { trackEvent } from '../../utils/tracker';
@@ -49,12 +49,21 @@ function renderMessage(text: string, secretLetter?: string) {
 }
 
 export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
-  const { markPortalVisited, addRevealedLetter, gem3 } = useSecrets();
+  const { markPortalVisited, addRevealedLetter, addPortalSecret, gem3 } = useSecrets();
   const [surpriseRevealed, setSurpriseRevealed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
 
   const gem3Ref = useRef(gem3);
   gem3Ref.current = gem3;
+
+  const longPressTimer = useRef<ReturnType<typeof setTimeout>>();
+  const swipeYRef = useRef(0);
+  const emojiRef = useRef<HTMLSpanElement>(null);
+  const revealedRef = useRef(false);
+
+  useEffect(() => {
+    revealedRef.current = false;
+  }, [entry.slug]);
 
   useEffect(() => {
     if (!gem3Ref.current) {
@@ -69,17 +78,61 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
     return () => clearTimeout(timer);
   }, [tapCount]);
 
+  const reveal = useCallback(() => {
+    if (revealedRef.current) return;
+    revealedRef.current = true;
+    setSurpriseRevealed(true);
+    addPortalSecret(entry.slug);
+    trackEvent('secret_letter_revealed', entry.title);
+  }, [entry.title, addPortalSecret]);
+
   const handleTap = useCallback(() => {
     if (surpriseRevealed || !entry.surprise) return;
     if (entry.surprise.trigger === 'tap_3_times') {
-      const newCount = tapCount + 1;
-      setTapCount(newCount);
-      if (newCount >= 3) {
-        setSurpriseRevealed(true);
-        trackEvent('secret_letter_revealed', entry.title);
-      }
+      const n = tapCount + 1;
+      setTapCount(n);
+      if (n >= 3) reveal();
     }
-  }, [tapCount, surpriseRevealed, entry.surprise, entry.title]);
+  }, [tapCount, surpriseRevealed, entry.surprise, reveal]);
+
+  const isLongPress = entry.surprise?.trigger === 'long_press';
+  const isSwipe = entry.surprise?.trigger === 'swipe_up';
+
+  // Direct DOM long press on the emoji (avoids Framer Motion / React event issues)
+  useEffect(() => {
+    const el = emojiRef.current;
+    if (!isLongPress || !el) return;
+
+    const onTouchStart = () => {
+      longPressTimer.current = setTimeout(reveal, 800);
+    };
+    const onEnd = () => {
+      if (longPressTimer.current) clearTimeout(longPressTimer.current);
+    };
+
+    el.addEventListener('touchstart', onTouchStart, { passive: true });
+    el.addEventListener('touchend', onEnd, { passive: true });
+    el.addEventListener('touchmove', onEnd, { passive: true });
+    el.addEventListener('touchcancel', onEnd, { passive: true });
+    el.addEventListener('pointerdown', onTouchStart);
+    el.addEventListener('pointerup', onEnd);
+    el.addEventListener('pointerleave', onEnd);
+    el.addEventListener('pointercancel', onEnd);
+
+    el.style.touchAction = 'none';
+    el.style.cursor = 'pointer';
+
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchend', onEnd);
+      el.removeEventListener('touchmove', onEnd);
+      el.removeEventListener('touchcancel', onEnd);
+      el.removeEventListener('pointerdown', onTouchStart);
+      el.removeEventListener('pointerup', onEnd);
+      el.removeEventListener('pointerleave', onEnd);
+      el.removeEventListener('pointercancel', onEnd);
+    };
+  }, [isLongPress, reveal]);
 
   return (
     <motion.div
@@ -94,7 +147,8 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
       <div className="relative flex-1 overflow-y-auto no-scrollbar" onClick={handleTap}>
         <div className="min-h-full flex flex-col items-center px-6 py-20 max-w-lg mx-auto">
           <motion.span
-            className="text-4xl sm:text-5xl block mb-6"
+            ref={emojiRef}
+            className="text-5xl sm:text-6xl block mb-6 select-none"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
@@ -121,7 +175,7 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
           </motion.div>
 
           <AnimatePresence>
-            {surpriseRevealed && entry.surprise && entry.surprise.type === 'hidden_message' && (
+            {surpriseRevealed && entry.surprise?.type === 'hidden_message' && (
               <motion.div
                 className="mt-12 p-6 glass rounded-2xl w-full"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -133,15 +187,32 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
                 </p>
               </motion.div>
             )}
+
+            {surpriseRevealed && entry.surprise?.type === 'photo_reveal' && (
+              <motion.div
+                className="mt-12 w-full rounded-2xl overflow-hidden"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+              >
+                <img
+                  src={entry.surprise.content}
+                  alt="Photo surprise"
+                  className="w-full h-auto object-cover rounded-2xl"
+                  loading="lazy"
+                />
+              </motion.div>
+            )}
           </AnimatePresence>
 
-          {entry.surprise && !surpriseRevealed && entry.surprise.trigger === 'tap_3_times' && (
+          {entry.surprise && !surpriseRevealed && (
             <motion.p
-              className="text-cream-dark/15 text-xs mt-12 font-body"
+              className="text-cream-dark/15 text-xs mt-12 font-body select-none"
               animate={{ opacity: [0, 0.5, 0] }}
               transition={{ duration: 3, delay: 3, repeat: Infinity }}
             >
-              {tapCount > 0 ? `${3 - tapCount}...` : ''}
+              {entry.surprise.trigger === 'tap_3_times' && (tapCount > 0 ? `${3 - tapCount}...` : 'tape 3 fois...')}
+              {entry.surprise.trigger === 'long_press' && 'reste appuyé...'}
             </motion.p>
           )}
 
@@ -149,15 +220,32 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
         </div>
       </div>
 
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-      >
-        <span className="text-cream-dark/20 text-[10px] font-body">defiler</span>
-        <FiArrowDown className="text-cream-dark/20" size={14} />
-      </motion.div>
+      {isSwipe && !surpriseRevealed && (
+        <div
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 select-none"
+          style={{ touchAction: 'none' }}
+          onPointerDown={(e) => {
+            swipeYRef.current = e.clientY;
+            (e.target as HTMLElement).setPointerCapture(e.pointerId);
+          }}
+          onPointerMove={(e) => {
+            if (!swipeYRef.current) return;
+            if (swipeYRef.current - e.clientY > 80) reveal();
+          }}
+          onPointerUp={() => { swipeYRef.current = 0; }}
+        >
+          <motion.div
+            className="flex flex-col items-center gap-1"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.6, 0] }}
+            transition={{ duration: 3, delay: 2, repeat: Infinity }}
+          >
+            <div className="w-10 h-1 rounded-full bg-cream-dark/20" />
+            <FiArrowUp className="text-cream-dark/25 mt-1" size={16} />
+            <span className="text-cream-dark/25 text-[10px] font-body">swipe up</span>
+          </motion.div>
+        </div>
+      )}
 
       <button
         className="absolute top-6 right-6 z-20 w-10 h-10 glass rounded-full flex items-center justify-center text-cream/60 hover:text-cream transition-colors"
