@@ -10,7 +10,7 @@ export function GemCompletionCelebration() {
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
-    if (totalGems === 5) {
+    if (totalGems === 7) {
       setPhase('flash');
       setFireworks(true);
       timersRef.current = [
@@ -24,8 +24,8 @@ export function GemCompletionCelebration() {
     }
   }, [totalGems]);
 
-  const gems = Array.from({ length: 5 }, (_, i) => {
-    const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
+  const gems = Array.from({ length: 7 }, (_, i) => {
+    const angle = (i / 7) * Math.PI * 2 - Math.PI / 2;
     const radius = 80;
     const x = Math.cos(angle) * radius;
     const y = Math.sin(angle) * radius;

@@ -33,7 +33,7 @@ export function StatsBilan({ onComplete }: StatsBilanProps) {
     : `C'est ta ${visitCount}e visite...`;
 
   const stats = [
-    { icon: '\uD83D\uDC8E', text: `Tu as trouve ${foundCount} secret${foundCount > 1 ? 's' : ''} sur 5`, show: true },
+    { icon: '\uD83D\uDC8E', text: `Tu as trouve ${foundCount} secret${foundCount > 1 ? 's' : ''} sur 7`, show: true },
     { icon: '\u23F1\uFE0F', text: durationText, show: true },
     { icon: '\u2661', text: visitText, show: true },
     { icon: '\uD83C\uDF19', text: 'Tu es venue un soir, tard...', show: gem4 },

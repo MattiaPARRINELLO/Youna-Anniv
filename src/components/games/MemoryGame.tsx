@@ -2,6 +2,9 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionWrapper } from "../ui/SectionWrapper";
 import { useInView } from "../../hooks/useInView";
+import { useSecrets } from "../../context/SecretContext";
+import { GemAnimation } from "../secrets/GemAnimation";
+import config from "../../config.json";
 
 interface CardData {
   id: string;
@@ -37,8 +40,12 @@ export function MemoryGame({ id }: { id?: string }) {
   const [selected, setSelected] = useState<string[]>([]);
   const [moves, setMoves] = useState(0);
   const [completed, setCompleted] = useState(false);
+  const [gemGiven, setGemGiven] = useState(false);
+  const [showGem, setShowGem] = useState(false);
   const lockedRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const gemShownRef = useRef(false);
+  const { unlockGem } = useSecrets();
 
   useEffect(() => {
     if (!inView || cards.length > 0) return;
@@ -53,10 +60,21 @@ export function MemoryGame({ id }: { id?: string }) {
 
   useEffect(() => {
     if (matched.size === PAIRS.length * 2 && matched.size > 0) {
+      if (!gemGiven) {
+        unlockGem(5);
+        setGemGiven(true);
+      }
       const t = setTimeout(() => setCompleted(true), 800);
       return () => clearTimeout(t);
     }
-  }, [matched.size]);
+  }, [matched.size, gemGiven, unlockGem]);
+
+  useEffect(() => {
+    if (gemGiven && !showGem && !gemShownRef.current) {
+      gemShownRef.current = true;
+      setShowGem(true);
+    }
+  }, [gemGiven, showGem]);
 
   useEffect(() => {
     return () => {
@@ -247,6 +265,12 @@ export function MemoryGame({ id }: { id?: string }) {
           )}
         </AnimatePresence>
       </div>
+
+      <GemAnimation
+        trigger={showGem}
+        message={config.secrets.memoryGameMessage}
+        onComplete={() => setShowGem(false)}
+      />
     </SectionWrapper>
   );
 }

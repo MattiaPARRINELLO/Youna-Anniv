@@ -1,17 +1,21 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { trackEvent } from '../utils/tracker';
 
 const STORAGE_KEY = 'youyou_visit_count';
+let didIncrement = false;
+
+function getCurrentCount(): number {
+  return parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+}
 
 export function useVisitCounter() {
-  const [count, setCount] = useState(0);
-  const initialized = useRef(false);
+  const [count, setCount] = useState(getCurrentCount);
 
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
+    if (didIncrement) return;
+    didIncrement = true;
 
-    const current = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+    const current = getCurrentCount();
     const next = current + 1;
     localStorage.setItem(STORAGE_KEY, String(next));
     setCount(next);

@@ -17,12 +17,12 @@ import config from '../../config.json';
 export function EndingScene({ id }: { id?: string }) {
   const [phase, setPhase] = useState<'waiting' | 'reveal' | 'bilan' | 'letter' | 'slideshow' | 'heart' | 'restart'>('waiting');
   const [ref, inView] = useInView({ threshold: 0.75 });
-  const { getFoundCount, gem5, unlockGem, resetAll } = useSecrets();
+  const { getFoundCount, gem7, unlockGem, resetAll } = useSecrets();
   const [showGame, setShowGame] = useState(false);
   const [showGem, setShowGem] = useState(false);
   const [resetting, setResetting] = useState(false);
   const foundCount = getFoundCount();
-  const hasAllGems = foundCount === 5;
+  const hasAllGems = foundCount === 7;
 
   const restartTimerRef = useRef<number | null>(null);
   const heartTimerRef = useRef<number | null>(null);
@@ -60,11 +60,11 @@ export function EndingScene({ id }: { id?: string }) {
 
   const handleGameComplete = useCallback((won: boolean) => {
     setShowGame(false);
-    if (won && !gem5) {
-      unlockGem(5);
+    if (won && !gem7) {
+      unlockGem(7);
       setShowGem(true);
     }
-  }, [gem5, unlockGem]);
+  }, [gem7, unlockGem]);
 
   return (
     <SectionWrapper id={id} className="bg-warm-darkest min-h-screen relative overflow-hidden">
@@ -175,7 +175,7 @@ export function EndingScene({ id }: { id?: string }) {
               revivre cette histoire
             </motion.button>
 
-            {foundCount >= 4 && !hasAllGems && (
+            {foundCount >= 6 && !hasAllGems && (
               <motion.button
                 className="font-body text-gold/60 text-xs sm:text-sm tracking-wider hover:text-gold transition-colors duration-500 underline underline-offset-4 decoration-gold/30 mt-4 block mx-auto"
                 onClick={() => setShowGame(true)}

@@ -222,7 +222,7 @@ export function LockScreen({ onUnlock }: LockScreenProps) {
           </motion.p>
 
           <p className="absolute bottom-6 right-6 text-gold/10 text-[10px] tracking-widest font-body">
-            v3
+            v4
           </p>
         </div>
       </motion.div>

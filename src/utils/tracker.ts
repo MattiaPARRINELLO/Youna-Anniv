@@ -82,9 +82,11 @@ const GEM_NAMES: Record<string, string> = {
   gem_3: '🟡 Mot de passe',
   gem_4: '🟣 Nocturne',
   gem_5: '🟠 Étoiles',
+  gem_6: '🟢 Memory',
+  gem_7: '🩷 Quiz',
 };
 
-const GEM_ORDER = ['gem_1', 'gem_2', 'gem_3', 'gem_4', 'gem_5'];
+const GEM_ORDER = ['gem_1', 'gem_2', 'gem_3', 'gem_4', 'gem_5', 'gem_6', 'gem_7'];
 
 interface SessionData {
   start: number;
@@ -263,8 +265,22 @@ const EMBEDS: Record<string, (details?: string) => EmbedConfig> = {
     thumbnail: `${SITE_URL}/favicon.svg`,
   }),
 
+  gem_6: () => ({
+    title: '💎 Gemme — Memory',
+    description: 'Toutes les paires de souvenirs ont été retrouvées. La mémoire du cœur est infaillible. 🃏',
+    color: 0x00FF7F,
+    thumbnail: `${SITE_URL}/favicon.svg`,
+  }),
+
+  gem_7: () => ({
+    title: '💎 Gemme — Quiz',
+    description: 'Le quiz a été complété. Elle me connaît vraiment… 💕',
+    color: 0xFFB6C1,
+    thumbnail: `${SITE_URL}/favicon.svg`,
+  }),
+
   gem_all: () => ({
-    title: '🌟 LES 5 GEMMES',
+    title: '🌟 LES 7 GEMMES',
     description: '**Youna a trouvé TOUTES les gemmes !!!**\n\nElle a exploré chaque recoin, résolu chaque énigme, découvert chaque secret caché avec amour. Rien ne lui échappe. Quel cœur courageux. 🩷',
     color: 0xFF0044,
     thumbnail: `${SITE_URL}/favicon.svg`,
@@ -304,6 +320,18 @@ const EMBEDS: Record<string, (details?: string) => EmbedConfig> = {
     title: '🏆 Maître des étoiles',
     description: `**${d || 'Toutes les'}** étoiles capturées ! La gemme des étoiles est débloquée ! 🌟`,
     color: 0xFFD700,
+  }),
+
+  quiz_completed: d => ({
+    title: '🌸 Quiz « Tu me connais ? »',
+    description: `Le quiz est terminé ! Score : **${d || '—'}** 💕`,
+    color: 0xFFB6C1,
+  }),
+
+  quiz_retry: () => ({
+    title: '🔄 Quiz — Nouvelle tentative',
+    description: 'Le quiz a été recommencé. Elle veut faire mieux ! 💪',
+    color: 0xFFB6C1,
   }),
 
   final_letter_started: () => ({

@@ -80,11 +80,11 @@ export function BottomTaskbar() {
         </AnimatePresence>
       </div>
 
-      {found < 5 && (
+      {found < 7 && (
         <div className="flex items-center gap-2">
           <span className="text-xs">{'\uD83D\uDC8E'}</span>
           <span className="text-gold font-serif text-sm">{found}</span>
-          <span className="text-cream-dark/30 text-xs">/ 5</span>
+          <span className="text-cream-dark/30 text-xs">/ 7</span>
         </div>
       )}
 

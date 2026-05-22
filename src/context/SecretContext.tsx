@@ -7,6 +7,8 @@ interface SecretState {
   gem3: boolean;
   gem4: boolean;
   gem5: boolean;
+  gem6: boolean;
+  gem7: boolean;
   openWhenPortalsVisited: string[];
   openWhenLettersRevealed: string[];
   totalGems: number;
@@ -14,7 +16,7 @@ interface SecretState {
 }
 
 interface SecretContextType extends SecretState {
-  unlockGem: (gem: 1 | 2 | 3 | 4 | 5) => void;
+  unlockGem: (gem: 1 | 2 | 3 | 4 | 5 | 6 | 7) => void;
   markPortalVisited: (slug: string) => void;
   addRevealedLetter: (letter: string) => void;
   getMissingGems: () => number[];
@@ -26,7 +28,7 @@ interface SecretContextType extends SecretState {
 
 function defaultState(): SecretState {
   return {
-    gem1: false, gem2: false, gem3: false, gem4: false, gem5: false,
+    gem1: false, gem2: false, gem3: false, gem4: false, gem5: false, gem6: false, gem7: false,
     openWhenPortalsVisited: [],
     openWhenLettersRevealed: [],
     totalGems: 0,
@@ -40,13 +42,13 @@ export function SecretProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SecretState>(defaultState);
   const [resetCount, setResetCount] = useState(0);
 
-  const unlockGem = useCallback((gem: 1 | 2 | 3 | 4 | 5) => {
+  const unlockGem = useCallback((gem: 1 | 2 | 3 | 4 | 5 | 6 | 7) => {
     setState(prev => {
       const key = `gem${gem}` as keyof SecretState;
       if (prev[key]) return prev;
       const newCount = prev.totalGems + 1;
       trackEvent(`gem_${gem}` as const);
-      if (newCount === 5) {
+      if (newCount === 7) {
         setTimeout(() => trackEvent('gem_all'), 500);
       }
       return { ...prev, [key]: true, totalGems: newCount };
@@ -68,7 +70,7 @@ export function SecretProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const getMissingGems = useCallback(() => {
-    return ([1,2,3,4,5] as const).filter(g => !state[`gem${g}`]);
+    return ([1,2,3,4,5,6,7] as const).filter(g => !state[`gem${g}`]);
   }, [state]);
 
   const getFoundCount = useCallback(() => {

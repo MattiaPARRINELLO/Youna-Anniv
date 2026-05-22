@@ -16,10 +16,13 @@ import { CounterSection } from "./components/counter/CounterSection";
 import { EasterEggs } from "./components/secrets/EasterEggs";
 import { GemCompletionCelebration } from "./components/secrets/GemCompletionCelebration";
 import { MemoryGame } from "./components/games/MemoryGame";
+import { QuizGame } from "./components/games/QuizGame";
 import { LoveCloud } from "./components/cloud/LoveCloud";
 import { SectionNavDots } from "./components/ui/SectionNavDots";
 import { BottomTaskbar } from "./components/ui/BottomTaskbar";
 import { LockScreen } from "./components/lock/LockScreen";
+import { trackEvent } from "./utils/tracker";
+import { useVisitCounter } from "./hooks/useVisitCounter";
 import config from "./config.json";
 
 {
@@ -88,6 +91,7 @@ function AppContent({ introDone }: { introDone: boolean }) {
             <CounterSection id="counter" />
             <MemoryGame id="memory" />
             <LoveCloud id="cloud" />
+            <QuizGame id="quiz" />
             <Suspense fallback={<SectionFallback />}>
               <EndingScene id="ending" />
             </Suspense>
@@ -101,6 +105,8 @@ function AppContent({ introDone }: { introDone: boolean }) {
 const UNLOCK_DATE = new Date(config.dates.unlock);
 
 export default function App() {
+  useVisitCounter();
+
   const [introDone, setIntroDone] = useState(false);
   const [unlocked, setUnlocked] = useState(() => {
     if (import.meta.env.DEV) return true;

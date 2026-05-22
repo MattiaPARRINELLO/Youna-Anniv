@@ -349,7 +349,9 @@
     "hotspotY": 30,
     "hotspotMessage": "tu m'as trouvée...",
     "starCatcherMessage": "tu es une collectionneuse d'étoiles, mon amour",
-    "nightGemMessage": "tu es resté un moment... tu penses à moi"
+    "nightGemMessage": "tu es resté un moment... tu penses à moi",
+    "memoryGameMessage": "chaque souvenir retrouvé est un trésor...",
+    "quizMessage": "tu me connais mieux que personne..."
   },
   "loveReasons": [
     { "word": "ton rire", "phrase": "Cette façon que tu as de rire avec tout ton corps, comme si le monde pouvait attendre." },
