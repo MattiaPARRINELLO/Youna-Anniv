@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { trackEvent } from '../../utils/tracker';
 import { ParallaxLayer } from '../ui/ParallaxLayer';
 
 interface PolaroidCardProps {
@@ -32,10 +33,12 @@ export function PolaroidCard({
   const [showHidden, setShowHidden] = useState(false);
   const [longPressTimer, setLongPressTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
   const [imageError, setImageError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
 
   const handleImageError = useCallback(() => {
     setImageError(true);
+    setLoaded(true);
   }, []);
 
   const handlePointerDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
@@ -64,9 +67,12 @@ export function PolaroidCard({
 
     if (!hiddenMessage) return;
     if (longPressTimer) clearTimeout(longPressTimer);
-    const timer = setTimeout(() => setShowHidden(true), 600);
+    const timer = setTimeout(() => {
+      setShowHidden(true);
+      trackEvent('polaroid_reveal', caption);
+    }, 600);
     setLongPressTimer(timer);
-  }, [hasHotspot, hotspotFound, hotspotX, hotspotY, onHotspotFound, hiddenMessage, longPressTimer]);
+  }, [hasHotspot, hotspotFound, hotspotX, hotspotY, onHotspotFound, hiddenMessage, longPressTimer, caption]);
 
   const handleTouchEnd = useCallback(() => {
     if (longPressTimer) {
@@ -98,6 +104,9 @@ export function PolaroidCard({
           )}
 
           <div ref={imageRef} className="relative aspect-square w-44 sm:w-56 overflow-hidden bg-cream-dark flex items-center justify-center">
+            {!loaded && !imageError && (
+              <div className="absolute inset-0 bg-gradient-to-r from-cream-dark/20 via-cream/10 to-cream-dark/20 animate-pulse" />
+            )}
             {imageError ? (
               <div className="w-full h-full flex items-center justify-center text-4xl">
                 📷
@@ -106,9 +115,10 @@ export function PolaroidCard({
               <img
                 src={image}
                 alt={caption}
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
                 loading="lazy"
                 onError={handleImageError}
+                onLoad={() => setLoaded(true)}
               />
             )}
 

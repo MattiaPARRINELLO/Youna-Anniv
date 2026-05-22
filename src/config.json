@@ -40,23 +40,23 @@
     {
       "id": "first-meeting",
       "date": "23 Octobre 2025",
-      "title": "Premiere rencontre",
-      "subtitle": "Le debut de tout",
+      "title": "Première rencontre",
+      "subtitle": "Le début de tout",
       "message": "Ce soir-là tu étais dans la foule \n et moi aussi. \n  \n On ne se parlait pas encore. \n On ne se connaissait pas encore. \n Mais quelque chose, quelque part, \n avait déjà décidé. \n  \n Je ne savais pas que ce concert \n allait changer ma vie.",
       "photo": "/photos/timeline/october.jpg"
     },
     {
       "id": "first-call",
-      "date": "20 Fevrier 2026",
+      "date": "20 Février 2026",
       "title": "Premier appel",
-      "subtitle": "Ta voix pour la premiere fois",
+      "subtitle": "Ta voix pour la première fois",
       "message": "Ta voix. \n  \n Je ne m'y attendais pas vraiment... \n cette façon que tu as de rire \n au milieu d'une phrase, \n de passer du sérieux à la légèreté \n en un souffle. \n  \n Ce soir-là j'ai raccroché \n et j'ai su que j'étais en danger. \n Le genre de danger dont on ne veut \n surtout pas se protéger.",
       "photo": "/photos/timeline/february.jpg"
     },
     {
       "id": "relationship-start",
       "date": "16 Mars 2026",
-      "title": "Le debut de nous",
+      "title": "Le début de nous",
       "subtitle": "♡",
       "message": "Il y a des dates qu'on n'oublie pas. \n  \n Pas parce qu'elles sont écrites quelque part, \n mais parce qu'elles sont gravées \n dans une partie de soi \n qu'on ne savait pas encore exister. \n  \n Ce jour-là, tu es devenue mienne. \n Ce jour-là, je suis devenu tien. \n Et le monde, depuis, \n a une couleur différente.",
       "photo": "/photos/timeline/march.jpg"
@@ -64,7 +64,7 @@
     {
       "id": "first-irl-meeting",
       "date": "16 Mai 2026",
-      "title": "Premiere rencontre IRL",
+      "title": "Première rencontre IRL",
       "subtitle": "Te voir en vrai",
       "message": "Il y a une différence entre connaître quelqu'un \n et voir quelqu'un. \n  \n Je te connaissais déjà par cœur, \n ta façon de penser, \n de rire, \n de voir le monde. \n  \n Mais te voir. \n Te voir vraiment. \n  \n Aucun mot ne sera jamais \n à la hauteur de ce moment. \n Tu étais exactement toi. \n Et c'était exactement tout.",
       "photo": "/photos/timeline/may-meeting.jpg"
@@ -85,7 +85,7 @@
       "caption": "~ 5h du matin ~",
       "date": "Février 2026",
       "rotation": -2,
-      "hiddenMessage": "Je rentrai de boite. J'avais peur de m'endormir. Tu m'as appelé. Je ne savais pas encore que ce trajet allait changer quelque chose en moi.",
+      "hiddenMessage": "Je rentrai de boîte. J'avais peur de m'endormir. Tu m'as appelé. Je ne savais pas encore que ce trajet allait changer quelque chose en moi.",
       "tapeStyle": "top",
       "hasHotspot": false,
       "hotspotX": 0,
@@ -325,9 +325,9 @@
       "id": "first-meeting",
       "lat": 48.8566,
       "lng": 2.3522,
-      "title": "Notre premiere rencontre IRL",
+      "title": "Notre première rencontre IRL",
       "date": "16 Mai 2026",
-      "message": "Ce lieu restera grave dans ma memoire pour toujours. C'est ici que je t'ai vue pour la premiere fois. Le monde s'est arrete.",
+      "message": "Ce lieu restera gravé dans ma mémoire pour toujours. C'est ici que je t'ai vue pour la première fois. Le monde s'est arrêté.",
       "photo": "/photos/map/first-meeting.jpg",
       "emoji": "💫"
     },
@@ -337,7 +337,7 @@
       "lng": 2.34,
       "title": "Notre premier vrai rendez-vous",
       "date": "2026",
-      "message": "Notre premier rendez-vous officiel. J'etais nerveux. Tu etais magnifique. C'etait parfait.",
+      "message": "Notre premier rendez-vous officiel. J'étais nerveux. Tu étais magnifique. C'était parfait.",
       "photo": "/photos/map/first-date.jpg",
       "emoji": "🌹"
     }
@@ -347,9 +347,26 @@
     "hotspotImageIndex": 3,
     "hotspotX": 45,
     "hotspotY": 30,
-    "hotspotMessage": "tu m'as trouvee...",
-    "starCatcherMessage": "tu es une collectionneuse d'etoiles, mon amour",
-    "nightGemMessage": "tu es reste un moment... tu penses a moi"
+    "hotspotMessage": "tu m'as trouvée...",
+    "starCatcherMessage": "tu es une collectionneuse d'étoiles, mon amour",
+    "nightGemMessage": "tu es resté un moment... tu penses à moi"
   },
-  "finalLetter": "Ma Youna,\n\nTu viens de traverser notre histoire.\n\nDe ce soir d'octobre ou l'univers nous a places dans la meme salle sans nous le dire, jusqu'a ce premier appel ou ta voix a tout change. De ce 16 mars ou le monde a pris une couleur differente... a ce 16 mai ou j'ai enfin pu te voir, te voir vraiment, et comprendre que tous les mots que j'avais ecrits n'etaient rien a cote de toi.\n\nTu as cherche des secrets, attrape des etoiles, visite des endroits caches dans des messages que j'ai ecrits pour toi dans un moment de tristesse, de doute, ou juste parce que je t'aime.\n\nEt maintenant tu es la, au bout de tout ca.\n\nJe ne sais pas ce que l'avenir nous reserve — et c'est ca qui est beau. Tout ce que je sais c'est que depuis que tu es entree dans ma vie, le silence est moins lourd, les nuits sont moins longues, et l'idee de demain me fait moins peur.\n\nTu es la preuve que parfois l'univers place deux personnes dans la meme salle sans leur dire pourquoi... et qu'il faut juste etre assez courageux pour ecouter.\n\nJoyeux anniversaire, Youyou.\n\nAvec tout ce que j'ai,\n— M."
+  "loveReasons": [
+    { "word": "ton rire", "phrase": "Cette façon que tu as de rire avec tout ton corps, comme si le monde pouvait attendre." },
+    { "word": "ta voix", "phrase": "Ta voix le soir, grave et douce, celle qui lit tout haut et me fait tout basculer." },
+    { "word": "tes yeux", "phrase": "Tes yeux quand tu regardes quelque chose qui te passionne. Ils brillent différemment." },
+    { "word": "ta douceur", "phrase": "Cette douceur inépuisable que tu as, même quand le monde est dur avec toi." },
+    { "word": "ton courage", "phrase": "Ta façon d'avancer même quand tu as peur. C'est ça, le courage." },
+    { "word": "ton coeur", "phrase": "Ton coeur si grand, si généreux, qui trouve toujours de la place pour les autres." },
+    { "word": "ton humour", "phrase": "Ton humour absurde qui me prend par surprise et me fait rire aux éclats." },
+    { "word": "ta lumière", "phrase": "Cette lumière que tu dégages, qui éclaire tout autour de toi sans même que tu t'en rendes compte." },
+    { "word": "ta sincérité", "phrase": "Ta façon de dire les choses, franchement, sans filtre, avec douceur et honnêteté." },
+    { "word": "ton sourire", "phrase": "Ton sourire quand tu es vraiment heureuse. Celui qui plisse tes yeux et illumine tout." },
+    { "word": "ta patience", "phrase": "Ta patience infinie avec moi, avec les autres, avec la vie." },
+    { "word": "ta loyauté", "phrase": "Ta fidélité envers ceux que tu aimes. Une fois que tu es là, tu es vraiment là." },
+    { "word": "ta musique", "phrase": "Les playlists que tu fais avec amour, les chansons que tu découvres et veux partager." },
+    { "word": "ton imagination", "phrase": "Les mondes que tu inventes, les histoires que tu racontes. Tu es une artiste." },
+    { "word": "tes câlins", "phrase": "La façon dont tu enlaces les gens, comme si tu voulais les protéger du monde entier." }
+  ],
+  "finalLetter": "Ma Youna,\n\nTu viens de traverser notre histoire.\n\nDe ce soir d'octobre où l'univers nous a placés dans la même salle sans nous le dire, jusqu'à ce premier appel où ta voix a tout changé. De ce 16 mars où le monde a pris une couleur différente... à ce 16 mai où j'ai enfin pu te voir, te voir vraiment, et comprendre que tous les mots que j'avais écrits n'étaient rien à côté de toi.\n\nTu as cherché des secrets, attrapé des étoiles, visité des endroits cachés dans des messages que j'ai écrits pour toi dans un moment de tristesse, de doute, ou juste parce que je t'aime.\n\nEt maintenant tu es là, au bout de tout ça.\n\nJe ne sais pas ce que l'avenir nous réserve, et c'est ça qui est beau. Tout ce que je sais c'est que depuis que tu es entrée dans ma vie, le silence est moins lourd, les nuits sont moins longues, et l'idée de demain me fait moins peur.\n\nTu es la preuve que parfois l'univers place deux personnes dans la même salle sans leur dire pourquoi... et qu'il faut juste être assez courageux pour écouter.\n\nJoyeux anniversaire, Youyou.\n\nAvec tout ce que j'ai,\n- Ton copain"
 }

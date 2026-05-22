@@ -10,11 +10,13 @@ import { FloatingElements } from '../ui/FloatingElements';
 import { useSecrets } from '../../context/SecretContext';
 import { StarCatcherGame } from '../secrets/StarCatcherGame';
 import { GemAnimation } from '../secrets/GemAnimation';
+import { PhotoSlideshow } from './PhotoSlideshow';
+import { trackEvent } from '../../utils/tracker';
 import config from '../../config.json';
 
 export function EndingScene({ id }: { id?: string }) {
-  const [phase, setPhase] = useState<'waiting' | 'reveal' | 'bilan' | 'letter' | 'heart' | 'restart'>('waiting');
-  const [ref, inView] = useInView({ threshold: 0.2 });
+  const [phase, setPhase] = useState<'waiting' | 'reveal' | 'bilan' | 'letter' | 'slideshow' | 'heart' | 'restart'>('waiting');
+  const [ref, inView] = useInView({ threshold: 0.75 });
   const { getFoundCount, gem5, unlockGem, resetAll } = useSecrets();
   const [showGame, setShowGame] = useState(false);
   const [showGem, setShowGem] = useState(false);
@@ -34,6 +36,10 @@ export function EndingScene({ id }: { id?: string }) {
   }, [hasAllGems, phase]);
 
   useEffect(() => {
+    if (phase === 'letter') trackEvent('final_letter_started');
+  }, [phase]);
+
+  useEffect(() => {
     return () => {
       if (restartTimerRef.current !== null) clearTimeout(restartTimerRef.current);
       if (heartTimerRef.current !== null) clearTimeout(heartTimerRef.current);
@@ -42,6 +48,7 @@ export function EndingScene({ id }: { id?: string }) {
 
   const handleRestart = () => {
     if (resetting) return;
+    trackEvent('experience_restarted');
     setResetting(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     restartTimerRef.current = window.setTimeout(() => {
@@ -101,8 +108,20 @@ export function EndingScene({ id }: { id?: string }) {
           <HandwrittenLetter
             key="letter"
             text={config.finalLetter}
-            onComplete={() => setPhase('heart')}
+            onComplete={() => setPhase('slideshow')}
           />
+        )}
+
+        {phase === 'slideshow' && (
+          <motion.div
+            key="slideshow"
+            className="relative z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <PhotoSlideshow onComplete={() => setPhase('heart')} />
+          </motion.div>
         )}
 
         {phase === 'heart' && (
@@ -156,7 +175,7 @@ export function EndingScene({ id }: { id?: string }) {
               revivre cette histoire
             </motion.button>
 
-            {!hasAllGems && (
+            {foundCount >= 4 && !hasAllGems && (
               <motion.button
                 className="font-body text-gold/60 text-xs sm:text-sm tracking-wider hover:text-gold transition-colors duration-500 underline underline-offset-4 decoration-gold/30 mt-4 block mx-auto"
                 onClick={() => setShowGame(true)}

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { trackEvent } from '../../utils/tracker';
 import type { TimelineEvent } from '../../data/timeline';
 
 interface TimelineCardProps {
@@ -13,6 +14,7 @@ interface TimelineCardProps {
 
 export function TimelineCard({ event, isActive, isSecretActive, secretHighlightIndex, secretIndex, onSecretTap }: TimelineCardProps) {
   const [revealed, setRevealed] = useState(false);
+  const trackedRef = useRef(false);
 
   return (
     <motion.div
@@ -23,7 +25,15 @@ export function TimelineCard({ event, isActive, isSecretActive, secretHighlightI
     >
       <div
         className="bg-cream/5 border border-cream-dark/10 rounded-2xl p-6 backdrop-blur-sm cursor-pointer relative"
-        onClick={() => { setRevealed(!revealed); if (secretIndex !== undefined) onSecretTap?.(secretIndex); }}
+        onClick={() => {
+          const nowRevealed = !revealed;
+          setRevealed(nowRevealed);
+          if (nowRevealed && !trackedRef.current) {
+            trackedRef.current = true;
+            trackEvent('timeline_reveal', event.title);
+          }
+          if (secretIndex !== undefined) onSecretTap?.(secretIndex);
+        }}
       >
         <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-5 bg-gradient-to-br from-cream-dark/10 to-violet/10 flex items-center justify-center">
           <img

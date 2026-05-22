@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FloatingElements } from '../ui/FloatingElements';
 import { useSecrets } from '../../context/SecretContext';
+import { trackEvent } from '../../utils/tracker';
 import { GemAnimation } from './GemAnimation';
 import config from '../../config.json';
 
@@ -17,7 +18,10 @@ export function EasterEggs() {
     const hour = new Date().getHours();
     const isNight = hour >= 22 || hour < 6;
     const outerTimer = setTimeout(() => {
-      if (isNight) setShowTimeMessage(true);
+      if (isNight) {
+        setShowTimeMessage(true);
+        trackEvent('gem_4', 'Visite nocturne');
+      }
       appeared.current = true;
       unlockGem(4);
       setShowGem(true);

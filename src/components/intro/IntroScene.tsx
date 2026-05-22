@@ -7,6 +7,7 @@ import { PortalExplosion } from './PortalExplosion';
 import { ReactiveParticles } from '../ui/ReactiveParticles';
 import { FloatingElements } from '../ui/FloatingElements';
 import { useMusic } from '../../context/MusicContext';
+import { trackEvent } from '../../utils/tracker';
 import config from '../../config.json';
 
 type ActState = 'typewriter' | 'heartbeat' | 'title' | 'portal' | 'exploding' | 'done';
@@ -81,6 +82,7 @@ export function IntroScene({ onComplete }: IntroSceneProps) {
 
   const handlePortalClick = useCallback(() => {
     markInteraction();
+    trackEvent('enter_site');
     if (act !== 'exploding' && act !== 'done') {
       setExploding(true);
       setAct('exploding');

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState, useRef } from "react";
+import { lazy, Suspense, useEffect, useState, useRef, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMusic } from "./context/MusicContext";
 import { SecretProvider, useSecrets } from "./context/SecretContext";
@@ -15,6 +15,8 @@ import { OpenWhenHub } from "./components/openwhen/OpenWhenHub";
 import { CounterSection } from "./components/counter/CounterSection";
 import { EasterEggs } from "./components/secrets/EasterEggs";
 import { GemCompletionCelebration } from "./components/secrets/GemCompletionCelebration";
+import { MemoryGame } from "./components/games/MemoryGame";
+import { LoveCloud } from "./components/cloud/LoveCloud";
 import { SectionNavDots } from "./components/ui/SectionNavDots";
 import { BottomTaskbar } from "./components/ui/BottomTaskbar";
 import { LockScreen } from "./components/lock/LockScreen";
@@ -84,6 +86,8 @@ function AppContent({ introDone }: { introDone: boolean }) {
             <MemoryGallery id="memories" />
             <OpenWhenHub id="openwhen" />
             <CounterSection id="counter" />
+            <MemoryGame id="memory" />
+            <LoveCloud id="cloud" />
             <Suspense fallback={<SectionFallback />}>
               <EndingScene id="ending" />
             </Suspense>
@@ -103,14 +107,26 @@ export default function App() {
     return new Date() >= UNLOCK_DATE;
   });
 
+  const checkUnlock = useCallback(() => {
+    if (new Date() >= UNLOCK_DATE) setUnlocked(true);
+  }, []);
+
   useEffect(() => {
     if (unlocked) return;
-    const check = () => {
-      if (new Date() >= UNLOCK_DATE) setUnlocked(true);
-    };
-    const interval = setInterval(check, 500);
+    const interval = setInterval(checkUnlock, 500);
     return () => clearInterval(interval);
-  }, [unlocked]);
+  }, [unlocked, checkUnlock]);
+
+  useEffect(() => {
+    if (unlocked) return;
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') {
+        checkUnlock();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
+  }, [unlocked, checkUnlock]);
 
   useEffect(() => {
     if (!introDone) {

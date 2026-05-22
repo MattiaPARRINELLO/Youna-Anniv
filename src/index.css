@@ -55,6 +55,19 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .rotateY-180 {
+    transform: rotateY(180deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

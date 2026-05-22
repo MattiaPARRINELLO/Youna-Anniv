@@ -7,6 +7,7 @@ import { OpenWhenPortal } from './OpenWhenPortal';
 import { openWhenEntries, type OpenWhenEntry } from '../../data/openWhen';
 import { FloatingElements } from '../ui/FloatingElements';
 import { useSecrets } from '../../context/SecretContext';
+import { trackEvent } from '../../utils/tracker';
 import { GemAnimation } from '../secrets/GemAnimation';
 import { SecretPassword } from '../secrets/SecretPassword';
 import config from '../../config.json';
@@ -40,7 +41,10 @@ export function OpenWhenHub({ id }: { id?: string }) {
               key={entry.slug}
               emoji={entry.emoji}
               title={entry.title}
-              onClick={() => setActiveEntry(entry)}
+              onClick={() => {
+                setActiveEntry(entry);
+                trackEvent('open_when_opened', entry.title);
+              }}
               delay={0.1 * i}
             />
           ))}
@@ -65,6 +69,7 @@ export function OpenWhenHub({ id }: { id?: string }) {
               setShowPassword(false);
               unlockGem(3);
               setShowGem(true);
+              trackEvent('password_correct');
             }}
             onClose={() => { setShowPassword(false); passwordDismissed.current = true; }}
           />

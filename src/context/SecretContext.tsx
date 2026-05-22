@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { trackEvent } from '../utils/tracker';
 
 interface SecretState {
   gem1: boolean;
@@ -43,7 +44,12 @@ export function SecretProvider({ children }: { children: ReactNode }) {
     setState(prev => {
       const key = `gem${gem}` as keyof SecretState;
       if (prev[key]) return prev;
-      return { ...prev, [key]: true, totalGems: prev.totalGems + 1 };
+      const newCount = prev.totalGems + 1;
+      trackEvent(`gem_${gem}` as const);
+      if (newCount === 5) {
+        setTimeout(() => trackEvent('gem_all'), 500);
+      }
+      return { ...prev, [key]: true, totalGems: newCount };
     });
   }, []);
 

@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
+import { trackEvent } from '../../utils/tracker';
 
 interface Star {
   id: number;
@@ -47,6 +48,7 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
   }, []);
 
   useEffect(() => {
+    trackEvent('star_game_played');
     spawnRef.current = setInterval(spawnStar, 600);
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
@@ -54,6 +56,7 @@ export function StarCatcherGame({ onComplete, onClose }: StarCatcherGameProps) {
           gameOver.current = true;
           if (scoreRef.current >= TARGET_SCORE) {
             setGameState('won');
+            trackEvent('star_game_won', `${scoreRef.current} etoiles`);
           } else {
             setGameState('lost');
           }

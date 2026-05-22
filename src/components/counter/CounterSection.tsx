@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '../ui/SectionWrapper';
 import { FadeInOnScroll } from '../ui/FadeInOnScroll';
@@ -11,10 +11,22 @@ const START_DATE_STR = '16 mars 2026';
 function useTimeSince() {
   const [now, setNow] = useState(new Date());
 
+  const tick = useCallback(() => setNow(new Date()), []);
+
   useEffect(() => {
-    const interval = setInterval(() => setNow(new Date()), 1000);
+    const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [tick]);
+
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') {
+        tick();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
+  }, [tick]);
 
   const diff = useMemo(() => {
     const ms = now.getTime() - START_DATE.getTime();

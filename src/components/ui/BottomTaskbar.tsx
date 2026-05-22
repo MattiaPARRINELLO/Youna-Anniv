@@ -3,12 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiPlay, FiPause, FiVolume2, FiVolumeX } from 'react-icons/fi';
 import { useMusic } from '../../context/MusicContext';
 import { useSecrets } from '../../context/SecretContext';
+import { useVisitCounter } from '../../hooks/useVisitCounter';
 
 export function BottomTaskbar() {
   const { isPlaying, volume, togglePlay, setVolume, hasInteracted } = useMusic();
   const { getFoundCount } = useSecrets();
   const [showVolume, setShowVolume] = useState(false);
   const [muted, setMuted] = useState(false);
+  const visitCount = useVisitCounter();
 
   const found = getFoundCount();
 
@@ -83,6 +85,12 @@ export function BottomTaskbar() {
           <span className="text-xs">{'\uD83D\uDC8E'}</span>
           <span className="text-gold font-serif text-sm">{found}</span>
           <span className="text-cream-dark/30 text-xs">/ 5</span>
+        </div>
+      )}
+
+      {visitCount > 0 && (
+        <div className="flex items-center gap-1 ml-1">
+          <span className="text-cream-dark/20 text-[10px] font-body">{'\u2661'} {visitCount}</span>
         </div>
       )}
     </motion.div>

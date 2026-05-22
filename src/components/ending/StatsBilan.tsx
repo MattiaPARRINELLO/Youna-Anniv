@@ -6,6 +6,14 @@ interface StatsBilanProps {
   onComplete: () => void;
 }
 
+function getVisitCount(): number {
+  try {
+    return parseInt(localStorage.getItem('youyou_visit_count') || '1', 10);
+  } catch {
+    return 1;
+  }
+}
+
 export function StatsBilan({ onComplete }: StatsBilanProps) {
   const { getFoundCount, gem4, getSessionDuration } = useSecrets();
   const calledRef = useRef(false);
@@ -14,14 +22,20 @@ export function StatsBilan({ onComplete }: StatsBilanProps) {
   const duration = getSessionDuration();
   const minutes = Math.floor(duration / 60);
   const seconds = duration % 60;
+  const visitCount = getVisitCount();
 
   const durationText = minutes > 0
     ? `Tu as passe ${minutes} min${seconds > 0 ? ` et ${seconds} secondes` : ''} a explorer`
     : `Tu as passe ${seconds} secondes a explorer`;
 
+  const visitText = visitCount === 1
+    ? "C'est ta premiere visite..."
+    : `C'est ta ${visitCount}e visite...`;
+
   const stats = [
     { icon: '\uD83D\uDC8E', text: `Tu as trouve ${foundCount} secret${foundCount > 1 ? 's' : ''} sur 5`, show: true },
     { icon: '\u23F1\uFE0F', text: durationText, show: true },
+    { icon: '\u2661', text: visitText, show: true },
     { icon: '\uD83C\uDF19', text: 'Tu es venue un soir, tard...', show: gem4 },
   ].filter(s => s.show);
 

@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
+import { trackEvent } from '../../utils/tracker';
 
 interface SecretPasswordProps {
   onCorrect: () => void;
@@ -35,6 +36,7 @@ export function SecretPassword({ onCorrect, onClose, passwordWord }: SecretPassw
       if (next.toUpperCase() === passwordWord.toUpperCase()) {
         correctTimerRef.current = setTimeout(onCorrect, 500);
       } else {
+        trackEvent('password_incorrect', next);
         setError(true);
         errorTimerRef.current = setTimeout(() => { setInput(''); setError(false); }, 800);
       }

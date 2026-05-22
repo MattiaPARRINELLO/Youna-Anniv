@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiArrowDown } from 'react-icons/fi';
 import { ThemeBackground } from './ThemeBackground';
 import { useSecrets } from '../../context/SecretContext';
+import { trackEvent } from '../../utils/tracker';
 import type { OpenWhenEntry } from '../../data/openWhen';
 
 interface OpenWhenPortalProps {
@@ -73,9 +74,12 @@ export function OpenWhenPortal({ entry, onClose }: OpenWhenPortalProps) {
     if (entry.surprise.trigger === 'tap_3_times') {
       const newCount = tapCount + 1;
       setTapCount(newCount);
-      if (newCount >= 3) setSurpriseRevealed(true);
+      if (newCount >= 3) {
+        setSurpriseRevealed(true);
+        trackEvent('secret_letter_revealed', entry.title);
+      }
     }
-  }, [tapCount, surpriseRevealed, entry.surprise]);
+  }, [tapCount, surpriseRevealed, entry.surprise, entry.title]);
 
   return (
     <motion.div

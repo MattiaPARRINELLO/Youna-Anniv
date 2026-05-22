@@ -1,4 +1,5 @@
 import { createContext, useContext, useRef, useState, useCallback, useEffect, type ReactNode } from 'react';
+import { trackEvent } from '../utils/tracker';
 
 interface MusicContextType {
   isPlaying: boolean;
@@ -46,10 +47,14 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     if (!audio) return;
 
     if (audio.paused) {
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      audio.play().then(() => {
+        setIsPlaying(true);
+        trackEvent('music_play');
+      }).catch(() => {});
     } else {
       audio.pause();
       setIsPlaying(false);
+      trackEvent('music_pause');
     }
   }, []);
 
@@ -59,6 +64,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const markInteraction = useCallback(() => {
+    if (hasInteracted) return;
     const audio = audioRef.current;
     if (!audio || !audio.paused) return;
     audio.volume = 0;
@@ -73,7 +79,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
         }
       }, 120);
     }).catch(() => {});
-  }, [volume]);
+  }, [volume, hasInteracted]);
 
   return (
     <MusicContext.Provider value={{ isPlaying, volume, hasInteracted, togglePlay, setVolume, markInteraction, musicError }}>
