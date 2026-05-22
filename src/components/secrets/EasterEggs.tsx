@@ -10,7 +10,6 @@ export function EasterEggs() {
   const [showTimeMessage, setShowTimeMessage] = useState(false);
   const [showGem, setShowGem] = useState(false);
   const appeared = useRef(false);
-  const messageTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const { gem4, unlockGem } = useSecrets();
 
   useEffect(() => {
@@ -20,14 +19,16 @@ export function EasterEggs() {
       trackEvent('gem_4', '2 minutes sur le site');
       unlockGem(4);
       setShowGem(true);
-      messageTimerRef.current = setTimeout(() => setShowTimeMessage(false), 5000);
       appeared.current = true;
     }, 120000);
-    return () => {
-      clearTimeout(outerTimer);
-      if (messageTimerRef.current) clearTimeout(messageTimerRef.current);
-    };
+    return () => clearTimeout(outerTimer);
   }, [gem4, unlockGem]);
+
+  useEffect(() => {
+    if (!showTimeMessage) return;
+    const t = setTimeout(() => setShowTimeMessage(false), 30000);
+    return () => clearTimeout(t);
+  }, [showTimeMessage]);
 
   return (
     <>

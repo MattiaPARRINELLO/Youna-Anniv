@@ -37,6 +37,7 @@ export function EndingScene({ id }: { id?: string }) {
 
   useEffect(() => {
     if (phase === 'letter') trackEvent('final_letter_started');
+    if (phase === 'restart') trackEvent('experience_completed');
   }, [phase]);
 
   useEffect(() => {
@@ -157,13 +158,52 @@ export function EndingScene({ id }: { id?: string }) {
             transition={{ duration: 1 }}
           >
             <motion.p
-              className="font-serif italic text-cream/40 text-lg sm:text-xl mb-8"
+              className="font-serif italic text-cream/40 text-lg sm:text-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
+              transition={{ delay: 0.3, duration: 1 }}
             >
               avec tout mon amour,
             </motion.p>
+
+            <motion.div
+              className="mt-8 mb-8 max-w-sm mx-auto w-full px-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 1 }}
+            >
+              <p className="font-body text-cream-dark/25 text-[10px] tracking-[0.2em] uppercase mb-3 text-center">cadeau fait main</p>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="glass rounded-xl p-3 text-center">
+                  <p className="font-serif text-gold/60 text-lg sm:text-xl">{Math.ceil((Date.now() - new Date('2026-04-08').getTime()) / 86400000)}</p>
+                  <p className="font-body text-cream/30 text-[10px]">jours sur ce site</p>
+                </div>
+                <div className="glass rounded-xl p-3 text-center">
+                  <p className="font-serif text-gold/60 text-lg sm:text-xl">6 500</p>
+                  <p className="font-body text-cream/30 text-[10px]">lignes d'amour</p>
+                </div>
+                <div className="glass rounded-xl p-3 text-center">
+                  <p className="font-serif text-gold/60 text-lg sm:text-xl">100</p>
+                  <p className="font-body text-cream/30 text-[10px]">commits</p>
+                </div>
+                <div className="glass rounded-xl p-3 text-center">
+                  <p className="font-serif text-gold/60 text-lg sm:text-xl">53</p>
+                  <p className="font-body text-cream/30 text-[10px]">composants secrets</p>
+                </div>
+                <div className="glass rounded-xl p-3 text-center">
+                  <p className="font-serif text-gold/60 text-lg sm:text-xl">18</p>
+                  <p className="font-body text-cream/30 text-[10px]">photos</p>
+                </div>
+                <div className="glass rounded-xl p-3 text-center">
+                  <p className="font-serif text-gold/60 text-lg sm:text-xl">7</p>
+                  <p className="font-body text-cream/30 text-[10px]">gemmes cachées</p>
+                </div>
+                <div className="glass rounded-xl p-3 text-center col-span-2">
+                  <p className="font-serif text-gold/60 text-lg sm:text-xl">204</p>
+                  <p className="font-body text-cream/30 text-[10px]">mots dans ma lettre</p>
+                </div>
+              </div>
+            </motion.div>
 
             <motion.button
               className="font-body text-cream-dark/30 text-xs sm:text-sm tracking-wider hover:text-cream-dark/60 transition-colors duration-500 underline underline-offset-4 decoration-cream-dark/10"

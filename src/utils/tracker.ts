@@ -94,6 +94,7 @@ interface SessionData {
   lettersOpened: string[];
   musicPlayed: boolean;
   finalLetterReached: boolean;
+  experienceCompleted: boolean;
 }
 
 function getSession(): SessionData {
@@ -107,6 +108,7 @@ function getSession(): SessionData {
     lettersOpened: [],
     musicPlayed: false,
     finalLetterReached: false,
+    experienceCompleted: false,
   };
   sessionStorage.setItem(SESSION_KEY, JSON.stringify(fresh));
   return fresh;
@@ -163,7 +165,7 @@ function sendSessionSummary() {
       { name: `⏱️ Temps passé`, value: formatDuration(duration), inline: true },
       { name: `💎 Gemmes (${gemCount}/5)`, value: `${gemProgress}\n${gemList}`, inline: true },
       { name: `🎵 Musique`, value: session.musicPlayed ? '✅ Lancée' : '❌ Silencieux', inline: true },
-      { name: `💕 Lettre finale`, value: session.finalLetterReached ? '✅ Lue' : '❌ Pas encore', inline: true },
+      { name: `💕 Lettre finale`, value: session.experienceCompleted ? '✅ Finie 🥹' : session.finalLetterReached ? '📖 En cours' : '❌ Pas encore', inline: true },
       { name: `📬 Ouvertes (${opened.length}/${ALL_LETTERS.length})`, value: openedList, inline: true },
       { name: `📭 Pas ouvertes (${notOpened.length})`, value: notOpenedList, inline: true },
     ],
@@ -340,6 +342,12 @@ const EMBEDS: Record<string, (details?: string) => EmbedConfig> = {
     color: 0xFF69B4,
   }),
 
+  experience_completed: () => ({
+    title: '🎬 Fin du voyage',
+    description: 'Youna a terminé l\'histoire du début à la fin. Elle a tout vu, tout lu, tout ressenti. Le voyage est complet. 🥹🩷',
+    color: 0xFFD700,
+  }),
+
   experience_restarted: () => ({
     title: '🔄 Nouveau départ',
     description: 'L\'expérience a été recommencée. Tout revit. 💫',
@@ -379,12 +387,14 @@ export async function trackEvent(event: string, details?: string) {
 
   if (event === 'music_play') session.musicPlayed = true;
   if (event === 'final_letter_started') session.finalLetterReached = true;
+  if (event === 'experience_completed') session.experienceCompleted = true;
 
   if (event === 'experience_restarted') {
     session.lettersOpened = [];
     session.gemsFound = [];
     session.musicPlayed = false;
     session.finalLetterReached = false;
+    session.experienceCompleted = false;
     session.start = Date.now();
   }
 
