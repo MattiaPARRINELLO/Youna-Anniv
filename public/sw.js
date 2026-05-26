@@ -24,6 +24,21 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+self.addEventListener('push', (event) => {
+  let data = { title: '💌 Message', body: '' };
+  if (event.data) {
+    try { data = event.data.json(); } catch {}
+  }
+  event.waitUntil(
+    self.registration.showNotification(data.title, { body: data.body, icon: '/icon-192.png' })
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(clients.openWindow('/'));
+});
+
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
