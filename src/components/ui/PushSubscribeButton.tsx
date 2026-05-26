@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 
 const API_BASE = "https://tab.mprnl.fr/api/push";
 
+function urlBase64ToUint8Array(base64String: string) {
+  const padding = "=".repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+  return Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+}
+
 type State = "loading" | "subscribed" | "unsubscribed" | "error";
 
 export function PushSubscribeButton() {
@@ -38,7 +44,7 @@ export function PushSubscribeButton() {
       const { publicKey } = await res.json();
       const sub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: Uint8Array.from(atob(publicKey), (c) => c.charCodeAt(0)),
+        applicationServerKey: urlBase64ToUint8Array(publicKey),
       });
       await fetch(`${API_BASE}/subscribe`, {
         method: "POST",
