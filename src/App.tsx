@@ -1,6 +1,7 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import BirthdayPage from "./components/birthday/BirthdayPage";
+import { PushNotificationManager } from "./components/ui/PushSubscribeButton";
 
 const ControlCenter = lazy(() =>
   import("./components/control-center/ControlCenter").then((m) => ({
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/anniversaire" element={<BirthdayPage />} />
           <Route path="/message" element={<MessagePage />} />
         </Routes>
+        <PushNotificationManager />
       </Suspense>
     </HashRouter>
   );
